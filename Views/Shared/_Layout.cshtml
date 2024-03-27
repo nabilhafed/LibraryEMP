@@ -1,13 +1,37 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - LibraryEMP</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/LibraryEMP.styles.css" asp-append-version="true" />
-    <link href="~/css/all.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <title>@ViewData["Title"] - LibraryEMP</title>
+
+    <style>
+        /* Main Page */
+        html,
+        body {
+            height: 100%;
+        }
+
+        .w-280p {
+            width: 280px;
+        }
+
+        .h-70p {
+            height: 70px;
+        }
+
+        .divider {
+            width: 4px;
+            height: 100%;
+            opacity: 0.5;
+        }
+    </style>
+    <script src="assets/js/jquery-3.7.1.min.js"></script>
 </head>
 
 <body class="d-flex h-100">
@@ -99,21 +123,14 @@
                 <hr>
             </div>
         </div>
-        <div id="Page-content" class="overflow-auto w-100">
+        <div id="Page-content" class="overflow-auto w-100 h-100">
             @RenderBody()
         </div>
     </div>
 
-    <script src="assets/js/bootstrap.bundle.js"></script>
-    <script>
-      //  $("#Page-content").load("Pret.cshtml");
-    </script>
-
-
-
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
+
 </html>

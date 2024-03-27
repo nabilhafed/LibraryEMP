@@ -18,8 +18,12 @@ namespace LibraryEMP.Controllers
             return View();
         }
 
+        public IActionResult gestion_des_adherents()
+        {
+            return View();
+        }
 
-         
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

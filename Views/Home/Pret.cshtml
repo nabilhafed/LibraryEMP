@@ -1,6 +1,29 @@
 ﻿@{
     ViewData["Title"] = "pret page";
 }
+<style>
+    .border-title {
+        position: absolute;
+        top: -15px;
+        left: 20px;
+        /* Adjust as needed */
+        background-color: white;
+        /* Match with the background color of your page */
+        padding: 0 10px;
+    }
+
+    .info {
+        width: 30px;
+        height: 30px;
+    }
+
+    .input-group-text {
+        border-end-end-radius: 0;
+        border-top-right-radius: 0;
+    }
+</style>
+
+
 <div class="d-flex flex-column">
     <div class="position-relative h-100 border rounded m-3 d-flex flex-row">
         <h5 class="border-title">User Part</h5>
@@ -14,8 +37,7 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="inputGroup-sizing-default">UserId</span>
                     </div>
-                    <input type="text" class="form-control" aria-label="Default"
-                           aria-describedby="inputGroup-sizing-default">
+                    <input type="text" class="form-control" aria-label="Default">
                 </div>
                 <div class="align-self-center mx-2">
                     <button type="button" class="btn btn-secondary rounded-circle  info" data-bs-trigger="focus" data-bs-toggle="popover" title="User Card ID" data-bs-content="add Info ...">
