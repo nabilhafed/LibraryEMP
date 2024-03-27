@@ -1,0 +1,42 @@
+﻿/* Please see documentation at https://learn.microsoft.com/aspnet/core/client-side/bundling-and-minification
+for details on configuring this project to bundle and minify static web assets. */
+html,
+body {
+    height: 100%;
+}
+
+.w-280p {
+    width: 280px;
+}
+
+.h-70p {
+    height: 70px;
+}
+
+.divider {
+    width: 4px;
+    height: 100%;
+    opacity: 0.5;
+}
+
+
+/* Pret Page */
+.border-title {
+    position: absolute;
+    top: -15px;
+    left: 20px;
+    /* Adjust as needed */
+    background-color: white;
+    /* Match with the background color of your page */
+    padding: 0 10px;
+}
+
+.info {
+    width: 30px;
+    height: 30px;
+}
+
+.input-group-text {
+    border-end-end-radius: 0;
+    border-top-right-radius: 0;
+}

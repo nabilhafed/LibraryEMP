@@ -1,0 +1,119 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - LibraryEMP</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/LibraryEMP.styles.css" asp-append-version="true" />
+    <link href="~/css/all.min.css" rel="stylesheet" />
+</head>
+
+<body class="d-flex h-100">
+    <div class="d-flex flex-column p-3 bg-light h-100 col-md-4 w-280p mr-0 pr-0">
+        <a href="/" class="text-decoration-none">
+            <h3 class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark">
+                <i class="bi me-2 fas fa-book-bookmark"></i>
+                <span class="fs-4">CatLib</span>
+            </h3>
+        </a>
+        <hr>
+        <ul class="nav nav-pills flex-column mb-auto">
+            <li class="nav-item">
+                <a href="#" class="nav-link active" aria-current="page">
+                    <i class="bi me-2 fas fa-address-card"></i>
+                    Prét
+                </a>
+            </li>
+            <li>
+                <a href="#" class="nav-link link-dark">
+                    <i class="bi me-2 fas fa-users"></i>
+                    gestion des adhérents
+                </a>
+            </li>
+            <li>
+                <a href="#" class="nav-link link-dark">
+                    <i class="bi me-2 fas fa-rotate-left"></i>
+                    Restitution
+                </a>
+            </li>
+            <li>
+                <a href="#" class="nav-link link-dark">
+                    <i class="bi me-2 fas fa-folder-tree"></i>
+                    Gestion de documents
+                </a>
+            </li>
+            <li>
+                <a href="#" class="nav-link link-dark">
+                    <i class="bi me-2 fas fa-file-circle-question"></i>
+                    Avis de disponibilité
+                </a>
+            </li>
+            <li>
+                <a href="#" class="nav-link link-dark">
+                    <i class="bi me-2 fas fa-list-check"></i>
+                    Listes des Docs et Prét
+                </a>
+            </li>
+            <li>
+                <a href="#" class="nav-link link-dark">
+                    <i class="bi me-2 fas fa-bell"></i>
+                    Relances
+                </a>
+            </li>
+            <li>
+                <a href="#" class="nav-link link-dark">
+                    <i class="bi me-2 fas fa-calendar-check"></i>
+                    Listes des Docs Réservés
+                </a>
+            </li>
+            <li>
+                <a href="#" class="nav-link link-dark">
+                    <i class="bi me-2 fas fa-globe"></i>
+                    Catlib Web Site
+                </a>
+            </li>
+            <li>
+                <a href="#" class="nav-link link-dark">
+                    <i class="bi me-2 fas fa-icons"></i>
+                    Gestion de Catégories
+                </a>
+            </li>
+            <li>
+                <a href="#" class="nav-link link-dark">
+                    <i class="bi me-2 fas fa-gear"></i>
+                    Autre Paramètres
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="divider rounded bg-dark "></div>
+    <div class="d-flex flex-column h-100 w-100 ml-0 pl-0">
+        <div class="d-flex flex-row p-3 bg-light h-70p">
+            <div class="w-100 ">
+                <h3 class="d-flex ">
+                    <i class="bi me-2 fas fa-address-card"></i>
+                    <span class="fs-4">Prét</span>
+                </h3>
+                <hr>
+            </div>
+        </div>
+        <div id="Page-content" class="overflow-auto w-100">
+            @RenderBody()
+        </div>
+    </div>
+
+    <script src="assets/js/bootstrap.bundle.js"></script>
+    <script>
+        $("#Page-content").load("Pret.cshtml");
+    </script>
+
+
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
