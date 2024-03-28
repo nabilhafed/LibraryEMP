@@ -1,29 +1,7 @@
 ﻿@{
     ViewData["Title"] = "pret page";
 }
-<style>
-    .border-title {
-        position: absolute;
-        top: -15px;
-        left: 20px;
-        /* Adjust as needed */
-        background-color: white;
-        /* Match with the background color of your page */
-        padding: 0 10px;
-    }
-
-    .info {
-        width: 30px;
-        height: 30px;
-    }
-
-    .input-group-text {
-        border-end-end-radius: 0;
-        border-top-right-radius: 0;
-    }
-</style>
-
-
+<link rel="stylesheet" href="~/css/Pret.css" />
 <div class="d-flex flex-column">
     <div class="position-relative h-100 border rounded m-3 d-flex flex-row">
         <h5 class="border-title">User Part</h5>
@@ -132,11 +110,3 @@
         </div>
     </div>
 </div>
-
-
-<script>
-    var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
-    var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
-        return new bootstrap.Popover(popoverTriggerEl)
-    })
-</script>

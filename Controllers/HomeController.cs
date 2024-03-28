@@ -27,7 +27,11 @@ namespace LibraryEMP.Controllers
             return View();
         }
 
-
+        // Action method to return Pages
+        public IActionResult pageManager( string page )
+        {
+            return PartialView(page);
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

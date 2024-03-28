@@ -1,0 +1,17 @@
+.border-title {
+    position: absolute;
+    top: -15px;
+    left: 20px;
+    /* Adjust as needed */
+    background-color: white;
+    /* Match with the background color of your page */
+    padding: 0 10px;
+}
+.info {
+    width: 30px;
+    height: 30px;
+}
+.input-group-text {
+    border-end-end-radius: 0;
+    border-top-right-radius: 0;
+}

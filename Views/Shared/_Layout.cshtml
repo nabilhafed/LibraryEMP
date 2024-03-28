@@ -31,7 +31,30 @@
             opacity: 0.5;
         }
     </style>
-    <script src="assets/js/jquery-3.7.1.min.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script>
+        $("document").ready(function () {
+
+            $(".nav a").click(function (event) {
+
+                event.preventDefault();
+                $.get('@Url.Action("pageManager")', { page: $(this).attr("href") },
+                    function (response) {
+                        $("#Page-content").html(response);
+                    }
+                );
+
+                //left nav switch effect
+                $(".active").attr("class", "nav-link link-dark");
+                $(this).attr("class", "nav-link active");
+
+                //top nav switch effect
+                $("#currentPageIcon").attr("class", $(this).find("i").attr("class"));
+                $("#currentPageName").text($(this).text());
+            });
+
+        });
+    </script>
 </head>
 
 <body class="d-flex h-100">
@@ -45,19 +68,19 @@
         <hr>
         <ul class="nav nav-pills flex-column mb-auto">
             <li class="nav-item">
-                <a href="#" class="nav-link active" aria-current="page">
+                <a href="Pret" class="nav-link active" aria-current="page">
                     <i class="bi me-2 fas fa-address-card"></i>
                     Prét
                 </a>
             </li>
             <li>
-                <a href="#" class="nav-link link-dark">
+                <a href="gestion_des_adherents" class="nav-link link-dark">
                     <i class="bi me-2 fas fa-users"></i>
                     gestion des adhérents
                 </a>
             </li>
             <li>
-                <a href="#" class="nav-link link-dark">
+                <a href="Restitution" class="nav-link link-dark">
                     <i class="bi me-2 fas fa-rotate-left"></i>
                     Restitution
                 </a>
@@ -116,9 +139,9 @@
     <div class="d-flex flex-column h-100 w-100 ml-0 pl-0">
         <div class="d-flex flex-row p-3 bg-light h-70p">
             <div class="w-100 ">
-                <h3 class="d-flex ">
-                    <i class="bi me-2 fas fa-address-card"></i>
-                    <span class="fs-4">Prét</span>
+                <h3 class="d-flex align-items-center ">
+                    <i id="currentPageIcon"  class="bi me-2 fas fa-address-card"></i>
+                    <span id="currentPageName" lass="fs-4">Prét</span>
                 </h3>
                 <hr>
             </div>
@@ -128,8 +151,8 @@
         </div>
     </div>
 
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
+
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 

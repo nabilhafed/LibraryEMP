@@ -1,0 +1,25 @@
+.w-120p {
+    width: 120px !important;
+}
+.w-100p {
+    width: 100px !important;
+}
+.w-80p {
+    width: 80px !important;
+}
+.border-title {
+    position: absolute;
+    top: -15px;
+    left: 20px;
+    /* Adjust as needed */
+    background-color: white;
+    /* Match with the background color of your page */
+    padding: 0 10px;
+}
+.simple_select {
+    flex-grow: unset !important;
+    flex-basis: content !important;
+}
+.buttonBook {
+    width: 100%;
+}
