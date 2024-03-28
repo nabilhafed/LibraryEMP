@@ -10,51 +10,9 @@
 
     <title>@ViewData["Title"] - LibraryEMP</title>
 
-    <style>
-        /* Main Page */
-        html,
-        body {
-            height: 100%;
-        }
-
-        .w-280p {
-            width: 280px;
-        }
-
-        .h-70p {
-            height: 70px;
-        }
-
-        .divider {
-            width: 4px;
-            height: 100%;
-            opacity: 0.5;
-        }
-    </style>
+    <link rel="stylesheet" href="~/css/Home.css" />
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script>
-        $("document").ready(function () {
-
-            $(".nav a").click(function (event) {
-
-                event.preventDefault();
-                $.get('@Url.Action("pageManager")', { page: $(this).attr("href") },
-                    function (response) {
-                        $("#Page-content").html(response);
-                    }
-                );
-
-                //left nav switch effect
-                $(".active").attr("class", "nav-link link-dark");
-                $(this).attr("class", "nav-link active");
-
-                //top nav switch effect
-                $("#currentPageIcon").attr("class", $(this).find("i").attr("class"));
-                $("#currentPageName").text($(this).text());
-            });
-
-        });
-    </script>
+    <script src="~/js/Home.js"></script>
 </head>
 
 <body class="d-flex h-100">
@@ -68,19 +26,19 @@
         <hr>
         <ul class="nav nav-pills flex-column mb-auto">
             <li class="nav-item">
-                <a href="Pret" class="nav-link active" aria-current="page">
+                <a data-request-url="@Url.Action("pageManager")" href="Pret" class="nav-link active" aria-current="page">
                     <i class="bi me-2 fas fa-address-card"></i>
                     Prét
                 </a>
             </li>
             <li>
-                <a href="gestion_des_adherents" class="nav-link link-dark">
+                <a data-request-url="@Url.Action("pageManager")" href="gestion_des_adherents" class="nav-link link-dark">
                     <i class="bi me-2 fas fa-users"></i>
                     gestion des adhérents
                 </a>
             </li>
             <li>
-                <a href="Restitution" class="nav-link link-dark">
+                <a data-request-url="@Url.Action("pageManager")" href="Restitution" class="nav-link link-dark">
                     <i class="bi me-2 fas fa-rotate-left"></i>
                     Restitution
                 </a>

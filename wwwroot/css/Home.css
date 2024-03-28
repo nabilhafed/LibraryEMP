@@ -1,0 +1,18 @@
+html,
+body {
+    height: 100%;
+}
+
+.w-280p {
+    width: 280px;
+}
+
+.h-70p {
+    height: 70px;
+}
+
+.divider {
+    width: 4px;
+    height: 100%;
+    opacity: 0.5;
+}
