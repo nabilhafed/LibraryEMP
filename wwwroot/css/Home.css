@@ -11,8 +11,6 @@ body {
     height: 70px;
 }
 
-.divider {
-    width: 4px;
-    height: 100%;
-    opacity: 0.5;
+.h-50p {
+    height: 50px;
 }

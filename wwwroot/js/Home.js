@@ -13,9 +13,6 @@ $("document").ready(function () {
         $(".active").attr("class", "nav-link link-dark");
         $(this).attr("class", "nav-link active");
 
-        //top nav switch effect
-        $("#currentPageIcon").attr("class", $(this).find("i").attr("class"));
-        $("#currentPageName").text($(this).text());
     });
 
 });
