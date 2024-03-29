@@ -24,77 +24,126 @@
             </h3>
         </a>
         <hr>
-        <ul class="nav nav-pills flex-column mb-auto">
-            <li class="nav-item">
-                <a data-request-url="@Url.Action("pageManager")" href="Pret" class="nav-link active" aria-current="page">
-                    <i class="bi me-2 fas fa-address-card"></i>
-                    Prét
-                </a>
-            </li>
-            <li>
-                <a data-request-url="@Url.Action("pageManager")" href="gestion_des_adherents" class="nav-link link-dark">
-                    <i class="bi me-2 fas fa-users"></i>
-                    gestion des adhérents
-                </a>
-            </li>
-            <li>
-                <a data-request-url="@Url.Action("pageManager")" href="Restitution" class="nav-link link-dark">
-                    <i class="bi me-2 fas fa-rotate-left"></i>
-                    Restitution
-                </a>
-            </li>
-            <li>
-                <a href="#" class="nav-link link-dark">
-                    <i class="bi me-2 fas fa-folder-tree"></i>
-                    Gestion de documents
-                </a>
-            </li>
-            <li>
-                <a href="#" class="nav-link link-dark">
-                    <i class="bi me-2 fas fa-file-circle-question"></i>
-                    Avis de disponibilité
-                </a>
-            </li>
-            <li>
-                <a href="#" class="nav-link link-dark">
-                    <i class="bi me-2 fas fa-list-check"></i>
-                    Listes des Docs et Prét
-                </a>
-            </li>
-            <li>
-                <a href="#" class="nav-link link-dark">
-                    <i class="bi me-2 fas fa-bell"></i>
-                    Relances
-                </a>
-            </li>
-            <li>
-                <a href="#" class="nav-link link-dark">
-                    <i class="bi me-2 fas fa-calendar-check"></i>
-                    Listes des Docs Réservés
-                </a>
-            </li>
-            <li>
-                <a href="#" class="nav-link link-dark">
-                    <i class="bi me-2 fas fa-globe"></i>
-                    Catlib Web Site
-                </a>
-            </li>
-            <li>
-                <a href="#" class="nav-link link-dark">
-                    <i class="bi me-2 fas fa-icons"></i>
-                    Gestion de Catégories
-                </a>
-            </li>
-            <li>
-                <a href="#" class="nav-link link-dark">
-                    <i class="bi me-2 fas fa-gear"></i>
-                    Autre Paramètres
-                </a>
-            </li>
-        </ul>
+        <div class="d-flex flex-column justify-content-between h-100">
+            <ul class="nav nav-pills flex-column mb-auto">
+                <li class="nav-item">
+                    <a data-request-url="@Url.Action("pageManager")" href="Pret" class="nav-link active" aria-current="page">
+                        <i class="bi me-2 fas fa-address-card"></i>
+                        Prét
+                    </a>
+                </li>
+                <li>
+                    <a data-request-url="@Url.Action("pageManager")" href="gestion_des_adherents" class="nav-link link-dark">
+                        <i class="bi me-2 fas fa-users"></i>
+                        gestion des adhérents
+                    </a>
+                </li>
+                <li>
+                    <a data-request-url="@Url.Action("pageManager")" href="Restitution" class="nav-link link-dark">
+                        <i class="bi me-2 fas fa-rotate-left"></i>
+                        Restitution
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-link link-dark">
+                        <i class="bi me-2 fas fa-folder-tree"></i>
+                        Gestion de documents
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-link link-dark">
+                        <i class="bi me-2 fas fa-file-circle-question"></i>
+                        Avis de disponibilité
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-link link-dark">
+                        <i class="bi me-2 fas fa-list-check"></i>
+                        Listes des Docs et Prét
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-link link-dark">
+                        <i class="bi me-2 fas fa-bell"></i>
+                        Relances
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-link link-dark">
+                        <i class="bi me-2 fas fa-calendar-check"></i>
+                        Listes des Docs Réservés
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-link link-dark">
+                        <i class="bi me-2 fas fa-globe"></i>
+                        Catlib Web Site
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-link link-dark">
+                        <i class="bi me-2 fas fa-icons"></i>
+                        Gestion de Catégories
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-link link-dark">
+                        <i class="bi me-2 fas fa-gear"></i>
+                        Autre Paramètres
+                    </a>
+                </li>
+            </ul>
+            <div class="input-group mb-3 py-2 alert alert-danger d-flex flex-row align-items-center btn "
+                 data-bs-toggle="modal" data-bs-target="#exampleModal">
+                <img src="~/img/database.png" class=" h-30p">
+                <div class="ms-1 ">
+                    <strong>Status: </strong> <span>offline</span>
+                </div>
+            </div>
+        </div>
     </div>
     <div id="Page-content" class="overflow-auto bg-white shadow-sm rounded m-2 w-100">
         @RenderBody()
+    </div>
+
+
+    <!-- Database Connection Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Database Connection</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body d-flex flex-row justify-content-around align-items-center">
+                    <img src="~/img/user-data.png" alt="">
+                    <div>
+                        <div class="input-group mb-2">
+                            <span class="input-group-text w-100p" id="basic-addon1">Username</span>
+                            <input type="text" class="form-control" placeholder="Username" aria-label="Username"
+                                   aria-describedby="basic-addon1">
+                        </div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text w-100p" id="basic-addon1">Password</span>
+                            <input type="password" class="form-control" placeholder="Password" aria-label="Username"
+                                   aria-describedby="basic-addon1">
+                        </div>
+                        <div class="d-flex flex-row-reverse">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                <label class="form-check-label" for="flexCheckDefault">
+                                    stay connected
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Connect</button>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
