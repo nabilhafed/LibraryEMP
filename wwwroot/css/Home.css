@@ -11,15 +11,23 @@ body {
     height: 70px;
 }
 
-.h-50p {
+.h-50p{
     height: 50px;
 }
 
-.h-30p {
+.h-30p{
     height: 30px;
 }
 
-.w-100p {
+.h-150p{
+    height: 150px;
+}
+
+.w-100p{
     width: 100px;
 }
 
+.disabled {
+    pointer-events: none; /* Disable mouse events */
+    filter: blur(2px); /* Blur effect */
+  }

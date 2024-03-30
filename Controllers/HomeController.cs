@@ -28,10 +28,16 @@ namespace LibraryEMP.Controllers
             return View();
         }
 
-        // Action method to return Pages
+        [HttpGet]
         public IActionResult pageManager( string page )
         {
             return PartialView(page);
+        }
+
+        [HttpGet]
+        public bool connectToDatabase( string username , string password )
+        {
+            return DatabaseManager.connect("EMPLIBRARY" , username , password);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

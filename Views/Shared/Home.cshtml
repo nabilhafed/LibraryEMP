@@ -93,7 +93,7 @@
                     </a>
                 </li>
             </ul>
-            <div class="input-group mb-3 py-2 alert alert-danger d-flex flex-row align-items-center btn "
+            <div id="serverStatus" class="input-group mb-3 py-2 alert alert-danger d-flex flex-row align-items-center btn "
                  data-bs-toggle="modal" data-bs-target="#exampleModal">
                 <img src="~/img/database.png" class=" h-30p">
                 <div class="ms-1 ">
@@ -102,8 +102,19 @@
             </div>
         </div>
     </div>
-    <div id="Page-content" class="overflow-auto bg-white shadow-sm rounded m-2 w-100">
-        @RenderBody()
+    <div class="w-100 p-2 position-relative ">
+        <div id="Page-content" class="overflow-auto bg-white shadow-sm rounded h-100 disabled ">
+            @RenderBody()
+        </div>
+        <div id="pageContentAlert" class="position-absolute top-50 start-50 translate-middle " >
+            <div class="alert alert-danger " role="alert">
+                <h4 class="alert-heading">Database Connection Error!</h4>
+                <p>Please establish a connection to the database in order to access this content.</p>
+                <hr>
+                <p class="mb-0">You can connect to the database by clicking on the "Database Status" located at the bottom of the left navbar.</p>
+            </div>
+            
+        </div>
     </div>
 
 
@@ -113,34 +124,32 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Database Connection</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button id="databaseConnectionCloseBTN" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body d-flex flex-row justify-content-around align-items-center">
                     <img src="~/img/user-data.png" alt="">
                     <div>
                         <div class="input-group mb-2">
                             <span class="input-group-text w-100p" id="basic-addon1">Username</span>
-                            <input type="text" class="form-control" placeholder="Username" aria-label="Username"
+                            <input id="databaseUsername" type="text" class="form-control" placeholder="Username" aria-label="Username" value="mataoui"
                                    aria-describedby="basic-addon1">
                         </div>
                         <div class="input-group mb-3">
                             <span class="input-group-text w-100p" id="basic-addon1">Password</span>
-                            <input type="password" class="form-control" placeholder="Password" aria-label="Username"
+                            <input id="databasePassword" type="password" class="form-control" placeholder="Password" aria-label="Username" value="123"
                                    aria-describedby="basic-addon1">
                         </div>
-                        <div class="d-flex flex-row-reverse">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                <label class="form-check-label" for="flexCheckDefault">
-                                    stay connected
-                                </label>
-                            </div>
+                        <div id="databaseConnectionAlert" class="alert alert-danger py-1 d-none" role="alert">
+                            There was problem , please try again
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Connect</button>
+                    <button id="connectBTN" class="btn btn-primary" data-request-url="@Url.Action("connectToDatabase")" type="button">
+                        <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+                        connect
+                    </button>
                 </div>
             </div>
         </div>
