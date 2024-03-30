@@ -1,5 +1,6 @@
 $("document").ready(function () {
 
+    //swap between Pages
     $(".nav a").click(function (event) {
 
         event.preventDefault();
@@ -13,20 +14,17 @@ $("document").ready(function () {
         $(".active").attr("class", "nav-link link-dark");
         $(this).attr("class", "nav-link active");
 
-        $("#connectBTN").click(function (e) {
-            e.preventDefault();
+        $(this).addClass("animate__animated  animate__bounceIn").one('animationend', function () {
+            $(this).removeClass("animate__animated  animate__bounceIn");
+        });
 
-            $(this).prop('disabled', true);
-            $(this).find("span").removeClass('d-none');
-
-            let username = $("#databaseUsername").val();
-            let password = $("#databasePassword").val();
-
-
+        $('#pageContentAlert').find("div").removeClass("animate__zoomIn").removeClass("animate__zoomIn").addClass('animate__rubberBand').one('animationend', function () {
+            $(this).removeClass("animate__rubberBand");
         });
 
     });
 
+    //database status 
     $("#connectBTN").click(function (e) {
         e.preventDefault();
 
@@ -51,7 +49,12 @@ $("document").ready(function () {
                     $("#databaseConnectionCloseBTN").click();
 
                     $("#Page-content").removeClass("disabled");
-                    $("#pageContentAlert").remove();
+                    
+
+                    $('#pageContentAlert').find("div").removeClass("animate__zoomIn").addClass('animate__zoomOut').one('animationend', function () {
+                        $("#pageContentAlert").remove();
+                    });
+
 
                 } else {
                     $("#databaseConnectionAlert").removeClass("d-none");

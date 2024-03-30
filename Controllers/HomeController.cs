@@ -14,18 +14,9 @@ namespace LibraryEMP.Controllers
             _logger = logger;
         }
 
-        public IActionResult Pret()
+        public IActionResult start()
         {
-            return View();
-        }
-
-        public IActionResult gestion_des_adherents()
-        {
-            return View();
-        }
-        public IActionResult Restitution()
-        {
-            return View();
+            return View("Pret");
         }
 
         [HttpGet]

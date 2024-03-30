@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/lib/animate/animate.min.css" />
     <link rel="stylesheet" href="~/lib/fontawesome/dist/css/all.min.css">
 
     <title>@ViewData["Title"] - LibraryEMP</title>
@@ -107,7 +108,7 @@
             @RenderBody()
         </div>
         <div id="pageContentAlert" class="position-absolute top-50 start-50 translate-middle " >
-            <div class="alert alert-danger " role="alert">
+            <div class="alert alert-danger  animate__animated animate__zoomIn" role="alert">
                 <h4 class="alert-heading">Database Connection Error!</h4>
                 <p>Please establish a connection to the database in order to access this content.</p>
                 <hr>
