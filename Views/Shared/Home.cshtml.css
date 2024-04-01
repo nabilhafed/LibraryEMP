@@ -4,7 +4,7 @@ html,
 body {
     height: 100%;
 }
-
+ 
 .w-280p {
     width: 280px;
 }
@@ -18,7 +18,6 @@ body {
     height: 100%;
     opacity: 0.5;
 }
-
 
 /* Pret Page */
 .border-title {
@@ -40,3 +39,4 @@ body {
     border-end-end-radius: 0;
     border-top-right-radius: 0;
 }
+ 
