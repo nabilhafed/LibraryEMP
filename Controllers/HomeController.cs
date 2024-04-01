@@ -26,10 +26,11 @@ namespace LibraryEMP.Controllers
         }
 
         [HttpGet]
-        public bool connectToDatabase( string username , string password )
+        public bool connectToDatabase(string databaseName , string host , string port , string username, string password)
         {
-            return DatabaseManager.connect("EMPLIBRARY" , username , password);
+            return DatabaseManager.connect(databaseName , host , port , username , password);
         }
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

@@ -6,6 +6,23 @@ $("document").ready(function () {
         event.preventDefault();
         $.get($(this).data('request-url'), { page: $(this).attr("href") },
             function (response) {
+
+                //let $clonedDiv = $('#Page-content').clone();
+                //$clonedDiv.removeClass('h-100');
+                //$clonedDiv.css({
+                //    position: 'absolute',
+                //    top: 8,
+                //    height: $('#Page-content').height()
+                //});
+
+                //$("#Page-content").parent().append($clonedDiv);
+                //$clonedDiv.addClass('animate__slideOutLeft').one('animationend', function () {
+                //    $(this).remove();
+                //});
+
+                //$("#Page-content").html(response).addClass('animate__slideInRight').one('animationend', function () {
+                //    $(this).removeClass('animate__slideInRight');
+                //});
                 $("#Page-content").html(response);
             }
         );
@@ -33,9 +50,12 @@ $("document").ready(function () {
 
         let databaseUsername = $("#databaseUsername").val();
         let databasePassword = $("#databasePassword").val();
+        let databaseName = $("#databaseName").val();
+        let databaseHost = $("#databaseHost").val();
+        let databasePort = $("#databasePort").val();
 
         let that = this;
-        $.get($(that).data('request-url'), { username: databaseUsername, password: databasePassword },
+        $.get($(that).data('request-url'), { databaseName: databaseName, host: databaseHost, port: databasePort, username: databaseUsername, password: databasePassword },
             function (response) {
                 if (response == true) {
 

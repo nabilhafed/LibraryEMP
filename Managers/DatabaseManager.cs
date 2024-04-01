@@ -9,19 +9,25 @@ namespace LibraryEMP.Managers
     public class DatabaseManager
     {
         private static string databaseName;
+        private static string databaseHost;
+        private static string databasePort;
+
         private static string userName;
         private static string userPassword;
 
-        private static string connectionString = $"Data Source=(DESCRIPTION=(ADDRESS=(PROTOCOL=tcp)(HOST=localhost)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME={databaseName})));User ID={userName};Password={userPassword};";
+        private static string connectionString;
 
         private static OracleConnection connection;
-        public static bool connect(string databaseName, string userName, string userPassword)
+
+        public static bool connect(string databaseName, string host, string port, string username, string password)
         {
             DatabaseManager.databaseName = databaseName;
-            DatabaseManager.userName = userName;
-            DatabaseManager.userPassword = userPassword;
+            DatabaseManager.databaseHost = host;
+            DatabaseManager.databasePort = port;
+            DatabaseManager.userName = username;
+            DatabaseManager.userPassword = password;
 
-            connectionString = $"Data Source=(DESCRIPTION=(ADDRESS=(PROTOCOL=tcp)(HOST=localhost)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME={databaseName})));User ID={userName};Password={userPassword};";
+            connectionString = $"Data Source=(DESCRIPTION=(ADDRESS=(PROTOCOL=tcp)(HOST={host})(PORT={port}))(CONNECT_DATA=(SERVICE_NAME={databaseName})));User ID={username};Password={password};";
 
             connection = new OracleConnection(connectionString);
 

@@ -127,9 +127,11 @@
                     <h5 class="modal-title" id="exampleModalLabel">Database Connection</h5>
                     <button id="databaseConnectionCloseBTN" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body d-flex flex-row justify-content-around align-items-center">
-                    <img src="~/img/user-data.png" alt="">
-                    <div>
+                <div class="modal-body row">
+                    <div class="col-4 d-flex align-items-center">
+                        <img  src="~/img/user-data.png" alt="">
+                    </div>
+                    <div class="col-8">
                         <div class="input-group mb-2">
                             <span class="input-group-text w-100p" id="basic-addon1">Username</span>
                             <input id="databaseUsername" type="text" class="form-control" placeholder="Username" aria-label="Username" value="mataoui"
@@ -137,10 +139,38 @@
                         </div>
                         <div class="input-group mb-3">
                             <span class="input-group-text w-100p" id="basic-addon1">Password</span>
-                            <input id="databasePassword" type="password" class="form-control" placeholder="Password" aria-label="Username" value="123"
+                            <input id="databasePassword" type="password" class="form-control" placeholder="Password" aria-label="Password" value="123"
                                    aria-describedby="basic-addon1">
                         </div>
-                        <div id="databaseConnectionAlert" class="alert alert-danger py-1 d-none" role="alert">
+                        <div class="accordion" id="accordionExample">
+                            <div class="accordion-item ">
+                                <h2 class="accordion-header" id="headingOne">
+                                    <button class="accordion-button p-3" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                        show more 
+                                    </button>
+                                </h2>
+                                <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                    <div class="accordion-body">
+                                        <div class="input-group mb-3">
+                                            <span class="input-group-text w-100p" id="basic-addon1">database</span>
+                                            <input id="databaseName" type="text" class="form-control" placeholder="database" aria-label="databaseName" value="EMPLIBRARY"
+                                                   aria-describedby="basic-addon1">
+                                        </div>
+                                        <div class="input-group mb-3">
+                                            <span class="input-group-text w-100p" id="basic-addon1">host</span>
+                                            <input id="databaseHost" type="text" class="form-control" placeholder="host" aria-label="databaseHost" value="localhost"
+                                                   aria-describedby="basic-addon1">
+                                        </div>
+                                        <div class="input-group mb-3">
+                                            <span class="input-group-text w-100p" id="basic-addon1">port</span>
+                                            <input id="databasePort" type="text" class="form-control" placeholder="port" aria-label="databasePort" value="1521"
+                                                   aria-describedby="basic-addon1">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="databaseConnectionAlert" class="alert alert-danger py-1 my-1 d-none" role="alert">
                             There was problem , please try again
                         </div>
                     </div>
