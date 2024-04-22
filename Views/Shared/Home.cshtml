@@ -46,9 +46,9 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#" class="nav-link link-dark">
+                    <a data-request-url="@Url.Action("pageManager")" href="gestion_de_documents" class="nav-link link-dark">
                         <i class="bi me-2 fas fa-folder-tree"></i>
-                        Gestion de documents
+                        gestion de documents
                     </a>
                 </li>
                 <li>
@@ -141,34 +141,6 @@
                             <span class="input-group-text w-100p" id="basic-addon1">Password</span>
                             <input id="databasePassword" type="password" class="form-control" placeholder="Password" aria-label="Password" value="123"
                                    aria-describedby="basic-addon1">
-                        </div>
-                        <div class="accordion accordion-flush border rounded" id="accordionExample">
-                            <div class="accordion-item ">
-                                <h2 class="accordion-header" id="headingOne">
-                                    <button class="accordion-button p-3 collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                        show more 
-                                    </button>
-                                </h2>
-                                <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                                    <div class="accordion-body">
-                                        <div class="input-group mb-3">
-                                            <span class="input-group-text w-100p" id="basic-addon1">database</span>
-                                            <input id="databaseName" type="text" class="form-control" placeholder="database" aria-label="databaseName" value="EMPLIBRARY"
-                                                   aria-describedby="basic-addon1">
-                                        </div>
-                                        <div class="input-group mb-3">
-                                            <span class="input-group-text w-100p" id="basic-addon1">host</span>
-                                            <input id="databaseHost" type="text" class="form-control" placeholder="host" aria-label="databaseHost" value="localhost"
-                                                   aria-describedby="basic-addon1">
-                                        </div>
-                                        <div class="input-group mb-3">
-                                            <span class="input-group-text w-100p" id="basic-addon1">port</span>
-                                            <input id="databasePort" type="text" class="form-control" placeholder="port" aria-label="databasePort" value="1521"
-                                                   aria-describedby="basic-addon1">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                         <div id="databaseConnectionAlert" class="alert alert-danger py-1 my-1 d-none" role="alert">
                             There was problem , please try again

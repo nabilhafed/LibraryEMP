@@ -1,5 +1,5 @@
 using System.Diagnostics;
-using LibraryEMP.Managers;
+//using LibraryEMP.Managers;
 using LibraryEMP.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,10 +8,13 @@ namespace LibraryEMP.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly ApplicationDbContext _db;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, ApplicationDbContext db)
         {
             _logger = logger;
+            _db = db;
+            
         }
 
         public IActionResult start()
@@ -26,9 +29,10 @@ namespace LibraryEMP.Controllers
         }
 
         [HttpGet]
-        public bool connectToDatabase(string databaseName , string host , string port , string username, string password)
+        public bool connectToDatabase(string username, string password)
         {
-            return DatabaseManager.connect(databaseName , host , port , username , password);
+            //return DatabaseManager.connect("EMPLIBRARY", "localhost", "1521", username , password);
+            return true;
         }
 
 

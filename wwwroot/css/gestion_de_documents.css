@@ -1,0 +1,10 @@
+﻿.border-title {
+    position: absolute;
+    top: -15px;
+    left: 20px;
+    width: auto;
+    /* Adjust as needed */
+    background-color: white;
+    /* Match with the background color of your page */
+    padding: 0 10px;
+}
