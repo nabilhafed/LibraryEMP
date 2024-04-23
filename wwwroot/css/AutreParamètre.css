@@ -1,0 +1,23 @@
+﻿.border-title {
+    position: absolute;
+    top: -15px;
+    left: 20px;
+    /* Adjust as needed */
+    background-color: white;
+    /* Match with the background color of your page */
+    padding: 0 10px;
+}
+.divPenalite{
+    margin-right : auto ; 
+    margin-left  : auto ;
+}
+.divFerie {
+    margin-right: auto;
+    margin-left: auto;
+}
+.div1 {
+    width: 20%;
+}
+.div2{
+    width : 70% ;
+}
