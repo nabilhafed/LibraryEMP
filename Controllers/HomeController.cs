@@ -8,13 +8,12 @@ namespace LibraryEMP.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly ApplicationDbContext _db;
+        public readonly ApplicationDbContext _db;
 
         public HomeController(ILogger<HomeController> logger, ApplicationDbContext db)
         {
             _logger = logger;
             _db = db;
-            
         }
 
         public IActionResult start()
@@ -22,10 +21,14 @@ namespace LibraryEMP.Controllers
             return View("Pret");
         }
 
-        [HttpGet]
+        [HttpGet]   
         public IActionResult pageManager( string page )
         {
             return PartialView(page);
+        }
+        public IActionResult Pret()
+        {
+            return PartialView("Pret");
         }
 
         [HttpGet]

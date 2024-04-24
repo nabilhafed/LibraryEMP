@@ -1,5 +1,6 @@
 ﻿@{
     ViewData["Title"] = "pret page";
+    var currentController = "PretController";
 }
 <link rel="stylesheet" href="~/css/Pret.css" />
 <div class="d-flex flex-column">
@@ -15,7 +16,8 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="inputGroup-sizing-default">UserId</span>
                     </div>
-                    <input type="text" class="form-control" aria-label="Default">
+                    <input id="getUserIDButton"  type="text" class="form-control" aria-label="Default"
+                           data-request-url="@Url.Action("getUserByID", currentController)">
                 </div>
                 <div class="align-self-center mx-2">
                     <button type="button" class="btn btn-secondary rounded-circle  info" data-bs-trigger="focus" data-bs-toggle="popover" title="User Card ID" data-bs-content="add Info ...">
@@ -29,11 +31,11 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text " id="">Name/Surname</span>
                     </div>
-                    <input type="text" class="form-control " value="Beghdad" readonly>
-                    <input type="text" class="form-control" value="Amine" readonly>
+                    <input id="adherentNameInput" type="text" class="form-control " value="Beghdad" readonly>
+                    <input id="adherentPrenameInput" type="text" class="form-control" value="Amine" readonly>
                 </div>
 
-                <div class="input-group mb-3 py-2 alert alert-primary">
+                <div id="adherentStateAlert" class="input-group mb-3 py-2 alert alert-dark ">
                     <strong>Status: </strong>
                     <p class="px-2 m-0">Can Barrow Another Book</p>
                 </div>
@@ -41,7 +43,7 @@
 
         </div>
     </div>
-    <div class="position-relative shadow-sm h-100 border rounded m-3 d-flex flex-row ">
+    <div id="bookPart" class="position-relative shadow-sm h-100 border rounded m-3 d-flex flex-row disabled">
         <h5 class="border-title">Book Part</h5>
         <div class="p-5">
             <img width="150" height="150" src="~/img/book.png" alt="" srcset="">
@@ -97,7 +99,7 @@
 
         </div>
     </div>
-    <div class="position-relative shadow-sm h-25  border rounded  m-3">
+    <div id="datePart" class="position-relative shadow-sm h-25  border rounded  m-3 disabled">
         <h5 class="border-title">Validation Part</h5>
         <div class="d-flex justify-content-between m-3">
             <div class="input-group py-2 w-50">
@@ -110,3 +112,5 @@
         </div>
     </div>
 </div>
+
+<script src="~/js/Pret.js"></script>
