@@ -20,6 +20,11 @@ namespace LibraryEMP.Controllers
         {
             return View("Pret");
         }
+       /// avoir la liste des document réserver 
+       public  IActionResult ListDocumentRéserver()
+        {
+            return View("liste Resrver") ;
+        }
 
         [HttpGet]   
         public IActionResult pageManager( string page )
@@ -45,4 +50,6 @@ namespace LibraryEMP.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
+
+    
 }
