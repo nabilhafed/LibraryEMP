@@ -31,13 +31,13 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text " id="">Name/Surname</span>
                     </div>
-                    <input id="adherentNameInput" type="text" class="form-control " value="Beghdad" readonly>
-                    <input id="adherentPrenameInput" type="text" class="form-control" value="Amine" readonly>
+                    <input id="adherentNameInput" type="text" class="form-control " value="XXXXX" readonly>
+                    <input id="adherentPrenameInput" type="text" class="form-control" value="XXXXX" readonly>
                 </div>
 
                 <div id="adherentStateAlert" class="input-group mb-3 py-2 alert alert-dark ">
                     <strong>Status: </strong>
-                    <p class="px-2 m-0">Can Barrow Another Book</p>
+                    <p class="px-2 m-0">veuillez sélectionner Adhérent pour obtenir des informations</p>
                 </div>
             </div>
 
@@ -55,9 +55,10 @@
                 <div class="d-flex flex-row">
                     <div class="input-group mb-1  w-50">
                         <div class="input-group-prepend">
-                            <span class="input-group-text" id="inputGroup-sizing-default">BookID</span>
+                            <span class="input-group-text" id="inputGroup-sizing-default">BookCote</span>
                         </div>
-                        <input type="text" class="form-control" aria-label="Default"
+                        <input id="getBookCoteButton" type="text" class="form-control" aria-label="Default"
+                               data-request-url="@Url.Action("getBookByCoteForBorrow", currentController)"
                                aria-describedby="inputGroup-sizing-default">
                     </div>
                     <div class="align-self-center mx-2">
@@ -70,11 +71,8 @@
                 <div class="d-flex flex-row">
                     <div class="input-group  w-50">
                         <label class="input-group-text" for="inputGroupSelect01">Book Available</label>
-                        <select class="form-control custom-select" id="inputGroupSelect01">
-                            <option selected>Choose...</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
+                        <select class="form-control custom-select" id="booksAvailable">
+                            <option selected value="">Select Document</option>
                         </select>
                     </div>
                     <div class="align-self-center mx-2">
@@ -84,19 +82,17 @@
                     </div>
                 </div>
             </div>
-
             <div class="d-flex flex-column justify-content-around">
                 <div class="input-group py-2 w-75">
                     <span class="input-group-text " id="">Title</span>
-                    <input type="text" class="form-control " value="Title" readonly>
+                    <input id="bookTitleInput" type="text" class="form-control " value="XXXXX" readonly>
                 </div>
 
-                <div class="input-group mb-3 py-2 alert alert-primary">
+                <div id="bookStateAlert" class="input-group mb-3 py-2 alert alert-dark">
                     <strong>Status: </strong>
-                    <p class="px-2 m-0">Can Barrow Another Book</p>
+                    <p class="px-2 m-0">veuillez sélectionner le document pour obtenir le statut</p>
                 </div>
             </div>
-
         </div>
     </div>
     <div id="datePart" class="position-relative shadow-sm h-25  border rounded  m-3 disabled">
@@ -104,13 +100,13 @@
         <div class="d-flex justify-content-between m-3">
             <div class="input-group py-2 w-50">
                 <span type="text" class="input-group-text">From</span>
-                <input type="date" class="form-control " readonly>
+                <input id="readyDateInput" type="date" class="form-control " readonly>
                 <span type="text" class="input-group-text">To</span>
-                <input type="date" class="form-control" readonly>
+                <input id="returnDateInput" type="date" class="form-control" readonly>
             </div>
-            <button type="button" class="btn btn-primary my-2">Submit</button>
+            <button id="submitNewBorrow" type="button" class="btn btn-primary my-2" disabled>Prêt</button>
         </div>
     </div>
 </div>
-
+<input type="hidden" id="getHolidaysInput" data-request-url="@Url.Action("getHolidays", currentController)" />
 <script src="~/js/Pret.js"></script>
