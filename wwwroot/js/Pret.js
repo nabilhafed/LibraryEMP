@@ -87,17 +87,17 @@ $("#getBookCoteButton").on('input', function () {
     $.get($(this).data('request-url'), {cote:$(this).val() , IdAdherent:$("#getUserIDButton").val()},
         function (data) {
             $(that).prop("disabled", false);
-            $("#bookStateAlert").removeClass("alert-dark").removeClass("alert-primary").removeClass("alert-warning");
+            $("#bookStateAlert").removeClass("alert-dark").removeClass("alert-success").removeClass("alert-warning");
             if (typeof data !== 'undefined') {
                 //check if that document is allredy has been borrowd from the same Adhrent !!!
-                if(data.book.canBeBorrow){
-                    $("#bookStateAlert").addClass("alert-primary");
+                if(!data.book.isCurrentlyBorrowedbyHim){
+                    $("#bookStateAlert").addClass("alert-success");
                     $("#bookStateAlert").find("p").text("il peut emprunter ce livre"); 
                     $("#bookTitleInput").val(data.book.titrePropre);
                     $("#booksAvailable").empty();
                     for (const exemple of data.avilables) {
                         let option = $('<option>', {
-                                value: exemple.idEtat,
+                                value: exemple.idExemplaire,
                                 text: exemple.idExemplaire
                             })
                         switch (exemple.idEtat) {
@@ -122,8 +122,10 @@ $("#getBookCoteButton").on('input', function () {
                         }
                         $("#booksAvailable").append(option);
                     }
-                    if ($("#submitNewBorrow").prop("disabled"))
+                    if ($("#submitNewBorrow").prop("disabled")){
                         $("#submitNewBorrow").text("Réserve");
+                        $("#submitNewBorrow").prop("disabled", true);
+                    }
                 }else{
                     $("#bookStateAlert").addClass("alert-warning");
                     $("#bookStateAlert").find("p").text("il ne peut pas emprunter ce livre parce qu'il l'empruntait comme avant"); 
@@ -142,3 +144,30 @@ $("#getBookCoteButton").on('input', function () {
     );
 });
 
+//insert confim Modele
+$("#submitNewBorrow").click(function (e) { 
+    e.preventDefault();
+    $('#newBorrowModel').find('strong').each(function() {
+        $(this).text($($(this).data("linked")).val());
+    });
+});
+
+//insert new Borrow Line in Pret TABLE
+$("#confirmNewBorrow").click(function (e) { 
+    e.preventDefault();
+
+    let dataToSend = {};
+    $('#newBorrowModel').find('strong').each(function() {dataToSend[$(this).data("name")] = $(this).text()});
+
+    $.post($(this).data('request-url'),
+    dataToSend,
+    function (data) {
+           if(data){
+                $("#newBorrowModel").find(".btn-close").click();
+                $('#newBorrowSuccessToast').toast('show');
+           }else{
+                $("#newBorrowModel").find(".btn-close").click();
+                $('#newBorrowFaildToast').toast('show');
+           }
+    });
+});
