@@ -104,9 +104,55 @@
                 <span type="text" class="input-group-text">To</span>
                 <input id="returnDateInput" type="date" class="form-control" readonly>
             </div>
-            <button id="submitNewBorrow" type="button" class="btn btn-primary my-2" disabled>Prêt</button>
+            <button id="submitNewBorrow" type="button" class="btn btn-primary my-2" 
+                    data-bs-toggle="modal" data-bs-target="#newBorrowModel" disabled>Prêt</button>
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="newBorrowModel">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">confirmation</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Êtes-vous sûr que l'Adhérent <strong data-name="IdAdherent" data-linked="#getUserIDButton">XXXX</strong> souhaite emprunter le livre avec idExemplaire <strong data-name="idExemplaire" data-linked="#booksAvailable">XXXX</strong> et le rendra avant le <strong data-name="returnDate" data-linked="#returnDateInput">XXXX/XX/XX</strong></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                <button type="button" class="btn btn-primary" id="confirmNewBorrow" data-request-url="@Url.Action("addNewDocumentBorrow", currentController)">Validé</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="position-fixed top-0 end-0 p-3" style="z-index: 1">
+    <div id="newBorrowSuccessToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header bg-success text-white">
+            <strong class="me-auto">Notification</strong>
+            <small>just now</small>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+            Créer un nouveau Prêter sous-performer avec succès.
+        </div>
+    </div>
+</div>
+
+<div class="position-fixed top-0 end-0 p-3" style="z-index: 1">
+    <div id="newBorrowFaildToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header bg-danger text-white">
+            <strong class="me-auto">Notification</strong>
+            <small>just now</small>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+            Créer un nouveau Prêter dépasser sans succès.
+        </div>
+    </div>
+</div>
+
 <input type="hidden" id="getHolidaysInput" data-request-url="@Url.Action("getHolidays", currentController)" />
 <script src="~/js/Pret.js"></script>
