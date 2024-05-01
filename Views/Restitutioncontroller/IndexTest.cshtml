@@ -1,7 +1,7 @@
 ﻿@{
-    var currentController = "RestitutionController";
+    var currentController = "Restitutioncontroller";
 }
-<link rel="stylesheet" href="~/css/Restitution.css"/>
+<link rel="stylesheet" href="~/css/Restitution.css" />
 <div class="row w-100 h-100 p-2">
 
     <div class="col ms-4 d-flex flex-column justify-content-between">
@@ -12,8 +12,11 @@
                     <img class="w-80p" src="~/img/star.png" alt="">
                     <div class="d-flex flex-column justify-content-around w-75">
                         <div class="input-group mb-2">
-                            <select class="form-control custom-select" id="SelectExemplaire" data-request-url="@Url.Action("getSelectExemplaire", currentController)">
-                                <option selected value="">Choose...</option>
+                            <select class="form-control custom-select" id="inputGroupSelect01">
+                                <option selected>Choose...</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>displays the catlib notice
+                                <option value="3">Three</option>
                             </select>
                         </div>
                         <div class="input-group mb-2">
@@ -28,7 +31,7 @@
             <div class="row position-relative shadow-sm border rounded my-3 p-3 ">
                 <div class="d-flex flex-row justify-content-around align-items-center">
                     <h5 class="border-title">Proper title</h5>
-                    <div class="form-floating" id="ProperTitle">
+                    <div class="form-floating">
                         <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2"
                                   style="height: 200px ; width: 600px;"></textarea>
                         <label for="floatingTextarea2">Comments</label>
@@ -39,29 +42,21 @@
                 <div>
 
                     <h5 class="border-title">Date</h5>
-                    <div class="input-group mb-3"> 
-                        <span class="input-group-text"   required>Date de Pret</span>
-                        <input type="date" class="form-control" id="PretData">
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" required>Loan date</span>
+                        <input type="date" class="form-control" id="Loan date">
                     </div>
                     <div class="input-group mb-3">
                         <span class="input-group-text" required>Return date</span>
-                        <input type="date" class="form-control" id="ReturnDate">
+                        <input type="date" class="form-control" id="Return date">
                     </div>
                 </div>
-            </div>
-
-            <div id="etatAdherent" class="row position-relative rounded my-3 p-3 alert alert-info">
-                 <h6>Status : </h6>
-                <p>Attend quelque seconde pour le traitement!</p>
-
             </div>
 
         </div>
 
 
     </div>
-
-  
 
     <div class="col position-relative shadow-sm border rounded m-3 d-flex flex-column align-items-center justify-content-around">
         <h5 class="border-title">Details</h5>
@@ -72,33 +67,33 @@
             <span class="visually-hidden">New alerts</span>
         </span>
         <div>
-            <form >
-            <div class="input-group mb-3">
-                <span class="input-group-text" id="basic-addon1">UserID</span>
-                <input type="text" class="form-control" placeholder="UserID"  aria-label="UserID"
-                           aria-describedby="basic-addon1" id="UserID" data-request-url="@Url.Action("getUserByID", currentController)">
-            </div>
-            
-            <div class="row">
-                <div class="col">
-                    <div class="input-group mb-3">
-                        <span class="input-group-text">Name</span>
-                        <input type="text" class="form-control" placeholder="Username" name="Username" id="NameAdherent">
-                    </div>
+            <form asp-controller="Restitution" asp-action="Index">
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1">UserID</span>
+                    <input type="text" class="form-control" placeholder="UserID" aria-label="UserID"
+                           aria-describedby="basic-addon1" name="UserID">
                 </div>
-                <div class="col">
-                    <div class="input-group mb-3">
-                        <span class="input-group-text">prename</span>
-                            <input type="text" class="form-control" placeholder="prename" name="prename" id="FamillyNameAdherent">
-                    </div>
-                </div>
-            </div>
 
-            <div class="d-flex flex-column-reverse align-items-center">
-                    <button class="btn btn-primary w-75 mt-3 buttonUser " type="submit" id="RetourButton" data-request-url="@Url.Action("RetourExemplaire", currentController)">Retour</button>
-                <button class="btn btn-primary w-75 mt-3   buttonUser " type="submit"  id="RenouvellementButton" >Renouvellement</button>
-                    <button class="btn btn-primary w-75 mt-3 buttonUser" type="submit" id="ValideButton">validate</button>
-            </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">Name</span>
+                            <input type="text" class="form-control" placeholder="Username" name="Username">
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">prename</span>
+                            <input type="text" class="form-control" placeholder="prename" name="prename">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-flex flex-column-reverse align-items-center">
+                    <button class="btn btn-primary w-75 mt-3 buttonUser " type="submit">Back</button>
+                    <button class="btn btn-primary w-75 mt-3   buttonUser " type="submit">Remake</button>
+                    <button class="btn btn-primary w-75 mt-3 buttonUser" type="submit" >validate</button>
+                </div>
             </form>
         </div>
 
@@ -106,10 +101,4 @@
 
     </div>
 
-
-
-
-    </div>
-
 </div>
-<script src="~/js/Restitution.js"></script>
