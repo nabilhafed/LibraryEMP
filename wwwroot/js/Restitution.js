@@ -48,6 +48,17 @@
                 // Ajouter l'option au sélecteur
                 $("#SelectExemplaire").append(option);
             }
+
+            //le remplissage de date de retour qui representer la date actuel 
+            // Obtenir la date actuelle
+            var currentDate = new Date();
+
+            // Formater la date au format requis (AAAA-MM-JJ)
+            var formattedDate = currentDate.toISOString().slice(0, 10);
+           
+            // Remplir la case de date avec la date actuelle
+            $("#ReturnDate").val(formattedDate);
+
         })
         .fail(function (error) {
             console.error("Erreur lors de la récupération des données:", error);
@@ -63,5 +74,17 @@ $("#SelectExemplaire").on('change', function () {
     $.get($(this).data('request-url'), { idExemplaire: selectedOption })
         .done(function (data) {
             $("#ProperTitle").find("textarea").text(data.propreTitle);
+
+            // Extraire les parties de la date
+            var year = data.datePret.substring(0, 4);
+            var month = data.datePret.substring(5, 7);
+            var day = data.datePret.substring(8, 10);
+
+            // Formater la date au format requis (AAAA-MM-JJ)
+            var formattedDate = year + "-" + month + "-" + day;
+
+            // Remplir la case de date avec la date formatée
+            $("#PretData").val(formattedDate);
+
         });
 });

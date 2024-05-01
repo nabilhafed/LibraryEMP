@@ -51,6 +51,9 @@ namespace LibraryEMP.Controllers
                 .Where(p => p.IdExemplaire.ToUpper() == IdExemplaire.ToUpper())
                 .Select(p => p.Cote)
                 .FirstOrDefault();
+            var datePret  = _db.Prets.Where(p => p.IdExemplaire.ToUpper() == IdExemplaire.ToUpper())
+                .Select(p => p.DatePret)
+                .FirstOrDefault();
 
             // Vérifier si la cote de l'exemplaire a été trouvée
             if (coteExemplaire != null)
@@ -64,7 +67,9 @@ namespace LibraryEMP.Controllers
                     })
                     .FirstOrDefault();
 
-                return notice;
+
+
+                return new { notice , datePret };
             }
             else
             {
@@ -79,7 +84,14 @@ namespace LibraryEMP.Controllers
         {
             return null;
         }
-        
+
+        [HttpGet]
+        [Route("RenouvellementExemplaire")]
+        public dynamic? RenouvellementExemplaire(string IdExemplaire)
+        {
+            return null;
+        }
+
 
 
     }
