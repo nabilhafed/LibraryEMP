@@ -1,71 +1,75 @@
-﻿ $("#UserID").on('input', function () {
+﻿$("#UserID").on('input', function () {
     var userId = $(this).val();
-    console.log("test est valide ");
+
     if (userId === '') return;
 
-    $(this).prop("disabled", true);
+    // $(this).prop("disabled", false); // It seems unnecessary to enable this element here
 
-    var that = this; // Définir une référence à $(this) pour une utilisation dans la fonction de rappel
+    var that = this; // Define a reference to $(this) for use in the callback function
 
     $.get($(this).data('request-url'), { IdAdherent: $(this).val() })
         .done(function (data) {
+
+            $("#DatePretRoure").removeClass("disabled");
+            $("#ExemplaireChoses").removeClass("disabled");
+
             switch (data.user.etatAdherent) {
-                //En cours de traitement
+                // En cours de traitement
                 case 1:
-                    $("#etatAdherent").find("p").text("l'adherent est en rigle");
+                    $("#etatAdherent").removeClass("alert-info");
+                    $("#etatAdherent").addClass("alert-danger");
+                    $("#etatAdherent").find("p").text("L'adhérent est en règle");
                     break;
-                //Disponible
+                // Disponible
                 case 2:
                     $("#etatAdherent").removeClass("alert-info");
                     $("#etatAdherent").addClass("alert-danger");
-                    $("#etatAdherent").find("p").text("l'adherent est pénalisé");
+                    $("#etatAdherent").find("p").text("L'adhérent est pénalisé");
                     $("#RenouvellementButton").prop("disabled", true);
-
- 
-
                     break;
-               
+                default:
+                    // Handle other cases if necessary
+                    break;
             }
-            $(that).prop("disabled", false);
-           //$("#adherentStateAlert").removeClass("alert-dark").removeClass("alert-success").removeClass("alert-warning").removeClass("alert-danger");
+
             if (typeof data !== 'undefined') {
-                
                 $("#NameAdherent").val(data.user.nom);
                 $("#FamillyNameAdherent").val(data.user.prenom);
-                // Ajoutez ici d'autres manipulations des données si nécessaire
+                // Add other data manipulations here if necessary
             }
+
             $("#SelectExemplaire").empty();
 
-            // Parcourir les données reçues et ajouter chaque option
+            // Loop through the received data and add each option
             for (const exemplaire of data.exemplaires) {
-                
-                // Créer une option avec la valeur et le texte de l'exemplaire
+                // Create an option with the value and text of the exemplaire
                 var option = $('<option>', {
-                    value : exemplaire.idExemplaire,
-                    text : exemplaire.idExemplaire
+                    value: exemplaire.idExemplaire,
+                    text: exemplaire.idExemplaire
                 });
 
-                // Ajouter l'option au sélecteur
+                // Add the option to the selector
                 $("#SelectExemplaire").append(option);
             }
 
-            //le remplissage de date de retour qui representer la date actuel 
-            // Obtenir la date actuelle
+            // Fill the return date field with the current date
+            // Get the current date
             var currentDate = new Date();
 
-            // Formater la date au format requis (AAAA-MM-JJ)
+            // Format the date in the required format (YYYY-MM-DD)
             var formattedDate = currentDate.toISOString().slice(0, 10);
-           
-            // Remplir la case de date avec la date actuelle
+
+            // Fill the date field with the current date
             $("#ReturnDate").val(formattedDate);
 
         })
         .fail(function (error) {
-            console.error("Erreur lors de la récupération des données:", error);
-            $(that).prop("disabled", false); // Réactiver l'élément en cas d'échec de la requête
-            // Gérez les erreurs éventuelles
+            console.error("Error while retrieving data:", error);
+            $(that).prop("disabled", false); // Re-enable the element in case of request failure
+            // Handle any potential errors
         });
- });
+});
+
  
 
 $("#SelectExemplaire").on('change', function () {
@@ -85,6 +89,8 @@ $("#SelectExemplaire").on('change', function () {
 
             // Remplir la case de date avec la date formatée
             $("#PretData").val(formattedDate);
+
+            $("#ButtonChoses").removeClass("disabled");
 
         });
 });

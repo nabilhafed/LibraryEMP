@@ -7,7 +7,7 @@
     <div class="col ms-4 d-flex flex-column justify-content-between">
         <div>
             <div class="row position-relative shadow-sm border rounded my-3 p-3 ">
-                <div class="d-flex flex-row justify-content-around align-items-center">
+                <div id="ExemplaireChoses" class=" d-flex flex-row justify-content-around align-items-center disabled">
                     <h5 class="border-title">Choose the copy</h5>
                     <img class="w-80p" src="~/img/star.png" alt="">
                     <div class="d-flex flex-column justify-content-around w-75">
@@ -25,20 +25,20 @@
                     </div>
                 </div>
             </div>
-            <div class="row position-relative shadow-sm border rounded my-3 p-3 ">
+            <div id="titrePropreBox" class="row position-relative shadow-sm border rounded my-3 p-3 disabled ">
                 <div class="d-flex flex-row justify-content-around align-items-center">
                     <h5 class="border-title">Proper title</h5>
                     <div class="form-floating" id="ProperTitle">
-                        <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2"
-                                  style="height: 200px ; width: 600px;"></textarea>
+                        <textarea class="form-control"  id="floatingTextarea2"
+                                  style="height: 150px ; width: 600px;"></textarea>
                         <label for="floatingTextarea2">Comments</label>
                     </div>
                 </div>
             </div>
-            <div class="row position-relative shadow-sm border rounded my-3 p-3 ">
+            <div id="DatePretRoure" class=" row position-relative shadow-sm border rounded my-3 p-3 disabled">
                 <div>
 
-                    <h5 class="border-title">Date</h5>
+                    <h5 class="border-title ">Date</h5>
                     <div class="input-group mb-3"> 
                         <span class="input-group-text"   required>Date de Pret</span>
                         <input type="date" class="form-control" id="PretData">
@@ -50,7 +50,7 @@
                 </div>
             </div>
 
-            <div id="etatAdherent" class="row position-relative rounded my-3 p-3 alert alert-info">
+            <div id="etatAdherent" class="row position-relative rounded my-3 p-3 alert alert-info ">
                  <h6>Status : </h6>
                 <p>Attend quelque seconde pour le traitement!</p>
 
@@ -63,7 +63,7 @@
 
   
 
-    <div class="col position-relative shadow-sm border rounded m-3 d-flex flex-column align-items-center justify-content-around">
+    <div class="col position-relative shadow-sm border rounded m-3 d-flex flex-column align-items-center justify-content-around ">
         <h5 class="border-title">Details</h5>
         <div>
             <img src="~/img/user.png" alt="">
@@ -94,7 +94,7 @@
                 </div>
             </div>
 
-            <div class="d-flex flex-column-reverse align-items-center">
+                <div id="ButtonChoses" class=" disabled d-flex flex-column-reverse align-items-center ">
                     <button class="btn btn-primary w-75 mt-3 buttonUser " type="submit" id="RetourButton" data-request-url="@Url.Action("RetourExemplaire", currentController)">Retour</button>
                 <button class="btn btn-primary w-75 mt-3   buttonUser " type="submit"  id="RenouvellementButton" >Renouvellement</button>
                     <button class="btn btn-primary w-75 mt-3 buttonUser" type="submit" id="ValideButton">validate</button>
