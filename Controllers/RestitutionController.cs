@@ -18,7 +18,8 @@ namespace LibraryEMP.Controllers
 
         public dynamic? GetUserAndExemplairesByID(string IdAdherent)
         {
-            var user = _db.Adherents
+            if (IdAdherent != "")
+            { var user = _db.Adherents
                 .Where(a => a.IdAdherent.ToUpper() == IdAdherent.ToUpper())
                 .Select(adherent => new
                 {
@@ -27,19 +28,22 @@ namespace LibraryEMP.Controllers
                     etatAdherent = adherent.EtatAdherent,
                 })
                 .FirstOrDefault();
-             
-            var exemplaires = _db.Prets
-                .Where(p => p.IdAdherent.ToUpper() == IdAdherent.ToUpper())
-                .Select(p => new
-                 
-                { idExemplaire = p.IdExemplaire  })
-                .ToList();
 
-            return new
-            {
-                user,
-                exemplaires
-            };
+                var exemplaires = _db.Prets
+                    .Where(p => p.IdAdherent.ToUpper() == IdAdherent.ToUpper())
+                    .Select(p => new
+
+                    { idExemplaire = p.IdExemplaire })
+                    .ToList();
+
+                return new
+                {
+                    user,
+                    exemplaires
+                };
+            }
+            else
+                return null;
         }
         [HttpGet]
         [Route("getSelectExemplaire")]

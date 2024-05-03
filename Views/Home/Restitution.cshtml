@@ -30,7 +30,7 @@
                     <h5 class="border-title">Proper title</h5>
                     <div class="form-floating" id="ProperTitle">
                         <textarea class="form-control"  id="floatingTextarea2"
-                                  style="height: 150px ; width: 600px;"></textarea>
+                                  style="height: 150px ; width: 600px;" readonly></textarea>
                         <label for="floatingTextarea2">Comments</label>
                     </div>
                 </div>
@@ -40,12 +40,12 @@
 
                     <h5 class="border-title ">Date</h5>
                     <div class="input-group mb-3"> 
-                        <span class="input-group-text"   required>Date de Pret</span>
-                        <input type="date" class="form-control" id="PretData">
+                        <span class="input-group-text" required >Date de Pret</span>
+                        <input type="date" class="form-control" id="PretData" readonly>
                     </div>
                     <div class="input-group mb-3">
-                        <span class="input-group-text" required>Return date</span>
-                        <input type="date" class="form-control" id="ReturnDate">
+                        <span class="input-group-text" required readonly>Return date</span>
+                        <input type="date" class="form-control" id="ReturnDate" readonly>
                     </div>
                 </div>
             </div>
@@ -112,4 +112,4 @@
     </div>
 
 </div>
-<script src="~/js/Restitution.js"></script>
+<script src="~/js/Restitution.js?v=1"></script>

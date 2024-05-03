@@ -16,8 +16,6 @@
             switch (data.user.etatAdherent) {
                 // En cours de traitement
                 case 1:
-                    $("#etatAdherent").removeClass("alert-info");
-                    $("#etatAdherent").addClass("alert-danger");
                     $("#etatAdherent").find("p").text("L'adhérent est en règle");
                     break;
                 // Disponible
@@ -88,9 +86,9 @@ $("#SelectExemplaire").on('change', function () {
             var formattedDate = year + "-" + month + "-" + day;
 
             // Remplir la case de date avec la date formatée
-            $("#PretData").val(formattedDate);
+            $("#PretData").val(formattedDate); 
 
             $("#ButtonChoses").removeClass("disabled");
-
+            $("#titrePropreBox").removeClass("disabled");
         });
 });
