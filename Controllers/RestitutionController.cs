@@ -63,6 +63,7 @@ namespace LibraryEMP.Controllers
                 .Where(p => p.IdExemplaire.ToUpper() == IdExemplaire.ToUpper())
                 .Select(p => p.Cote)
                 .FirstOrDefault();
+
             var datePret  = _db.Prets.Where(p => p.IdExemplaire.ToUpper() == IdExemplaire.ToUpper())
                 .Select(p => p.DatePret)
                 .FirstOrDefault();
@@ -71,17 +72,14 @@ namespace LibraryEMP.Controllers
             if (coteExemplaire != null)
             {
                 // Rechercher la notice correspondant à la cote de l'exemplaire
-                var notice = _db.Notices
+                var TitrePropre = _db.Notices
                     .Where(p => p.Cote.ToUpper() == coteExemplaire.ToUpper())
-                    .Select(p => new
-                    {
-                        PropreTitle = p.TitrePropre
-                    })
+                    .Select(
+                        p => p.TitrePropre
+                    )
                     .FirstOrDefault();
 
-
-
-                return new { notice , datePret };
+                return new { TitrePropre, datePret };
             }
             else
             {
@@ -110,17 +108,18 @@ namespace LibraryEMP.Controllers
             };
 
             // Ajouter l'objet historiquePret à la base de données
-            _db.HistoriquePrets.Add(historiquePret);
+
+            //_db.HistoriquePrets.Add(historiquePret);
 
             // Récupérer le prêt à supprimer
             var pret = _db.Prets
                 .FirstOrDefault(p => p.IdExemplaire.ToUpper() == IdExemplaire.ToUpper() && p.IdAdherent.ToUpper() == IdAdherent.ToUpper());
 
-           // if (pret != null)
-           // {
+            if (pret != null)
+            {
                 // Supprimer le prêt de la base de données
-           //     _db.Prets.Remove(pret);
-           // }
+                _db.Prets.Remove(pret);
+            }
         //
             // Enregistrer les modifications dans la base de données
             _db.SaveChanges();
