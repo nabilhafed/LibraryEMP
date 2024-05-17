@@ -2,8 +2,9 @@
     var currentController = "RestitutionController";
 }
 <link rel="stylesheet" href="~/css/Restitution.css"/>
-<div class="row w-100 h-100 p-2">
 
+    
+<div class="row w-100 h-100 p-2">
     <div class="col ms-4 d-flex flex-column justify-content-between">
         <div>
             <div class="row position-relative shadow-sm border rounded my-3 p-3 ">
@@ -29,6 +30,7 @@
                 <div class="d-flex flex-row justify-content-around align-items-center">
                     <h5 class="border-title">Proper title</h5>
                     <div class="form-floating" id="ProperTitle">
+
                         <textarea class="form-control"  id="floatingTextarea2"
                                   style="height: 150px ; width: 600px;" readonly></textarea>
                         <label for="floatingTextarea2">Comments</label>
@@ -64,7 +66,18 @@
   
 
     <div class="col position-relative shadow-sm border rounded m-3 d-flex flex-column align-items-center justify-content-around ">
+  
+       
+
         <h5 class="border-title">Details</h5>
+        <div class="toast align-items-center NoUser" role="alert" aria-live="assertive" aria-atomic="true" style="z-index = 1 ;" >
+            <div class="d-flex">
+                <div class="toast-body">
+                    Hello, world! This is a toast message.
+                </div>
+                <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        </div>
         <div>
             <img src="~/img/user.png" alt="">
         </div>
@@ -109,7 +122,7 @@
 
 
 
-    </div>
+    
 
 </div>
 <script src="~/js/Restitution.js?v=1"></script>

@@ -1,5 +1,7 @@
-﻿using LibraryEMP.Models;
+﻿using System.Drawing.Printing;
+using LibraryEMP.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 
 namespace LibraryEMP.Controllers
@@ -19,32 +21,38 @@ namespace LibraryEMP.Controllers
         public dynamic? GetUserAndExemplairesByID(string IdAdherent)
         {
             if (IdAdherent != "")
-            { var user = _db.Adherents
-                .Where(a => a.IdAdherent.ToUpper() == IdAdherent.ToUpper())
-                .Select(adherent => new
-                {
-                    nom = adherent.Nom,
-                    prenom = adherent.Prenom,
-                    etatAdherent = adherent.EtatAdherent,
-                })
-                .FirstOrDefault();
+            {
+                var adherent = _db.Adherents
+                    .Where(a => a.IdAdherent.ToUpper() == IdAdherent.ToUpper())
+                    .Select(a => new
+                    {
+                        nom = a.Nom,
+                        prenom = a.Prenom,
+                        etatAdherent = a.EtatAdherent
+                    })
+                    .FirstOrDefault();
 
                 var exemplaires = _db.Prets
                     .Where(p => p.IdAdherent.ToUpper() == IdAdherent.ToUpper())
                     .Select(p => new
-
-                    { idExemplaire = p.IdExemplaire })
+                    {
+                        idExemplaire = p.IdExemplaire
+                    })
                     .ToList();
 
                 return new
                 {
-                    user,
+                    adherent,
                     exemplaires
                 };
             }
             else
+            {
+
                 return null;
+            }
         }
+
         [HttpGet]
         [Route("getSelectExemplaire")]
 
@@ -84,10 +92,42 @@ namespace LibraryEMP.Controllers
         [HttpGet]
         [Route("RetourExemplaire")]
 
-        public dynamic? RetourExemplaire(string IdExemplaire)
+        public void RetourExemplaire(string IdExemplaire, string IdAdherent)
         {
-            return null;
+            // Récupérer la date de prêt
+            var datePret = _db.Prets
+                .Where(p => p.IdExemplaire.ToUpper() == IdExemplaire.ToUpper() && p.IdAdherent.ToUpper() == IdAdherent.ToUpper())
+                .Select(p => p.DatePret)
+                .FirstOrDefault();
+
+            // Insérer les données dans la table HISTORIQUE_PRET
+            var historiquePret = new HistoriquePret
+            {
+                IdAdherent = IdAdherent,
+                IdExemplaire = IdExemplaire,
+                DatePret = datePret,
+                DateRetour = DateTime.Now // Date de retour actuelle
+            };
+
+            // Ajouter l'objet historiquePret à la base de données
+            _db.HistoriquePrets.Add(historiquePret);
+
+            // Récupérer le prêt à supprimer
+            var pret = _db.Prets
+                .FirstOrDefault(p => p.IdExemplaire.ToUpper() == IdExemplaire.ToUpper() && p.IdAdherent.ToUpper() == IdAdherent.ToUpper());
+
+           // if (pret != null)
+           // {
+                // Supprimer le prêt de la base de données
+           //     _db.Prets.Remove(pret);
+           // }
+        //
+            // Enregistrer les modifications dans la base de données
+            _db.SaveChanges();
+
+         
         }
+
 
         [HttpGet]
         [Route("RenouvellementExemplaire")]
