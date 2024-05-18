@@ -1,14 +1,22 @@
 $("document").ready(function () {
 
+    let pageHistory = {};
     //swap between Pages
     $(".nav a").click(function (event) {
 
         event.preventDefault();
-        $.get($(this).data('request-url'), { page: $(this).attr("href") },
-            function (response) {
-                $("#Page-content").html(response);
-            }
-        );
+
+        if ($(this).attr("href") in pageHistory) {
+            $("#Page-content").html(pageHistory[$(this).attr("href")]);
+        } else {
+            let that = this;
+            $.get($(this).data('request-url'), { page: $(this).attr("href") },
+                function (response) {
+                    pageHistory[$(that).attr("href")] = response;
+                    $("#Page-content").html(response);
+                }
+            );
+        }
 
         //left nav switch effect
         $(".active").attr("class", "nav-link link-dark");

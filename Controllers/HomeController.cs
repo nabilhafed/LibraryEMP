@@ -44,6 +44,12 @@ namespace LibraryEMP.Controllers
         }
 
 
+        [Route("New")]
+        public IActionResult New()
+        {
+            return View();
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
