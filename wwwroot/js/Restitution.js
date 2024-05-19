@@ -74,8 +74,6 @@ $("#SelectExemplaire").on('change', function () {
     $.get($(this).data('request-url'), { idExemplaire: selectedOption })
         .done(function (data) {
 
-            console.log(data.titrePropre);
-
             $("#ProperTitle").find("textarea").text(data.titrePropre);
 
             var year = data.datePret.substring(0, 4);
@@ -96,13 +94,14 @@ $("#RetourButton").on('click', function () {
 
     if (VarIdAdherent === '' || VarIdExemplaire === '') {
         console.error("Adherent ID or Exemplaire ID is missing.");
-        $("DeletPret").addClass("show");
+      
         return;
     }
 
     $.get($(this).data('request-url'), { IdAdherent: VarIdAdherent, IdExemplaire: VarIdExemplaire })
         .done(function (data) {
             console.log("Success:", data);
+
             // Add code to handle the successful response here
             // For example, display a success message or update the UI
             alert("Exemplaire returned successfully!");
@@ -120,6 +119,7 @@ $("#RetourButton").on('click', function () {
             $("#ProperTitle").find("textarea").text('');
             $("#PretData").val('');
             $("#ReturnDate").val('');
+
 
         })
         .fail(function (error) {

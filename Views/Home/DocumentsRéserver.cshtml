@@ -1,26 +1,29 @@
-﻿<link rel="stylesheet" href="~/css/DocumentRéserver.css" />
+﻿@{
+    var currentController = "DocumentReserverController";
+}
+<link rel="stylesheet" href="~/css/DocumentRéserver.css" />
 <div class="d-flex flex-column">
     <div class="position-relative shadow-sm h-100 border rounded m-3 d-flex flex-row">
         <h5 class="border-title">Liste des documents réservés</h5>
 
         <div class="d-flex flex-column py-3 justify-content-around w-75 divDocReserve">
-            <table class="table table-success table-striped">
+            <table class="table table-striped">
 
-                <thead class="table-dark">
+                <thead class="">
                     <tr>
                         <th scope="col">ID_Adhérent</th>
                         <th scope="col">Nome & Prénom</th>
                         <th scope="col">Cote</th>
-                        <th scope="col">Heur de réservation</th>
+                        <th scope="col" >Heur de réservation</th>
                         <!-- Ajoutez autant de colonnes que nécessaire -->
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="ReservationListe">
                     <tr>
-                        <td>Donnée 1</td>
-                        <td>Donnée 2</td>
-                        <td>Donnée 3</td>
-                        <td>Donnée 3</td>
+                        <td> --- </td>
+                        <td> --- </td>
+                        <td> --- </td>
+                        <td> --- </td>
 
                         <!-- Ajoutez autant de cellules que nécessaire pour chaque ligne de données -->
                     </tr>
@@ -28,9 +31,9 @@
                 </tbody>
             </table>
             <div class="d-flex justify-content-center buttons">
-                <button type="button" class="btn btn-primary mx-2" data-bs-toggle="button" autocomplete="off">Trier par Adhérent</button>
-                <button type="button" class="btn btn-primary mx-2" data-bs-toggle="button" autocomplete="off" aria-pressed="true">Trier par Code</button>
-                <button type="button" class="btn btn-primary mx-2" data-bs-toggle="button" autocomplete="off">Trier par date de Prêt</button>
+                <button type="button" class="btn btn-primary mx-2" data-bs-toggle="button" autocomplete="off" id="TriAdherentButton" data-request-url="@Url.Action("GetReservationTriByIdAdherent", currentController)">Trier par Adhérent</button>
+                <button type="button" class="btn btn-primary mx-2" data-bs-toggle="button" autocomplete="off" aria-pressed="true" id="TriCoteButton" data-request-url="@Url.Action("GetReservationTriByIdCote", currentController)">Trier par Cote</button>
+                <button type="button" class="btn btn-primary mx-2" data-bs-toggle="button" autocomplete="off" id="TriHeureButton" data-request-url="@Url.Action("GetReservationTriByIdDate", currentController)">Trier par date de Prêt</button>
             </div>
         
         </div>
@@ -38,3 +41,4 @@
 
     </div>
 </div>
+<script src="~/js/DocumentRéserver.js?v=1"></script>
