@@ -16,6 +16,7 @@
 
                     switch (data.adherent.etatAdherent) {
                         case 1:
+                            $("#etatAdherent").addClass("alert-info");
                             $("#etatAdherent").find("p").text("L'adhérent est en règle");
                             break;
                         case 2:
@@ -38,6 +39,7 @@
                         $("#DatePretRoure").removeClass("disabled");
                         $("#ExemplaireChoses").removeClass("disabled");
 
+                        
                         for (const exemplaire of data.exemplaires) {
                             var option = $('<option>', {
                                 value: exemplaire.idExemplaire,
@@ -113,7 +115,8 @@ $("#RetourButton").on('click', function () {
             $("#FamillyNameAdherent").val('');
             $("#DatePretRoure").addClass("disabled");
             $("#ExemplaireChoses").addClass("disabled");
-            $("#etatAdherent").find("p").text('');
+            $("#etatAdherent").removeClass("alert-danger").addClass("alert-info");
+            $("#etatAdherent").find("p").text("Attend qeulque minute pour le traitement");
             $("#RenouvellementButton").prop("disabled", false);
             $("#ButtonChoses").addClass("disabled");
             $("#ProperTitle").find("textarea").text('');
@@ -129,5 +132,49 @@ $("#RetourButton").on('click', function () {
             alert("Error occurred while returning the exemplaire. Please try again.");
         });
 });
+
+$("#RenouvellementButton").on('click', function () {
+    var VarIdAdherent = $("#UserID").val();
+    var VarIdExemplaire = $("#SelectExemplaire").val();
+
+    if (VarIdAdherent === '' || VarIdExemplaire === '') {
+        console.error("Adherent ID or Exemplaire ID is missing.");
+
+        return;
+    }
+
+    $.get($(this).data('request-url'), { IdAdherent: VarIdAdherent, IdExemplaire: VarIdExemplaire })
+        .done(function (data) {
+            console.log("Success:", data);
+
+            // Add code to handle the successful response here
+            // For example, display a success message or update the UI
+            alert("Exemplaire returned successfully!");
+
+            // Optionally, you can reset some form fields or update the UI
+            $("#UserID").val('');
+            $("#SelectExemplaire").empty();
+            $("#NameAdherent").val('');
+            $("#FamillyNameAdherent").val('');
+            $("#DatePretRoure").addClass("disabled");
+            $("#ExemplaireChoses").addClass("disabled");
+            $("#etatAdherent").removeClass("alert-danger").addClass("alert-info");
+            $("#etatAdherent").find("p").text("Attend qeulque minute pour le traitement");
+            $("#RenouvellementButton").prop("disabled", false);
+            $("#ButtonChoses").addClass("disabled");
+            $("#ProperTitle").find("textarea").text('');
+            $("#PretData").val('');
+            $("#ReturnDate").val('');
+
+
+        })
+        .fail(function (error) {
+            console.error("Error:", error);
+            // Add code to handle the error response here
+            // For example, display an error message
+            alert("Error occurred while returning the exemplaire. Please try again.");
+        });
+});
+
 
 

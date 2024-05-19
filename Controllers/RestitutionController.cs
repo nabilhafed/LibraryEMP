@@ -107,13 +107,17 @@ namespace LibraryEMP.Controllers
                 DateRetour = DateTime.Now // Date de retour actuelle
             };
 
+           
             // Ajouter l'objet historiquePret à la base de données
 
             //_db.HistoriquePrets.Add(historiquePret);
 
+            ValiderRestitution(IdExemplaire, DateTime.Now);
+
             // Récupérer le prêt à supprimer
             var pret = _db.Prets
                 .FirstOrDefault(p => p.IdExemplaire.ToUpper() == IdExemplaire.ToUpper() && p.IdAdherent.ToUpper() == IdAdherent.ToUpper());
+
 
             if (pret != null)
             {
@@ -130,9 +134,89 @@ namespace LibraryEMP.Controllers
 
         [HttpGet]
         [Route("RenouvellementExemplaire")]
-        public dynamic? RenouvellementExemplaire(string IdExemplaire)
+        public void RenouvellementExemplaire(string IdAdherent , string IdExemplaire)
         {
-            return null;
+            // Récupérer le prêt à supprimer
+            var pret = _db.Prets
+                .FirstOrDefault(p => p.IdExemplaire.ToUpper() == IdExemplaire.ToUpper() && p.IdAdherent.ToUpper() == IdAdherent.ToUpper());
+
+
+            if (pret != null)
+            {
+                // Supprimer le prêt de la base de données
+                _db.Prets.Remove(pret);
+            }
+
+             pret = new Pret
+            {
+                IdAdherent = IdAdherent,
+                IdExemplaire = IdExemplaire,
+                DatePret = DateTime.Now ,
+                EtatDuree = "F"
+            };
+
+            _db.Prets.Add(pret);
+
+            _db.SaveChanges();
+
+        }
+
+        //fonction pour la validation de retour d'un exemplaire 
+
+        public void ValiderRestitution(string  ExemplaireDisponible, DateTime dateRetour)
+        {
+            var cote = _db.Exemplaires
+                .Where(p => p.IdExemplaire.ToUpper() == ExemplaireDisponible.ToUpper())
+                .Select(p => p.Cote).FirstOrDefault();
+            // Convertir la cote et l'exemplaire en majuscules
+            cote = cote.ToUpper();
+            ExemplaireDisponible = ExemplaireDisponible.ToUpper();
+
+            // Récupérer le nombre de réservations pour la cote
+            int nbrReservations = _db.Reservations
+                .Count(r => r.Cote.ToUpper() == cote);
+
+            // Récupérer le nombre de prêts pour la cote et l'utilisateur spécifique
+            string idAdherent = "99/999";
+            int nbrPretReservations = _db.Prets
+                .Count(p => p.IdExemplaire.ToUpper().StartsWith(cote + "/") && p.IdAdherent == idAdherent);
+
+            if (nbrReservations > 0)
+            {
+                if (nbrPretReservations < nbrReservations)
+                {
+                    // Insérer un nouveau prêt
+                    var pret = new Pret
+                    {
+                        IdAdherent = idAdherent,
+                        IdExemplaire = ExemplaireDisponible,
+                        DatePret = dateRetour,
+                        EtatDuree = "F"
+                    };
+                    _db.Prets.Add(pret);
+
+                    // Mettre à jour l'état de l'exemplaire
+                    var exemplaire = _db.Exemplaires
+                        .FirstOrDefault(e => e.IdExemplaire.ToUpper() == ExemplaireDisponible);
+                    if (exemplaire != null)
+                    {
+                        exemplaire.IdEtat = 2;
+                    }
+                }
+            }
+            else
+            {
+                // Mettre à jour l'état de l'exemplaire si aucune réservation n'est en cours
+                var exemplaire = _db.Exemplaires
+                    .FirstOrDefault(e => e.IdExemplaire.ToUpper() == ExemplaireDisponible);
+                if (exemplaire != null)
+                {
+                    exemplaire.IdEtat = 1;
+                }
+            }
+
+            // Enregistrer les changements dans la base de données
+            _db.SaveChanges();
         }
 
 

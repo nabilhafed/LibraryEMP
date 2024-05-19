@@ -7,11 +7,11 @@
 <div class="row w-100 h-100 p-2">
     <div class="col ms-4 d-flex flex-column justify-content-between">
         <div>
-            <div class="row position-relative shadow-sm border rounded my-3 p-3 ">
-                <div id="ExemplaireChoses" class=" d-flex flex-row justify-content-around align-items-center disabled">
+            <div class="row position-relative shadow-sm border rounded my-3 p-3 disabled" id="ExemplaireChoses">
+                <div  class=" d-flex flex-row justify-content-around align-items-center ">
                     <h5 class="border-title">Choose the copy</h5>
                     <img class="w-80p" src="~/img/star.png" alt="">
-                    <div class="d-flex flex-column justify-content-around w-75">
+                    <div class="d-flex flex-column justify-content-around w-75" >
                         <div class="input-group mb-2">
                             <select class="form-control custom-select" id="SelectExemplaire" data-request-url="@Url.Action("getSelectExemplaire", currentController)">
                                 <option selected value="">Choose...</option>
