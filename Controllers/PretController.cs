@@ -1,8 +1,6 @@
 ﻿using LibraryEMP.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 
 namespace LibraryEMP.Controllers
@@ -16,6 +14,9 @@ namespace LibraryEMP.Controllers
         {
             _db = db;
         }
+
+
+
 
         [HttpGet]
         [Route("getUserByID")]
@@ -67,11 +68,7 @@ namespace LibraryEMP.Controllers
                                     pret => pret.IdExemplaire,
                                     exemplaire => exemplaire.IdExemplaire,
                                     (pret, exemplaire) => new { Pret = pret, Exemplaire = exemplaire })
-                                .Where(join => join.Pret.IdAdherent.ToUpper() == IdAdherent.ToUpper() && join.Exemplaire.Cote.ToUpper() == cote.ToUpper())
-                                .Count() > 0
-                //see if the Adherent has reserve that book before ?
-                //reservedByHim = _db.Reservations.Any(r => r.Cote.ToUpper() == cote.ToUpper() && r.IdAdherent.ToUpper() == IdAdherent.ToUpper())
-
+                                .Any(join => join.Pret.IdAdherent.ToUpper() == IdAdherent.ToUpper() && join.Exemplaire.Cote.ToUpper() == cote.ToUpper())
             })
             .FirstOrDefault();
 
@@ -79,14 +76,40 @@ namespace LibraryEMP.Controllers
             {
                 if(!book.isCurrentlyBorrowedbyHim)
                 {
-                    var avilables = _db.Exemplaires
+                    var exemples = _db.Exemplaires
                     .Where(e => e.Cote.ToUpper() == cote.ToUpper())
                     .Select(e => new
                     {
                         idEtat = e.IdEtat,
                         idExemplaire = e.IdExemplaire
-                }).ToList();
-                    return new { book, avilables };
+                    }).ToList();
+
+                    //if he reserved the the book
+                    if(_db.Reservations.Any(r => r.Cote.ToUpper() == cote.ToUpper() && r.IdAdherent.ToUpper() == IdAdherent.ToUpper()))
+                    {
+                        //get position of that adhrent
+                        var reservedListPos = _db.Reservations.Where(r => r.Cote.ToUpper() == cote.ToUpper())
+                            .OrderBy(r => r.HeureReservation).
+                            ToList().FindIndex(r => r.IdAdherent.ToUpper() == IdAdherent.ToUpper());
+
+                        //get Borrowd exemples with IdAdherent == 99/999
+                        var reservedExemplesBy99_999 = _db.Prets.Where(p => p.IdAdherent == "99/999")
+                            .Join(
+                                _db.Exemplaires.Where(e => e.Cote.ToUpper() == cote.ToUpper() && e.IdEtat == 2),
+                                pret => pret.IdExemplaire,
+                                exemple => exemple.IdExemplaire,
+                                (pret, exemple) => exemple.IdExemplaire
+                            ).Count();
+                        //get reservedEexmpleID
+                        string reservedExemple = "";
+                        if (reservedExemplesBy99_999 >= reservedListPos)
+                            for (int i = 0; i < exemples.Count(); i++)
+                                if (exemples[i].idEtat == 2 && reservedListPos-- == 0)
+                                    reservedExemple = exemples[i].idExemplaire;
+                        return new { book, exemples , reservedExemple };
+                    }
+
+                    return new { book, exemples };
                 }
                 return new { book };
             }
@@ -102,8 +125,28 @@ namespace LibraryEMP.Controllers
             var transaction = _db.Database.BeginTransaction();
             try
             {
+                //test 
+                var adherent = _db.Adherents.Where(a => a.IdAdherent.ToUpper() == IdAdherent.ToUpper()).FirstOrDefault();
+                //test state
+                if (adherent.EtatAdherent != 2)
+                    throw new Exception("this adherent state is unsatisfiable");
+                //test max number
+                int borrowedDocuments = _db.Prets.Count( p => p.IdAdherent.ToUpper() == IdAdherent.ToUpper());
+                var maxDocumentsToBorrow = _db.Categories.Where( c => c.IdCategorie == adherent.IdCategorie ).FirstOrDefault().NombreDocument;
+                if(maxDocumentsToBorrow <= borrowedDocuments)
+                    throw new Exception("this adherent can't borrow more Documents!!");
+
                 //get cote!
                 string? cote = _db.Exemplaires.FirstOrDefault(e => e.IdExemplaire.ToUpper() == idExemplaire.ToUpper()).Cote;
+                //test double borrow
+                bool isCurrentlyBorrowedbyHim = _db.Prets
+                                .Join(_db.Exemplaires,
+                                    pret => pret.IdExemplaire,
+                                    exemplaire => exemplaire.IdExemplaire,
+                                    (pret, exemplaire) => new { Pret = pret, Exemplaire = exemplaire })
+                                .Any(join => join.Pret.IdAdherent.ToUpper() == IdAdherent.ToUpper() && join.Exemplaire.Cote.ToUpper() == cote.ToUpper());
+                if (isCurrentlyBorrowedbyHim)
+                    throw new Exception("can't borrow the same Document !!");
 
                 ////change status of exemple to 2 (Prêté)
                 //_db.Exemplaires.FirstOrDefault(e => e.IdExemplaire.ToUpper() == idExemplaire.ToUpper()).IdEtat = 2;
