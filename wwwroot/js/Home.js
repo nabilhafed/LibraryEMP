@@ -6,9 +6,9 @@ $("document").ready(function () {
 
         event.preventDefault();
 
-        if ($(this).attr("href") in pageHistory) {
-            $("#Page-content").html(pageHistory[$(this).attr("href")]);
-        } else {
+        //if ($(this).attr("href") in pageHistory) {
+        //    $("#Page-content").html(pageHistory[$(this).attr("href")]);
+        //} else {
             let that = this;
             $.get($(this).data('request-url'), { page: $(this).attr("href") },
                 function (response) {
@@ -16,7 +16,7 @@ $("document").ready(function () {
                     $("#Page-content").html(response);
                 }
             );
-        }
+        //}
 
         //left nav switch effect
         $(".active").attr("class", "nav-link link-dark");
@@ -79,9 +79,9 @@ $("document").ready(function () {
     // on page develepment phase !! , please remove it later 
     $("#Page-content").removeClass("disabled");
     $("#pageContentAlert").remove();
-    //$.get("/Home/pageManager", { page: "gestion_de_documents" },
-    //    function (response) {
-    //        $("#Page-content").html(response);
-    //    }
-    //);
+    $.get("/Home/pageManager", { page: "gestion_des_adherents" },
+        function (response) {
+            $("#Page-content").html(response);
+        }
+    );
 });

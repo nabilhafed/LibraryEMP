@@ -7,6 +7,8 @@
 .w-80p {
     width: 80px !important;
 }
+
+
 .border-title {
     position: absolute;
     top: -15px;
@@ -20,3 +22,9 @@
     flex-grow: unset !important;
     flex-basis: content !important;
 }
+.pencil {
+    width: 30px;
+    height: 30px;
+    transform: translate(50%, -50%);
+}
+
