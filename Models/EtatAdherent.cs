@@ -5,7 +5,7 @@ namespace LibraryEMP.Models;
 
 public partial class EtatAdherent
 {
-    public bool IdEtat { get; set; }
+    public int IdEtat { get; set; }
 
     public string? DescEtat { get; set; }
 }

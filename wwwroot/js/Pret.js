@@ -57,13 +57,13 @@ $("#getUserIDButton").on('input',function () {
                 $("#adherentPrenameInput").val(data.prenom);
                 switch(data.etatAdherent){
                     //Pénalisé
-                    case 1 :  
+                    case 2 :  
                         $("#adherentStateAlert").find("p").text("La personne est en état de Pénalisé à la bibliothèque. Emprunt impossible pour le moment."); 
                         $("#adherentStateAlert").addClass("alert-danger");
                         restUserPartHalf();
                     break;
                     //En règle
-                    case 2 :  
+                    case 1 :  
                         let documentToborrow = data.documentsAuthorized - data.documentsOnborrow;
                         // in case cant borrow more books !!!
                         if ( documentToborrow <= 0 ){
