@@ -1,72 +1,88 @@
-﻿ 
+﻿@{
+    var currentController = "AutreParametreController";
+}
 <link rel="stylesheet" href="~/css/AutreParamètre.css" />
+<link rel="stylesheet" href="~/lib/bootstrap-table/dist/bootstrap-table.min.css" />
+
 <div class="d-flex bd-highlight">
     <div class="p-2 flex-fill bd-highlight  position-relative shadow-sm h-100 border rounded m-3 d-flex flex-row div1 ">
         <h5 class="border-title">Jours fériés</h5>
 
-        <div class="d-flex flex-column py-3 justify-content-around w-75 divFerie">
-            <table class="table table-striped">
+        <div class="d-flex flex-column py-3 justify-content-around w-80 divFerie">
 
-                <thead class="">
-                    <tr>
-                        <th scope="col">Date de jour ferier</th>
-                
-                        <!-- Ajoutez autant de colonnes que nécessaire -->
-                    </tr>
-                </thead>
-                <tbody id="JourFeries">
-                    <tr>
-                        <td>Donnée 1</td>
-                   
-                        <!-- Ajoutez autant de cellules que nécessaire pour chaque ligne de données -->
-                    </tr>
-                    <tr>
-                        <td>Donnée 1</td>
-                      
+           
 
-                        <!-- Ajoutez autant de cellules que nécessaire pour chaque ligne de données -->
-                    </tr>
-                    <!-- Ajoutez autant de lignes de données que nécessaire -->
-                </tbody>
-            </table>
+            <div class=" px-4 w-100 h-100">
+                <div id="fixed-table-toolbarFeries" class="btn-group">
+                    <div class="float-left search m-0">
+                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addAdherentModal">
+                            <i class="fa-solid fa-user-plus me-2"></i>
+                            Ajouter
+                        </button>
+                    </div>
+                </div>
 
+               
+
+                @* data-side-pagination="server" *@
+                <table id="adherentTable"
+                       data-locale="fr-FR"
+                       data-toggle="table"
+                       data-pagination="true"
+                       data-toolbar="#fixed-table-toolbarFeries"
+                       data-url="@Url.Action("getJouresFeries", currentController)"
+                       data-page-size="11"
+                       data-pagination-parts="['pageInfo', 'pageList']"
+                       data-loading-template="loadingTemplate"
+                       data-search="true">
+
+
+                    <thead>
+                        <tr>
+                            <th data-field="dateJourFeries" data-sortable="true" data-width="15" data-width-unit="%">Date de jour ferier</th>
+                            <th data-width="23" data-width-unit="%" data-formatter="operateFormatter" data-events="operateEvents">Operation</th>
+
+                        </tr>
+                    </thead>
+                </table>
+
+
+            </div>
         </div>
 
 
-    </div>
+	</div>
+
     <div class="p-2 flex-fill bd-highlight  position-relative shadow-sm h-100 border rounded m-3 d-flex flex-row div2">
         <h5 class="border-title">Table Pénalités</h5>
 
-        <div class="d-flex flex-column py-3 justify-content-around w-75 divPenalite">
-            <table class="table table-striped">
+        <div class="d-flex flex-column py-3 justify-content-around w-80 divPenalite h-100">
+            <div class=" px-4 w-100 h-100">
 
-                <thead  >
-                    <tr>
-                        <th scope="col">ID_Catégorie</th>
-                        <th scope="col">Jours Retard</th>
-                        <th scope="col">Nombre jours Retard</th>
-                      
-                        <!-- Ajoutez autant de colonnes que nécessaire -->
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Donnée 1</td>
-                        <td>Donnée 2</td>
-                        <td>Donnée 3</td>
-           
-                        <!-- Ajoutez autant de cellules que nécessaire pour chaque ligne de données -->
-                    </tr>
-                    <tr>
-                        <td>Donnée 1</td>
-                        <td>Donnée 2</td>
-                        <td>Donnée 3</td>
+                @* data-side-pagination="server" *@
+                <table id="adherentTable"
+                       data-locale="fr-FR"
+                       data-toggle="table"
+                       data-pagination="true"
+                       data-toolbar="#fixed-table-toolbar"
+                       data-url="@Url.Action("getPenalite", currentController)"
+                       data-page-size="9"
+                       data-pagination-parts="['pageInfo', 'pageList']"
+                       data-loading-template="loadingTemplate"
+                       data-search="true">
 
-                        <!-- Ajoutez autant de cellules que nécessaire pour chaque ligne de données -->
-                    </tr>
-                    <!-- Ajoutez autant de lignes de données que nécessaire -->
-                </tbody>
-            </table>
+
+                    <thead>
+                        <tr>
+                            <th data-field="id_Catégorie" data-sortable="true" data-width="10" data-width-unit="%">ID_Catégorie</th>
+                            <th data-field="joursRetard" data-sortable="true" data-width="10" data-width-unit="%">Jours Retard</th>
+                            <th data-field="nombreJourRetard" data-sortable="true" data-width="10" data-width-unit="%">Nombre jours Retard</th>
+                        </tr>
+                    </thead>
+                </table>
+
+
+            </div>
             <div class="d-grid gap-2 col-6 mx-auto">
                 <button class="btn btn-primary" type="button">Appliquer</button>
             </div>
@@ -75,3 +91,9 @@
 
     </div>
 </div>
+
+
+
+<script src="/js/AutreParametre.js"></script>
+<script src="~/lib/bootstrap-table/dist/bootstrap-table.min.js"></script>
+<script src="~/lib/bootstrap-table/dist/bootstrap-table-locale-all.min.js"></script>

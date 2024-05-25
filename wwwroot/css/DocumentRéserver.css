@@ -1,4 +1,17 @@
-﻿.border-title {
+﻿.w-120p {
+    width: 120px !important;
+}
+
+.w-100p {
+    width: 100px !important;
+}
+
+.w-80p {
+    width: 80px !important;
+}
+
+
+.border-title {
     position: absolute;
     top: -15px;
     left: 20px;
@@ -7,34 +20,14 @@
     /* Match with the background color of your page */
     padding: 0 10px;
 }
-.divDocReserve {
-    margin-left: auto;
-    margin-right: auto;
-}
- 
 
-table {
-    table-layout: fixed;
-    width: 100%;
+.simple_select {
+    flex-grow: unset !important;
+    flex-basis: content !important;
 }
 
-th, td {
-    word-wrap: break-word;
-    white-space: nowrap;
+.pencil {
+    width: 30px;
+    height: 30px;
+    transform: translate(50%, -50%);
 }
-
-    th:nth-child(1) {
-        width: 15%;
-    }
-
-    th:nth-child(2) {
-        width: 25%;
-    }
-
-    th:nth-child(3) {
-        width: 30%;
-    }
-
-    th:nth-child(4) {
-        width: 30%;
-    }

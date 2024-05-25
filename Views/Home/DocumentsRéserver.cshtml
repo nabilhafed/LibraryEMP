@@ -2,6 +2,37 @@
     var currentController = "DocumentReserverController";
 }
 <link rel="stylesheet" href="~/css/DocumentRéserver.css" />
+<link rel="stylesheet" href="~/lib/bootstrap-table/dist/bootstrap-table.min.css" />
+
+<div class=" px-4 w-100 h-100">
+    @* data-side-pagination="server" *@
+    <table id="adherentTable"
+           data-locale="fr-FR"
+           data-toggle="table"
+           data-pagination="true"
+           data-toolbar="#fixed-table-toolbar"
+           data-url="@Url.Action("GetReservationTriByIdAdherent", currentController)"
+           data-page-size="11"
+           data-pagination-parts="['pageInfo', 'pageList']"
+           data-loading-template="loadingTemplate"
+           data-search="true">
+
+
+        <thead>
+            <tr>
+                <th data-field="idAdherent" data-sortable="true" data-width="10" data-width-unit="%">ID</th>
+                <th data-field="nom" data-sortable="true" data-width="15" data-width-unit="%">Nom</th>
+                <th data-field="prenom" data-sortable="true" data-width="15" data-width-unit="%">Prenom</th>
+                <th data-field="cote" data-sortable="true" data-width="10" data-width-unit="%">Cote</th>
+                <th data-field="heureReservation" data-sortable="true" data-width="20" data-width-unit="%">Heur de réservation</th>
+            </tr>
+        </thead>
+    </table>
+
+
+</div>
+<!--
+
 <div class="d-flex flex-column">
     <div class="position-relative shadow-sm h-100 border rounded m-3 d-flex flex-row">
         <h5 class="border-title">Liste des documents réservés</h5>
@@ -15,7 +46,7 @@
                         <th scope="col">Nome & Prénom</th>
                         <th scope="col">Cote</th>
                         <th scope="col" >Heur de réservation</th>
-                        <!-- Ajoutez autant de colonnes que nécessaire -->
+                        
                     </tr>
                 </thead>
                 <tbody id="ReservationListe">
@@ -25,10 +56,9 @@
                         <td> --- </td>
                         <td> --- </td>
 
-                        <!-- Ajoutez autant de cellules que nécessaire pour chaque ligne de données -->
+                      
                     </tr>
-                    <!-- Ajoutez autant de lignes de données que nécessaire -->
-                </tbody>
+                                    </tbody>
             </table>
             <div class="d-flex justify-content-center buttons">
                 <button type="button" class="btn btn-primary mx-2" data-bs-toggle="button" autocomplete="off" id="TriAdherentButton" data-request-url="@Url.Action("GetReservationTriByIdAdherent", currentController)">Trier par Adhérent</button>
@@ -40,5 +70,8 @@
 
 
     </div>
-</div>
-<script src="~/js/DocumentRéserver.js?v=1"></script>
+     
+</div> 
+-->
+<script src="~/lib/bootstrap-table/dist/bootstrap-table.min.js"></script>
+<script src="~/lib/bootstrap-table/dist/bootstrap-table-locale-all.min.js"></script>

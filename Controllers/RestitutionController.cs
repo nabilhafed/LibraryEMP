@@ -147,15 +147,7 @@ namespace LibraryEMP.Controllers
                 _db.Prets.Remove(pret);
             }
 
-             pret = new Pret
-            {
-                IdAdherent = IdAdherent,
-                IdExemplaire = IdExemplaire,
-                DatePret = DateTime.Now ,
-                EtatDuree = "F"
-            };
-
-            _db.Prets.Add(pret);
+            ValiderRenouvellement(IdExemplaire, DateTime.Now, IdAdherent);
 
             _db.SaveChanges();
 
@@ -219,6 +211,95 @@ namespace LibraryEMP.Controllers
             _db.SaveChanges();
         }
 
+
+        public void ValiderRenouvellement(string ExemplaireDisponible, DateTime dateRetour,string IdAdherent)
+        {
+            var cote = _db.Exemplaires
+                .Where(p => p.IdExemplaire.ToUpper() == ExemplaireDisponible.ToUpper())
+                .Select(p => p.Cote).FirstOrDefault();
+            // Convertir la cote et l'exemplaire en majuscules
+            cote = cote.ToUpper();
+            ExemplaireDisponible = ExemplaireDisponible.ToUpper();
+
+            // Récupérer le nombre de réservations pour la cote
+            int nbrReservations = _db.Reservations
+                .Count(r => r.Cote.ToUpper() == cote);
+
+            // Récupérer le nombre de prêts pour la cote et l'utilisateur spécifique
+            string idAdherent = "99/999";
+            int nbrPretReservations = _db.Prets
+                .Count(p => p.IdExemplaire.ToUpper().StartsWith(cote + "/") && p.IdAdherent == idAdherent);
+
+            if (nbrReservations > 0)
+            {
+                if (nbrPretReservations < nbrReservations)
+                {
+                    // Insérer un nouveau prêt
+                    var pret = new Pret
+                    {
+                        IdAdherent = idAdherent,
+                        IdExemplaire = ExemplaireDisponible,
+                        DatePret = dateRetour,
+                        EtatDuree = "F"
+                    };
+                    _db.Prets.Add(pret);
+
+                    // Mettre à jour l'état de l'exemplaire
+                    var exemplaire = _db.Exemplaires
+                        .FirstOrDefault(e => e.IdExemplaire.ToUpper() == ExemplaireDisponible);
+                    if (exemplaire != null)
+                    {
+                        exemplaire.IdEtat = 2;
+                    }
+                }
+                else
+                {
+                    if (!AdherentPénalilser(IdAdherent)) // la'dherent n'est pas pénalisé
+                    {
+                        var pret = new Pret
+                        {
+                            IdAdherent = IdAdherent,
+                            IdExemplaire = ExemplaireDisponible,
+                            DatePret = DateTime.Now,
+                            EtatDuree = "F"
+                        };
+
+                        _db.Prets.Add(pret);
+                    }
+                   
+
+                }
+            }
+            else
+            {
+                // Mettre à jour l'état de l'exemplaire si aucune réservation n'est en cours
+                var exemplaire = _db.Exemplaires
+                    .FirstOrDefault(e => e.IdExemplaire.ToUpper() == ExemplaireDisponible);
+                if (exemplaire != null)
+                {
+                    exemplaire.IdEtat = 1;
+                }
+            }
+
+            // Enregistrer les changements dans la base de données
+            _db.SaveChanges();
+        }
+
+        public Boolean AdherentPénalilser(string IdAherent)
+        {
+            var etatAdherent = _db.Adherents
+                 .Where(p => p.IdAdherent.ToUpper() == IdAherent.ToUpper())
+                 .Select(p => p.EtatAdherent).FirstOrDefault();
+
+            if(etatAdherent != null)
+            {
+                if (etatAdherent == 2)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
 
 
     }

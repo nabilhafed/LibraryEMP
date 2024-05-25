@@ -1,4 +1,43 @@
-﻿$("#UserID").on('input', function () {
+﻿function ViderLesInputes() {
+
+    $("#UserID").val('');
+    $("#SelectExemplaire").empty();
+    $("#NameAdherent").val('');
+    $("#FamillyNameAdherent").val('');
+    $("#DatePretRoure").addClass("disabled");
+    $("#ExemplaireChoses").addClass("disabled");
+    $("#etatAdherent").removeClass("alert-danger").removeClass("alert-warning").addClass("alert-info");
+    $("#etatAdherent").find("p").text("Attend qeulque minute pour le traitement");
+    $("#RenouvellementButton").prop("disabled", false);
+    $("#ButtonChoses").addClass("disabled");
+    $("#ProperTitle").find("textarea").text('');
+    $("#PretData").val('');
+    $("#ReturnDate").val('');
+    $("SelectExemplaire").prop("disabled", false);
+}
+
+function ViderLesInputesSansButton() {
+
+    $("#SelectExemplaire").empty();
+    $("#NameAdherent").val('');
+    $("#FamillyNameAdherent").val('');
+    $("#DatePretRoure").addClass("disabled");
+    $("#ExemplaireChoses").addClass("disabled");
+    $("#etatAdherent").removeClass("alert-danger").removeClass("alert-warning").addClass("alert-info");
+    $("#etatAdherent").find("p").text("Attend qeulque minute pour le traitement");
+    $("#RenouvellementButton").prop("disabled", false);
+    $("#ButtonChoses").addClass("disabled");
+    $("#ProperTitle").find("textarea").text('');
+    $("#PretData").val('');
+    $("#ReturnDate").val('');
+    $("SelectExemplaire").prop("disabled", false);
+}
+
+$("#UserID").on('input', function () {
+
+   
+    ViderLesInputesSansButton();
+
     var userId = $(this).val();
 
     if (userId === '') return;
@@ -43,14 +82,17 @@
                         for (const exemplaire of data.exemplaires) {
                             var option = $('<option>', {
                                 value: exemplaire.idExemplaire,
-                                text: exemplaire.idExemplaire
+                                text: exemplaire.idExemplaire 
                             });
 
                             $("#SelectExemplaire").append(option);
                         }
+                        if (data.exemplaires.length == 1) {
+                            $("#SelectExemplaire").trigger('change');
+                        }
                     }
                     else {
-                        $("#etatAdherent").removeClass("alert-info").addClass("alert-warning");
+                        $("#etatAdherent").removeClass("alert-danger").addClass("alert-warning");
                         $("#etatAdherent").find("p").text("L'adhérent ne possède aucun exemplaire pour la restitution.");
                     }
 
@@ -109,20 +151,7 @@ $("#RetourButton").on('click', function () {
             alert("Exemplaire returned successfully!");
 
             // Optionally, you can reset some form fields or update the UI
-            $("#UserID").val('');
-            $("#SelectExemplaire").empty();
-            $("#NameAdherent").val('');
-            $("#FamillyNameAdherent").val('');
-            $("#DatePretRoure").addClass("disabled");
-            $("#ExemplaireChoses").addClass("disabled");
-            $("#etatAdherent").removeClass("alert-danger").addClass("alert-info");
-            $("#etatAdherent").find("p").text("Attend qeulque minute pour le traitement");
-            $("#RenouvellementButton").prop("disabled", false);
-            $("#ButtonChoses").addClass("disabled");
-            $("#ProperTitle").find("textarea").text('');
-            $("#PretData").val('');
-            $("#ReturnDate").val('');
-
+            ViderLesInputes();
 
         })
         .fail(function (error) {
@@ -152,19 +181,7 @@ $("#RenouvellementButton").on('click', function () {
             alert("Exemplaire returned successfully!");
 
             // Optionally, you can reset some form fields or update the UI
-            $("#UserID").val('');
-            $("#SelectExemplaire").empty();
-            $("#NameAdherent").val('');
-            $("#FamillyNameAdherent").val('');
-            $("#DatePretRoure").addClass("disabled");
-            $("#ExemplaireChoses").addClass("disabled");
-            $("#etatAdherent").removeClass("alert-danger").addClass("alert-info");
-            $("#etatAdherent").find("p").text("Attend qeulque minute pour le traitement");
-            $("#RenouvellementButton").prop("disabled", false);
-            $("#ButtonChoses").addClass("disabled");
-            $("#ProperTitle").find("textarea").text('');
-            $("#PretData").val('');
-            $("#ReturnDate").val('');
+            ViderLesInputes();
 
 
         })
@@ -175,6 +192,5 @@ $("#RenouvellementButton").on('click', function () {
             alert("Error occurred while returning the exemplaire. Please try again.");
         });
 });
-
 
 
