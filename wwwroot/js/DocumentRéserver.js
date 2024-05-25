@@ -1,8 +1,12 @@
-﻿$("#TriAdherentButton").on('click', function () {
+﻿
+
+
+
+/*$("#TriAdherentButton").on('click', function () {
     $.get($(this).data('request-url'), {})
         .done(function (data) {
             $("#ReservationListe").empty();
-            console.log(data);
+          
             for (const element of data) {
                 var row = '<tr>' +
                     '<td>' + element.idAdherent + '</td>' +
@@ -25,7 +29,7 @@ $("#TriCoteButton").on('click', function () {
     $.get($(this).data('request-url'), {})
         .done(function (data) {
             $("#ReservationListe").empty();
-            console.log(data);
+      
             for (const element of data) {
                 var row = '<tr>' +
                     '<td>' + element.idAdherent + '</td>' +
@@ -48,7 +52,7 @@ $("#TriHeureButton").on('click', function () {
     $.get($(this).data('request-url'), {})
         .done(function (data) {
             $("#ReservationListe").empty();
-            console.log(data);
+      
             for (const element of data) {
                 var row = '<tr>' +
                     '<td>' + element.idAdherent + '</td>' +
@@ -68,4 +72,4 @@ $("#TriHeureButton").on('click', function () {
         });
 });
 
-$("#TriAdherentButton").click();
+$("#TriAdherentButton").click();*/

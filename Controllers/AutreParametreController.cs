@@ -28,5 +28,24 @@ namespace LibraryEMP.Controllers
 
             return dateJourFeries;
         }
+        [HttpGet]
+        [Route("getPenalite")]
+
+        public dynamic? getPenalite()
+        {
+
+            var dateJourFeries = _db.Penalites
+                .Select(p => new
+                {
+                    id_Catégorie     = p.IdCategorie ,
+                    joursRetard      = p.JoursRetard ,
+                    nombreJourRetard = p.NombreJoursRetard
+                })
+                .ToList();
+
+            return dateJourFeries;
+        }
+
+
     }
 }

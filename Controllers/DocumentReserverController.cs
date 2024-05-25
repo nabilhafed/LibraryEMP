@@ -19,7 +19,7 @@ namespace LibraryEMP.Controllers
 
         public dynamic GetReservationTriByIdAdherent()
         {
-            var documentsRéserver = _db.Reservations
+ 			var documentsRéserver = _db.Reservations
                 .Select(p => new
                 {
                     IdAdherent = p.IdAdherent,
@@ -55,6 +55,7 @@ namespace LibraryEMP.Controllers
 
             return result;
         }
+        /*
         [HttpGet]
         [Route("GetReservationTriByIdCote")]
 
@@ -137,5 +138,6 @@ namespace LibraryEMP.Controllers
 
             return result;
         }
+        */
     }
 }
