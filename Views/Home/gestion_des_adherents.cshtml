@@ -7,42 +7,91 @@
 
 
 <div class=" px-4 w-100 h-100">
-    <div id="fixed-table-toolbar" class="btn-group">
-        <div class="float-left search m-0">
+    <div class="d-flex py-2 justify-content-between">
             <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addAdherentModal">
                 <i class="fa-solid fa-user-plus me-2"></i>
                 Ajouter Adherent
             </button>
-        </div>
+            <div class="input-group w-25">
+                <input type="text" class="form-control" placeholder="Search" id="searchInput">
+                <span class="input-group-text"><i class="fa-solid fa-magnifying-glass"></i></span>
+            </div>
     </div>
     @* data-side-pagination="server" *@
     <table id="adherentTable"
            data-locale="fr-FR"
            data-toggle="table"
            data-pagination="true"
-           data-toolbar="#fixed-table-toolbar"
            data-url="@Url.Action("getAdherents", currentController)"
            data-page-size="11"
            data-pagination-parts="['pageInfo', 'pageList']"
            data-loading-template="loadingTemplate"
-
+           data-search-selector="#searchInput"
            data-search="true">
 
 
         <thead>
             <tr>
                 <th data-field="idAdherent"     data-sortable="true" data-width="10" data-width-unit="%">ID</th>
-                <th data-field="nom"            data-sortable="true" data-width="25" data-width-unit="%">Nom</th>
-                <th data-field="prenom"         data-sortable="true" data-width="25" data-width-unit="%">Prenom</th>
-                <th data-field="idPosition"     data-sortable="true" data-width="10" data-width-unit="%">Position</th>
-                <th data-field="idCategorie"    data-sortable="true" data-width="10" data-width-unit="%">Categorie</th>
-                <th data-field="etatAdherent"   data-sortable="true" data-width="10" data-width-unit="%">Etat</th>
+                <th data-field="nom"            data-sortable="true" data-width="20" data-width-unit="%">Nom</th>
+                <th data-field="prenom"         data-sortable="true" data-width="20" data-width-unit="%">Prenom</th>
+                <th data-field="position"       data-sortable="true" data-width="15" data-width-unit="%">Position</th>
+                <th data-field="categorie"      data-sortable="true" data-width="15" data-width-unit="%">Categorie</th>
+                <th data-field="etat"           data-sortable="true" data-width="10" data-width-unit="%">Etat</th>
                 <th data-width="10" data-width-unit="%" data-formatter="operateFormatter" data-events="operateEvents">Operation</th>
             </tr>
         </thead>
     </table>
 
 
+</div>
+
+<input type="hidden" id="getInformation" value="@Url.Action("getInformation", currentController)" />
+
+
+
+<div class="modal fade" id="deleteConfirmation">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">confirmation</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>êtes-vous sûr de vouloir supprimer l'utilisateur avec ID =  <strong id="deleteConfirmationID"></strong></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                <button type="button" class="btn btn-primary" id="deleteConfirmationButton" data-url="@Url.Action("deleteAdherent", currentController)">supprimer</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="position-fixed top-0 end-0 p-3" style="z-index: 1">
+    <div id="deleteAdherentSuccessToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header bg-success text-white">
+            <strong class="me-auto">Notification</strong>
+            <small>just now</small>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+            supprimer Adherent sous-performer avec succès.
+        </div>
+    </div>
+</div>
+
+<div class="position-fixed top-0 end-0 p-3" style="z-index: 1">
+    <div id="deleteAdherentFaildToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header bg-danger text-white">
+            <strong class="me-auto">Notification</strong>
+            <small>just now</small>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+            supprimer Adherent dépasser sans succès.
+        </div>
+    </div>
 </div>
 
 
@@ -62,47 +111,36 @@
                     </div>
                     <div>
                         <div class="input-group my-3">
-                            <span class="input-group-text w-120p" id="basic-addon1">UserID</span>
-                            <input type="text" class="form-control" placeholder="Username" aria-label="Username">
+                            <span class="input-group-text w-100p">UserID</span>
+                            <input id="addUserID" data-url="@Url.Action("isIDAvailable", currentController)" type="text" class="form-control" placeholder="Username" aria-label="Username">
+                            <span class="input-group-text"><i class="fa-solid fa-pen"></i></span>
                         </div>
                         <div class="row">
                             <div class="col">
-                                <div class="input-group mb-3">
+                                <div class="input-group mb-2">
                                     <span class="input-group-text w-100p">Name</span>
-                                    <input type="text" class="form-control" disabled placeholder="Username">
+                                    <input id="addName"  type="text" class="form-control" disabled placeholder="Username">
+                                    <span class="input-group-text"><i class="fa-solid fa-pen"></i></span>
+                                </div>
+                                <div class="input-group mb-2"> 
                                     <span class="input-group-text w-100p">prename</span>
-                                    <input type="text" class="form-control" disabled placeholder="prename">
+                                    <input id="addPrename"  type="text" class="form-control" disabled placeholder="prename">
+                                    <span class="input-group-text"><i class="fa-solid fa-pen"></i></span>
                                 </div>
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="col w-50">
-                                <div class="input-group mt-3">
-                                    <label class="input-group-text w-100p" for="inputGroupSelect01">position</label>
-                                    <select class="form-select" disabled id="inputGroupSelect01">
-                                        <option selected></option>
-                                        <option value="1">One</option>
-                                        <option value="2">Two</option>
-                                        <option value="3">Three</option>
-                                    </select>
-
-                                    <label class="input-group-text w-100p" for="inputGroupSelect01">Catégorie</label>
-                                    <select class="form-select" disabled id="inputGroupSelect01">
-                                        <option selected></option>
-                                        <option value="1">One</option>
-                                        <option value="2">Two</option>
-                                        <option value="3">Three</option>
+                                <div class="input-group mt-2">
+                                    <label class="input-group-text w-120p" for="inputGroupSelect01">position</label>
+                                    <select id="addPos" class="form-select" disabled id="inputGroupSelect01">
                                     </select>
                                 </div>
 
-                                <div class="input-group mt-3">
-                                    <label class="input-group-text w-120p" for="inputGroupSelect01">etat adhérent</label>
-                                    <select class="form-select" disabled id="inputGroupSelect01">
-                                        <option selected></option>
-                                        <option value="1">One</option>
-                                        <option value="2">Two</option>
-                                        <option value="3">Three</option>
+                                <div class="input-group mt-2">
+                                    <label class="input-group-text w-120p" for="inputGroupSelect01">Catégorie</label>
+                                    <select id="addCat" class="form-select" disabled id="inputGroupSelect01">
                                     </select>
                                 </div>
                             </div>
@@ -112,9 +150,35 @@
             </div>
             <div class="modal-footer ">
                 <div class="col d-flex flex-row justify-content-end">
-                    <button class="btn btn-primary" type="button" disabled>Create</button>
+                    <button id="addAdherentButton" data-url="@Url.Action("addAdherent", currentController)" class="btn btn-primary" type="button" disabled>Create</button>
                 </div>
             </div>
+        </div>
+    </div>
+</div>
+
+<div class="position-fixed top-0 end-0 p-3" style="z-index: 1">
+    <div id="addAdherentSuccessToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header bg-success text-white">
+            <strong class="me-auto">Notification</strong>
+            <small>just now</small>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+            Créer un nouveau Adherent sous-performer avec succès.
+        </div>
+    </div>
+</div>
+
+<div class="position-fixed top-0 end-0 p-3" style="z-index: 1">
+    <div id="addAdherentFaildToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header bg-danger text-white">
+            <strong class="me-auto">Notification</strong>
+            <small>just now</small>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+            Créer un nouveau Adherent dépasser sans succès.
         </div>
     </div>
 </div>
@@ -136,48 +200,39 @@
                     </div>
                     <div>
                         <div class="input-group my-3">
-                            <span class="input-group-text w-120p" id="basic-addon1">UserID</span>
-                            <input type="text" class="form-control" placeholder="Username" aria-label="Username">
+                            <span class="input-group-text w-100p">UserID</span>
+                            <input id="modifiedUserID" data-url="@Url.Action("isIDAvailable", currentController)" type="text" class="form-control" placeholder="Username" aria-label="Username">
+                            <span class="input-group-text"><i class="fa-solid fa-check text-success"></i></span>
                         </div>
                         <div class="row">
                             <div class="col">
-                                <div class="input-group mb-3">
+                                <div class="input-group mb-2">
                                     <span class="input-group-text w-100p">Name</span>
-                                    <input type="text" class="form-control" disabled placeholder="Username">
+                                    <input id="modifiedName" type="text" class="form-control" placeholder="Username">
+                                    <span class="input-group-text"><i class="fa-solid fa-check text-success"></i></span>
+                                </div>
+                                <div class="input-group mb-2">
                                     <span class="input-group-text w-100p">prename</span>
-                                    <input type="text" class="form-control" disabled placeholder="prename">
+                                    <input id="modifiedPrename" type="text" class="form-control" placeholder="prename">
+                                    <span class="input-group-text"><i class="fa-solid fa-check text-success"></i></span>
                                 </div>
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="col w-50">
-                                <div class="input-group mt-3">
-                                    <label class="input-group-text w-100p" for="inputGroupSelect01">position</label>
-                                    <select class="form-select" disabled id="inputGroupSelect01">
-                                        <option selected></option>
-                                        <option value="1">One</option>
-                                        <option value="2">Two</option>
-                                        <option value="3">Three</option>
+                                <div class="input-group mt-2">
+                                    <label class="input-group-text w-120p" for="modifiedPos">position</label>
+                                    <select id="modifiedPos" class="form-select">
                                     </select>
-
-                                    <label class="input-group-text w-100p" for="inputGroupSelect01">Catégorie</label>
-                                    <select class="form-select" disabled id="inputGroupSelect01">
-                                        <option selected></option>
-                                        <option value="1">One</option>
-                                        <option value="2">Two</option>
-                                        <option value="3">Three</option>
-                                    </select>
+                                    <span class="input-group-text"><i class="fa-solid fa-check text-success"></i></span>
                                 </div>
 
-                                <div class="input-group mt-3">
-                                    <label class="input-group-text w-120p" for="inputGroupSelect01">etat adhérent</label>
-                                    <select class="form-select" disabled id="inputGroupSelect01">
-                                        <option selected></option>
-                                        <option value="1">One</option>
-                                        <option value="2">Two</option>
-                                        <option value="3">Three</option>
+                                <div class="input-group mt-2">
+                                    <label class="input-group-text w-120p" for="modifiedCat">Catégorie</label>
+                                    <select id="modifiedCat" class="form-select">
                                     </select>
+                                    <span class="input-group-text"><i class="fa-solid fa-check text-success"></i></span>
                                 </div>
                             </div>
                         </div>
@@ -186,9 +241,35 @@
             </div>
             <div class="modal-footer ">
                 <div class="col d-flex flex-row justify-content-end">
-                    <button class="btn btn-primary" type="button" disabled>Save Changes</button>
+                    <button id="modifiedAdherentModalButton" data-url="@Url.Action("modifiedAdherent", currentController)" class="btn btn-primary" type="button" disabled>Save Changes</button>
                 </div>
             </div>
+        </div>
+    </div>
+</div>
+
+<div class="position-fixed top-0 end-0 p-3" style="z-index: 1">
+    <div id="modifiedAdherentSuccessToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header bg-success text-white">
+            <strong class="me-auto">Notification</strong>
+            <small>just now</small>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+            modifié Adherent sous-performer avec succès.
+        </div>
+    </div>
+</div>
+
+<div class="position-fixed top-0 end-0 p-3" style="z-index: 1">
+    <div id="modifiedAdherentFaildToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header bg-danger text-white">
+            <strong class="me-auto">Notification</strong>
+            <small>just now</small>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+            modifié Adherent dépasser sans succès.
         </div>
     </div>
 </div>
