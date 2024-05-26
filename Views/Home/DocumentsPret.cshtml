@@ -1,0 +1,41 @@
+﻿@{
+    var currentController = "DocumentPretController";
+}
+<link rel="stylesheet" href="~/css/DocumentPret.css" />
+<link rel="stylesheet" href="~/lib/bootstrap-table/dist/bootstrap-table.min.css" />
+<div class="d-flex bd-highlight">
+    <div class="p-2 flex-fill bd-highlight  position-relative shadow-sm h-100 border rounded m-3 d-flex flex-row div1 ">
+        <h5 class="border-title">Liste des documents pret</h5>
+            <div class="d-flex flex-column py-3 justify-content-around w-100 h-100 ">
+                <div class=" px-4 w-100 h-100">
+                    @* data-side-pagination="server" *@
+                    <table id="pretTable"
+                           data-locale="fr-FR"
+                           data-toggle="table"
+                           data-pagination="true"
+                           data-toolbar="#fixed-table-toolbar"
+                           data-url="@Url.Action("getPret", currentController)"
+                           data-page-size="11"
+                           data-pagination-parts="['pageInfo', 'pageList']"
+                           data-loading-template="loadingTemplate"
+                           data-search="true">
+
+
+                        <thead>
+                            <tr>
+                                <th data-field="idAdherent" data-sortable="true" data-width="10" data-width-unit="%">ID Adherent</th>
+                                <th data-field="idExemplaire" data-sortable="true" data-width="15" data-width-unit="%">ID Exemplaire</th>
+                                <th data-field="datePret" data-sortable="true" data-width="15" data-width-unit="%">Date de Pret</th>
+                                <th data-field="etatDate" data-sortable="true" data-width="10" data-width-unit="%">Etat Dure</th>
+                            </tr>
+                        </thead>
+                    </table>
+
+
+                </div>
+            </div>
+    </div>
+</div>
+ 
+<script src="~/lib/bootstrap-table/dist/bootstrap-table.min.js"></script>
+<script src="~/lib/bootstrap-table/dist/bootstrap-table-locale-all.min.js"></script>
