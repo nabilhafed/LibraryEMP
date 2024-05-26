@@ -79,7 +79,7 @@ $("document").ready(function () {
     // on page develepment phase !! , please remove it later 
     $("#Page-content").removeClass("disabled");
     $("#pageContentAlert").remove();
-    $.get("/Home/pageManager", { page: "gestion_des_adherents" },
+    $.get("/Home/pageManager", { page: "gestion_de_documents" },
         function (response) {
             $("#Page-content").html(response);
         }

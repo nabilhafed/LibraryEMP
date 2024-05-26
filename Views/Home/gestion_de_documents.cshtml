@@ -1,124 +1,140 @@
 ﻿@{
+    ViewData["Title"] = "gestion de documents";
+    var currentController = "GDDController";
 }
 <link rel="stylesheet" href="~/css/gestion_de_documents.css" />
+<link rel="stylesheet" href="~/lib/bootstrap-table/dist/bootstrap-table.min.css" />
 
-<div class="d-flex flex-column h-100">
-    <div class="position-relative shadow-sm border rounded m-3 d-flex flex-row ">
-        <h5 class="border-title">Book Search</h5>
-        <div class="p-4">
-            <img width="120" height="120" src="/img/book.png" alt="" srcset="">
-        </div>
-        <div class="d-flex flex-column py-3 justify-content-center w-75">
 
-                    <div class="input-group mb-1  w-50">
-                        <span class="input-group-text" >BookID</span>
-                        <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
-                    </div>
-
-                <div class="input-group py-2 w-75">
-                    <span class="input-group-text " id="">Title</span>
-                    <input type="text" class="form-control " value="Title" readonly="">
-                </div>
-
+<div class=" px-4 w-100 h-100">
+    <div class="d-flex py-2 justify-content-between">
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addAdherentModal">
+            <i class="fa-solid fa-file-circle-plus"></i>
+            Ajouter Notice
+        </button>
+        <div class="input-group w-25">
+            <input type="text" class="form-control" placeholder="Search" id="searchInput">
+            <span class="input-group-text"><i class="fa-solid fa-magnifying-glass"></i></span>
         </div>
     </div>
-    <div class="position-relative row shadow-sm border rounded mx-3 mb-3 py-4 flex-fill">
-        <h5 class="border-title">Book Details</h5>
-        <div class="position-relative col">
-            <h5 class="text-center">prêt en cours</h5>
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">First</th>
-                        <th scope="col">Last</th>
-                        <th scope="col">Handle</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>mdo</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>fat</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td colspan="2">Larry the Bird</td>
-                        <td>twitter</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <div class="position-relative mx-3 col">
-            <h5 class="text-center">réservation en cours</h5>
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">First</th>
-                        <th scope="col">Last</th>
-                        <th scope="col">Handle</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>mdo</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>fat</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td colspan="2">Larry the Bird</td>
-                        <td>twitter</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <div class="position-relative col">
-            <h5 class="text-center">historique de prêt</h5>
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">First</th>
-                        <th scope="col">Last</th>
-                        <th scope="col">Handle</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>mdo</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>fat</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td colspan="2">Larry the Bird</td>
-                        <td>twitter</td>
-                    </tr>
-                </tbody>
-            </table>
+    @* data-side-pagination="server" *@
+    <table id="ExemplaireTable"
+           data-locale="fr-FR"
+           data-toggle="table"
+           data-pagination="true"
+           data-url="@Url.Action("getNotices", currentController)"
+           data-page-size="11"
+           data-pagination-parts="['pageInfo', 'pageList']"
+           data-loading-template="loadingTemplate"
+           data-search-selector="#searchInput"
+           data-search="true">
+
+
+        <thead>
+            <tr>
+                <th data-field="idNotice"                   data-sortable="true" data-width="25" data-width-unit="%">ID</th>
+                <th data-field="cote"                       data-sortable="true" data-width="25" data-width-unit="%">cote</th>
+                <th data-field="totalExemplaire"            data-sortable="true" data-width="10" data-width-unit="%">totalExemplaire</th>
+                <th data-field="perduNumber"                data-sortable="true" data-width="10" data-width-unit="%">perdu</th>
+                <th data-field="disponibleNumber"           data-sortable="true" data-width="10" data-width-unit="%">disponible</th>
+                <th data-field="pretNumber"                 data-sortable="true" data-width="10" data-width-unit="%">pret</th>
+                <th data-field="enCoursDeTraitementNumber"  data-sortable="true" data-width="10" data-width-unit="%">enCoursDeTraitement</th>
+                <th data-width="10" data-width-unit="%" data-formatter="operateFormatter" data-events="operateEvents">Operation</th>
+            </tr>
+        </thead>
+    </table>
+
+
+</div>
+
+
+<div class="modal fade" id="deleteConfirmation">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">confirmation</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>êtes-vous sûr de vouloir supprimer l'Notice avec ID =  <strong id="deleteConfirmationID"></strong></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                <button type="button" class="btn btn-primary" id="deleteConfirmationButton" data-url="@Url.Action("deleteExemple", currentController)">supprimer</button>
+            </div>
         </div>
     </div>
 </div>
+
+<div class="position-fixed top-0 end-0 p-3" style="z-index: 1">
+    <div id="deleteExemplaireSuccessToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header bg-success text-white">
+            <strong class="me-auto">Notification</strong>
+            <small>just now</small>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+            supprimer Exemplaire sous-performer avec succès.
+        </div>
+    </div>
+</div>
+
+<div class="position-fixed top-0 end-0 p-3" style="z-index: 1">
+    <div id="deleteExemplaireFaildToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header bg-danger text-white">
+            <strong class="me-auto">Notification</strong>
+            <small>just now</small>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+            supprimer Exemplaire dépasser sans succès.
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="viewDocumentModal">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"><i class="fa-solid fa-file-contract me-2"></i>Document View</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="d-flex flex-row">
+                    <div class="w-75  d-flex flex-row">
+                        <div class="p-5">
+                            <img width="150" height="150" src="~/img/book.png" alt="" srcset="">
+                        </div>
+                        <div class="d-flex flex-column py-3 w-100">
+
+                            <div class="input-group mb-1">
+                                <span class="input-group-text" id="inputGroup-sizing-default">DocumentCoté</span>
+                                <input id="getBookCoteButton" type="text" class="form-control" aria-label="Default" disabled>
+                            </div>
+                            <div class="input-group">
+                                <span class="input-group-text " id="">Titre</span>
+                                <input id="bookTitleInput" type="text" class="form-control " value="XXXXX" readonly>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div id="chart"></div>
+                </div>
+
+                </div>
+            </div>
+            <div class="modal-footer ">
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="~/lib/bootstrap-table/dist/bootstrap-table.min.js"></script>
+<script src="~/lib/bootstrap-table/dist/bootstrap-table-locale-all.min.js"></script>
+<script src="~/lib/d3js/d3.v7.min.js"></script>
+
+<script src="~/js/GDD.js"></script>
