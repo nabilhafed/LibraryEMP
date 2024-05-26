@@ -1,0 +1,42 @@
+﻿@{
+    
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/DocumentRéserver.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap-table/dist/bootstrap-table.min.css" />
+}
+
+<div class=" px-4 w-100 h-100">
+    @* data-side-pagination="server" *@
+    <table id="adherentTable"
+           data-locale="fr-FR"
+           data-toggle="table"
+           data-pagination="true"
+           data-toolbar="#fixed-table-toolbar"
+           data-url="@Url.Action("GetReservationTriByIdAdherent")"
+           data-page-size="11"
+           data-pagination-parts="['pageInfo', 'pageList']"
+           data-loading-template="loadingTemplate"
+           data-search="true">
+
+
+        <thead>
+            <tr>
+                <th data-field="idAdherent" data-sortable="true" data-width="10" data-width-unit="%">ID</th>
+                <th data-field="nom" data-sortable="true" data-width="15" data-width-unit="%">Nom</th>
+                <th data-field="prenom" data-sortable="true" data-width="15" data-width-unit="%">Prenom</th>
+                <th data-field="cote" data-sortable="true" data-width="10" data-width-unit="%">Cote</th>
+                <th data-field="heureReservation" data-sortable="true" data-width="20" data-width-unit="%">Heur de réservation</th>
+            </tr>
+        </thead>
+    </table>
+
+
+</div>
+
+
+@section Scripts {
+    <script src="~/lib/bootstrap-table/dist/bootstrap-table.min.js"></script>
+    <script src="~/lib/bootstrap-table/dist/bootstrap-table-locale-all.min.js"></script>
+}

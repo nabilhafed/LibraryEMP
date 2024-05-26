@@ -1,10 +1,11 @@
 ﻿@{
     ViewData["Title"] = "gestion des adherents";
-    var currentController = "GDAController";
 }
-<link rel="stylesheet" href="~/css/gestion_des_adherents.css"/>
-<link rel="stylesheet" href="~/lib/bootstrap-table/dist/bootstrap-table.min.css" />
 
+@section Styles {
+    <link rel="stylesheet" href="~/css/gestion_des_adherents.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap-table/dist/bootstrap-table.min.css" />
+}
 
 <div class=" px-4 w-100 h-100">
     <div class="d-flex py-2 justify-content-between">
@@ -22,7 +23,7 @@
            data-locale="fr-FR"
            data-toggle="table"
            data-pagination="true"
-           data-url="@Url.Action("getAdherents", currentController)"
+           data-url="@Url.Action("getAdherents")"
            data-page-size="11"
            data-pagination-parts="['pageInfo', 'pageList']"
            data-loading-template="loadingTemplate"
@@ -46,7 +47,7 @@
 
 </div>
 
-<input type="hidden" id="getInformation" value="@Url.Action("getInformation", currentController)" />
+<input type="hidden" id="getInformation" value="@Url.Action("getInformation")" />
 
 
 
@@ -62,7 +63,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
-                <button type="button" class="btn btn-primary" id="deleteConfirmationButton" data-url="@Url.Action("deleteAdherent", currentController)">supprimer</button>
+                <button type="button" class="btn btn-primary" id="deleteConfirmationButton" data-url="@Url.Action("deleteAdherent")">supprimer</button>
             </div>
         </div>
     </div>
@@ -112,7 +113,7 @@
                     <div>
                         <div class="input-group my-3">
                             <span class="input-group-text w-100p">UserID</span>
-                            <input id="addUserID" data-url="@Url.Action("isIDAvailable", currentController)" type="text" class="form-control" placeholder="Username" aria-label="Username">
+                            <input id="addUserID" data-url="@Url.Action("isIDAvailable")" type="text" class="form-control" placeholder="Username" aria-label="Username">
                             <span class="input-group-text"><i class="fa-solid fa-pen"></i></span>
                         </div>
                         <div class="row">
@@ -150,7 +151,7 @@
             </div>
             <div class="modal-footer ">
                 <div class="col d-flex flex-row justify-content-end">
-                    <button id="addAdherentButton" data-url="@Url.Action("addAdherent", currentController)" class="btn btn-primary" type="button" disabled>Create</button>
+                    <button id="addAdherentButton" data-url="@Url.Action("addAdherent")" class="btn btn-primary" type="button" disabled>Create</button>
                 </div>
             </div>
         </div>
@@ -201,7 +202,7 @@
                     <div>
                         <div class="input-group my-3">
                             <span class="input-group-text w-100p">UserID</span>
-                            <input id="modifiedUserID" data-url="@Url.Action("isIDAvailable", currentController)" type="text" class="form-control" placeholder="Username" aria-label="Username">
+                            <input id="modifiedUserID" data-url="@Url.Action("isIDAvailable")" type="text" class="form-control" placeholder="Username" aria-label="Username">
                             <span class="input-group-text"><i class="fa-solid fa-check text-success"></i></span>
                         </div>
                         <div class="row">
@@ -241,7 +242,7 @@
             </div>
             <div class="modal-footer ">
                 <div class="col d-flex flex-row justify-content-end">
-                    <button id="modifiedAdherentModalButton" data-url="@Url.Action("modifiedAdherent", currentController)" class="btn btn-primary" type="button" disabled>Save Changes</button>
+                    <button id="modifiedAdherentModalButton" data-url="@Url.Action("modifiedAdherent")" class="btn btn-primary" type="button" disabled>Save Changes</button>
                 </div>
             </div>
         </div>
@@ -275,7 +276,9 @@
 </div>
 
 
-<script src="~/lib/bootstrap-table/dist/bootstrap-table.min.js"></script>
-<script src="~/lib/bootstrap-table/dist/bootstrap-table-locale-all.min.js"></script>
 
-<script src="~/js/GDA.js"></script>
+@section Scripts {
+    <script src="~/lib/bootstrap-table/dist/bootstrap-table.min.js"></script>
+    <script src="~/lib/bootstrap-table/dist/bootstrap-table-locale-all.min.js"></script>
+    <script src="~/js/GDA.js"></script>
+}

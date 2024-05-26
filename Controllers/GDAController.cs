@@ -4,7 +4,6 @@ using System.Text.RegularExpressions;
 
 namespace LibraryEMP.Controllers
 {
-    [Route("GDAController")]
     public class GDAController : Controller
     {
         public readonly ApplicationDbContext _db;
@@ -12,8 +11,13 @@ namespace LibraryEMP.Controllers
         {
             _db = db;
         }
-        [HttpGet]
-        [Route("getAdherents")]
+
+        public IActionResult Index()
+        {
+            return View();
+        }
+
+
         public dynamic? getAdherents(string search)
         {
             return _db.Adherents.Select((a) => new
@@ -31,8 +35,6 @@ namespace LibraryEMP.Controllers
             }).ToList();
         }
 
-        [HttpGet]
-        [Route("getInformation")]
         public dynamic? getInformation()
         {
             var pos = _db.Positions.ToList();
@@ -41,15 +43,12 @@ namespace LibraryEMP.Controllers
             return new {pos,cat};
         }
 
-        [HttpGet]
-        [Route("isIDAvailable")]
         public bool isIDAvailable(string idAdherent)
         {
             return !_db.Adherents.Any((a)=>a.IdAdherent.ToUpper() == idAdherent.ToUpper());
         }
 
-        [HttpGet]
-        [Route("addAdherent")]
+
         public bool addAdherent(string idAdherent , string adherentName , string adherentPrename , string idPosition , string idCategorie)
         {
             Console.WriteLine(idAdherent + "  " + adherentName + "  ");
@@ -76,8 +75,6 @@ namespace LibraryEMP.Controllers
 
         }
 
-        [HttpGet]
-        [Route("deleteAdherent")]
         public bool deleteAdherent(string idAdherent)
         {
             //test if adherent can be deleted
@@ -98,8 +95,7 @@ namespace LibraryEMP.Controllers
             }
         }
 
-        [HttpGet]
-        [Route("modifiedAdherent")]
+
         public bool modifiedAdherent(string idAdherentOld , string idAdherent, string adherentName, string adherentPrename, string idPosition, string idCategorie)
         {
             //test

@@ -3,17 +3,19 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace LibraryEMP.Controllers
 {
-    [Route("DocumentPretController")]
-
-    public class DocumentPretController : Controller
+    public class DocumentsPretController : Controller
     {
         public readonly ApplicationDbContext _db;
-        public DocumentPretController(ApplicationDbContext db)
+        public DocumentsPretController(ApplicationDbContext db)
         {
             _db = db;
         }
-        [HttpGet]
-        [Route("getPret")]
+
+        public IActionResult Index()
+        {
+            return View();
+        }
+
         public dynamic? getPret(string search)
         {
             Console.WriteLine(search);

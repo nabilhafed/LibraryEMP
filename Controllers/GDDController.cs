@@ -6,7 +6,6 @@ using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace LibraryEMP.Controllers
 {
-    [Route("GDDController")]
     public class GDDController : Controller
     {
         public readonly ApplicationDbContext _db;
@@ -14,8 +13,12 @@ namespace LibraryEMP.Controllers
         {
             _db = db;
         }
-        [HttpGet]
-        [Route("getNotices")]
+
+        public IActionResult Index()
+        {
+            return View();
+        }
+
         public dynamic? getNotices()
         {
             // First query: get notices
@@ -60,8 +63,6 @@ namespace LibraryEMP.Controllers
             return result.ToList();
         }
 
-        [HttpGet]
-        [Route("deleteNotice")]
         public bool deleteNotice(string idExemplaire) {
             return false;
         }

@@ -23,7 +23,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=start}"
-    );
+    pattern: "{controller=Pret}/{action=Index}");
 
 app.Run();

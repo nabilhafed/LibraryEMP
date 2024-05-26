@@ -2,35 +2,35 @@ $("document").ready(function () {
 
     let pageHistory = {};
     //swap between Pages
-    $(".nav a").click(function (event) {
+    // $(".nav a").click(function (event) {
 
-        event.preventDefault();
+    //     event.preventDefault();
 
-        //if ($(this).attr("href") in pageHistory) {
-        //    $("#Page-content").html(pageHistory[$(this).attr("href")]);
-        //} else {
-            let that = this;
-            $.get($(this).data('request-url'), { page: $(this).attr("href") },
-                function (response) {
-                    pageHistory[$(that).attr("href")] = response;
-                    $("#Page-content").html(response);
-                }
-            );
-        //}
+    //     //if ($(this).attr("href") in pageHistory) {
+    //     //    $("#Page-content").html(pageHistory[$(this).attr("href")]);
+    //     //} else {
+    //         let that = this;
+    //         $.get($(this).data('request-url'), { page: $(this).attr("href") },
+    //             function (response) {
+    //                 pageHistory[$(that).attr("href")] = response;
+    //                 $("#Page-content").html(response);
+    //             }
+    //         );
+    //     //}
 
-        //left nav switch effect
-        $(".active").attr("class", "nav-link link-dark");
-        $(this).attr("class", "nav-link active");
+    //     //left nav switch effect
+    //     $(".active").attr("class", "nav-link link-dark");
+    //     $(this).attr("class", "nav-link active");
 
-        $(this).addClass("animate__animated  animate__bounceIn").one('animationend', function () {
-            $(this).removeClass("animate__animated  animate__bounceIn");
-        });
+    //     $(this).addClass("animate__animated  animate__bounceIn").one('animationend', function () {
+    //         $(this).removeClass("animate__animated  animate__bounceIn");
+    //     });
 
-        $('#pageContentAlert').find("div").removeClass("animate__zoomIn").removeClass("animate__zoomIn").addClass('animate__rubberBand').one('animationend', function () {
-            $(this).removeClass("animate__rubberBand");
-        });
+    //     $('#pageContentAlert').find("div").removeClass("animate__zoomIn").removeClass("animate__zoomIn").addClass('animate__rubberBand').one('animationend', function () {
+    //         $(this).removeClass("animate__rubberBand");
+    //     });
 
-    });
+    // });
 
     //database status 
     $("#connectBTN").click(function (e) {
@@ -74,14 +74,38 @@ $("document").ready(function () {
         );
     });
 
-
+    let link ;
+    switch (window.location.href.substring(window.location.href.lastIndexOf('/') + 1)) {
+        case 'Restitution':         link = $('a[href="/Restitution"]');
+            break;
+        case 'GDD':                 link = $('a[href="/GDD"]');
+            break;
+        case 'GDA':                 link = $('a[href="/GDA"]');
+            break;
+        case 'DocumentsReserver':   link = $('a[href="/DocumentsReserver"]');
+            break;
+        case 'DocumentsPret':       link = $('a[href="/DocumentsPret"]');
+            break;
+        case 'AutreParametre':      link = $('a[href="/AutreParametre"]');
+            break;              
+        default:                    link = $('a[href="/"]');
+            break;
+    }
+    
+    $(link).attr("class", "nav-link active");
+    $(link).addClass("animate__animated  animate__bounceIn").one('animationend', function () {
+        $(link).removeClass("animate__animated  animate__bounceIn");
+    });
+    $('#pageContentAlert').find("div").removeClass("animate__zoomIn").removeClass("animate__zoomIn").addClass('animate__rubberBand').one('animationend', function () {
+        $(link).removeClass("animate__rubberBand");
+    });
 
     // on page develepment phase !! , please remove it later 
     $("#Page-content").removeClass("disabled");
     $("#pageContentAlert").remove();
-    $.get("/Home/pageManager", { page: "gestion_de_documents" },
-        function (response) {
-            $("#Page-content").html(response);
-        }
-    );
+    // $.get("/Home/pageManager", { page: "gestion_de_documents" },
+    //     function (response) {
+    //         $("#Page-content").html(response);
+    //     }
+    // );
 });

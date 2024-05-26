@@ -1,9 +1,10 @@
 ﻿@{
     ViewData["Title"] = "pret page";
-    var currentController = "PretController";
-
 }
-<link rel="stylesheet" href="~/css/Pret.css" />
+@section Styles {
+    <link rel="stylesheet" href="~/css/Pret.css" />
+}
+
 <div class="d-flex flex-column">
     <div class="position-relative shadow-sm h-100 border rounded m-3 d-flex flex-row">
         <h5 class="border-title">Partie des adhérents</h5>
@@ -18,7 +19,7 @@
                         <span class="input-group-text" id="inputGroup-sizing-default">AdhérentId</span>
                     </div>
                     <input id="getUserIDButton"  type="text" class="form-control" aria-label="Default"
-                           data-request-url="@Url.Action("getUserByID", currentController)">
+                           data-request-url="@Url.Action("getUserByID")">
                 </div>
                 <div class="align-self-center mx-2">
                     <button type="button" class="btn btn-secondary rounded-circle  info" data-bs-trigger="hover"  data-bs-toggle="popover" data-bs-content="add Info about user id">
@@ -59,7 +60,7 @@
                             <span class="input-group-text" id="inputGroup-sizing-default">DocumentCoté</span>
                         </div>
                         <input id="getBookCoteButton" type="text" class="form-control" aria-label="Default"
-                               data-request-url="@Url.Action("getBookByCoteForBorrow", currentController)"
+                               data-request-url="@Url.Action("getBookByCoteForBorrow")"
                                aria-describedby="inputGroup-sizing-default">
                     </div>
                     <div class="align-self-center mx-2">
@@ -119,7 +120,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
-                <button type="button" class="btn btn-primary" id="confirmNewBorrow" data-request-url="@Url.Action("addNewDocumentBorrow", currentController)">Validé</button>
+                <button type="button" class="btn btn-primary" id="confirmNewBorrow" data-request-url="@Url.Action("addNewDocumentBorrow")">Validé</button>
             </div>
         </div>
     </div>
@@ -151,6 +152,9 @@
     </div>
 </div>
 
-<input type="hidden" id="getHolidaysInput" data-request-url="@Url.Action("getHolidays", currentController)" />
-<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-<script src="~/js/Pret.js"></script>
+<input type="hidden" id="getHolidaysInput" data-request-url="@Url.Action("getHolidays")" />
+
+
+@section Scripts {
+    <script src="~/js/Pret.js"></script>
+}

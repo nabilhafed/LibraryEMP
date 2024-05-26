@@ -1,8 +1,11 @@
 ﻿@{
-    var currentController = "DocumentPretController";
+    
 }
-<link rel="stylesheet" href="~/css/DocumentPret.css" />
-<link rel="stylesheet" href="~/lib/bootstrap-table/dist/bootstrap-table.min.css" />
+@section Styles {
+    <link rel="stylesheet" href="~/css/DocumentPret.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap-table/dist/bootstrap-table.min.css" />
+}
+
 <div class="d-flex bd-highlight">
     <div class="p-2 flex-fill bd-highlight  position-relative shadow-sm h-100 border rounded m-3 d-flex flex-row div1 ">
         <h5 class="border-title">Liste des documents pret</h5>
@@ -14,7 +17,7 @@
                            data-toggle="table"
                            data-pagination="true"
                            data-toolbar="#fixed-table-toolbar"
-                           data-url="@Url.Action("getPret", currentController)"
+                           data-url="@Url.Action("getPret")"
                            data-page-size="11"
                            data-pagination-parts="['pageInfo', 'pageList']"
                            data-loading-template="loadingTemplate"
@@ -37,5 +40,7 @@
     </div>
 </div>
  
-<script src="~/lib/bootstrap-table/dist/bootstrap-table.min.js"></script>
-<script src="~/lib/bootstrap-table/dist/bootstrap-table-locale-all.min.js"></script>
+@section Scripts {
+    <script src="~/lib/bootstrap-table/dist/bootstrap-table.min.js"></script>
+    <script src="~/lib/bootstrap-table/dist/bootstrap-table-locale-all.min.js"></script>
+}

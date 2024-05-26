@@ -1,5 +1,4 @@
 using System.Diagnostics;
-//using LibraryEMP.Managers;
 using LibraryEMP.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -20,11 +19,6 @@ namespace LibraryEMP.Controllers
         {
             return View("Pret");
         }
-       /// avoir la liste des document réserver 
-       public  IActionResult ListDocumentRéserver()
-        {
-            return View("liste Resrver") ;
-        }
 
         [HttpGet]   
         public IActionResult pageManager( string page )
@@ -33,22 +27,13 @@ namespace LibraryEMP.Controllers
         }
         public IActionResult Pret()
         {
-            return PartialView("Pret");
+            return View();
         }
-
-        [HttpGet]
-        public bool connectToDatabase(string username, string password)
-        {
-            //return DatabaseManager.connect("EMPLIBRARY", "localhost", "1521", username , password);
-            return true;
-        }
-
-
-        [Route("New")]
-        public IActionResult New()
+        public IActionResult Restitution()
         {
             return View();
         }
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

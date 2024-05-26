@@ -1,8 +1,8 @@
 ﻿@{
-    var currentController = "RestitutionController";
 }
-<link rel="stylesheet" href="~/css/Restitution.css"/>
-
+@section Styles {
+    <link rel="stylesheet" href="~/css/Restitution.css" />
+}
     
 <div class="row w-100 h-100 p-2">
     <div class="col ms-4 d-flex flex-column justify-content-between">
@@ -13,7 +13,7 @@
                     <img class="w-80p" src="~/img/star.png" alt="">
                     <div class="d-flex flex-column justify-content-around w-75" >
                         <div class="input-group mb-2">
-                            <select class="form-control custom-select" id="SelectExemplaire" data-request-url="@Url.Action("getSelectExemplaire", currentController)">
+                            <select class="form-control custom-select" id="SelectExemplaire" data-request-url="@Url.Action("getSelectExemplaire")">
                                 <option value="">Choose...</option>
                             </select>
                         </div>
@@ -90,7 +90,7 @@
             <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon1">UserID</span>
                 <input type="text" class="form-control" placeholder="UserID"  aria-label="UserID"
-                           aria-describedby="basic-addon1" id="UserID" data-request-url="@Url.Action("getUserByID", currentController)">
+                           aria-describedby="basic-addon1" id="UserID" data-request-url="@Url.Action("getUserByID")">
             </div>
             
             <div class="row">
@@ -109,8 +109,8 @@
             </div>
 
                 <div id="ButtonChoses" class=" disabled d-flex flex-column-reverse align-items-center ">
-                    <button class="btn btn-primary w-75 mt-3 buttonUser " type="button" id="RetourButton" data-request-url="@Url.Action("RetourExemplaire", currentController)">validate</button>
-                    <button class="btn btn-primary w-75 mt-3   buttonUser " type="button" id="RenouvellementButton" data-request-url="@Url.Action("RenouvellementExemplaire", currentController)">Renouvellement</button>
+                    <button class="btn btn-primary w-75 mt-3 buttonUser " type="button" id="RetourButton" data-request-url="@Url.Action("RetourExemplaire")">validate</button>
+                    <button class="btn btn-primary w-75 mt-3   buttonUser " type="button" id="RenouvellementButton" data-request-url="@Url.Action("RenouvellementExemplaire")">Renouvellement</button>
              </div>
             </form>
         </div>
@@ -125,4 +125,7 @@
     
 
 </div>
-<script src="~/js/Restitution.js?v=1"></script>
+@section Scripts {
+    <script src="~/js/Restitution.js"></script>
+}
+

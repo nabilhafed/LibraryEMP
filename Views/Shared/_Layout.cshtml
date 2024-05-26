@@ -8,12 +8,15 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/lib/animate/animate.min.css" />
     <link rel="stylesheet" href="~/lib/fontawesome/dist/css/all.min.css">
+    @await RenderSectionAsync("Styles", required: false)
+
 
     <title>@ViewData["Title"] - LibraryEMP</title>
 
     <link rel="stylesheet" href="~/css/Home.css" />
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/js/Home.js"></script>
+
 </head>
 
 <body class="d-flex h-100 w-100">
@@ -28,25 +31,25 @@
         <div class="d-flex flex-column justify-content-between h-100">
             <ul class="nav nav-pills flex-column mb-auto">
                 <li class="nav-item">
-                    <a data-request-url="@Url.Action("pageManager")" href="Pret" class="nav-link active" aria-current="page">
+                    <a asp-area="" asp-controller="Pret" asp-action="Index" class="nav-link link-dark" aria-current="page">
                         <i class="bi me-2 fas fa-address-card "></i>
                         Prét
                     </a>
                 </li>
                 <li>
-                    <a data-request-url="@Url.Action("pageManager")" href="gestion_des_adherents" class="nav-link link-dark">
+                    <a asp-area="" asp-controller="GDA" asp-action="Index" class="nav-link link-dark">
                         <i class="bi me-2 fas fa-users"></i>
                         gestion des adhérents
                     </a>
                 </li>
                 <li>
-                    <a data-request-url="@Url.Action("pageManager")" href="Restitution" class="nav-link link-dark">
+                    <a asp-area="" asp-controller="Restitution" asp-action="Index" class="nav-link link-dark">
                         <i class="bi me-2 fas fa-rotate-left"></i>
                         Restitution
                     </a>
                 </li>
                 <li>
-                    <a data-request-url="@Url.Action("pageManager")" href="gestion_de_documents" class="nav-link link-dark">
+                    <a asp-area="" asp-controller="GDD" asp-action="Index" class="nav-link link-dark">
                         <i class="bi me-2 fas fa-folder-tree"></i>
                         gestion de documents
                     </a>
@@ -58,7 +61,7 @@
                     </a>
                 </li>
                 <li>
-                    <a data-request-url="@Url.Action("pageManager")" href="DocumentsPret" class="nav-link link-dark">
+                    <a asp-area="" asp-controller="DocumentsPret" asp-action="Index" class="nav-link link-dark">
                         <i class="bi me-2 fas fa-list-check"></i>
                         Listes des Docs et Prét
                     </a>
@@ -70,7 +73,7 @@
                     </a>
                 </li>
                 <li>
-                    <a data-request-url="@Url.Action("pageManager")" href="DocumentsRéserver" class="nav-link link-dark" >
+                    <a asp-area="" asp-controller="DocumentsReserver" asp-action="Index" class="nav-link link-dark">
                         <i class="bi me-2 fas fa-calendar-check"></i>
                         Listes des Docs Réservés
                     </a>
@@ -88,7 +91,7 @@
                     </a>
                 </li>
                 <li>
-                    <a data-request-url="@Url.Action("pageManager")" href="AutreParamètre" class="nav-link link-dark">
+                    <a asp-area="" asp-controller="AutreParametre" asp-action="Index" class="nav-link link-dark">
                         <i class="bi me-2 fas fa-gear"></i>
                         Autre Paramètres 
                     </a>

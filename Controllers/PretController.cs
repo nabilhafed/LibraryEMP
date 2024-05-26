@@ -6,8 +6,7 @@ using System.Diagnostics;
 namespace LibraryEMP.Controllers
 {
     #pragma warning disable CS8602 // Dereference of a possibly null reference.
-    [Route("PretController")]
-    public class PretController : Controller
+     public class PretController : Controller
     {
         public readonly ApplicationDbContext _db;
         public PretController(ApplicationDbContext db)
@@ -15,11 +14,11 @@ namespace LibraryEMP.Controllers
             _db = db;
         }
 
+        public IActionResult Index()
+        {
+            return View();
+        }
 
-
-
-        [HttpGet]
-        [Route("getUserByID")]
         public dynamic? getUserByID(string IdAdherent)
         {   
             return _db.Adherents
@@ -42,8 +41,6 @@ namespace LibraryEMP.Controllers
             .FirstOrDefault();
         }
 
-        [HttpGet]
-        [Route("getHolidays")]
         public dynamic? getHolidays()
         {
             return _db.JoursFeries.Select(j => new
@@ -52,8 +49,6 @@ namespace LibraryEMP.Controllers
             }).ToArray();
         }
 
-        [HttpGet]
-        [Route("getBookByCoteForBorrow")]
         public dynamic? getBookByCoteForBorrow(string cote , string IdAdherent)
         {
             var book =  _db.Notices
@@ -116,8 +111,6 @@ namespace LibraryEMP.Controllers
             return null;
         }
 
-        [HttpPost]
-        [Route("addNewDocumentBorrow")]
         public dynamic? addNewDocumentBorrow(string idExemplaire, string IdAdherent , string returnDate)
         {
             //TODO: add test!!  
@@ -149,16 +142,12 @@ namespace LibraryEMP.Controllers
                     throw new Exception("can't borrow the same Document !!");
 
                 ////change status of exemple to 2 (Prêté)
-                //_db.Exemplaires.FirstOrDefault(e => e.IdExemplaire.ToUpper() == idExemplaire.ToUpper()).IdEtat = 2;
-                //_db.SaveChanges();
+                _db.Exemplaires.FirstOrDefault(e => e.IdExemplaire.ToUpper() == idExemplaire.ToUpper()).IdEtat = 2;
+                _db.SaveChanges();
 
                 ////add new Borrow Line
-                //_db.Prets.Add(new Pret { IdExemplaire = idExemplaire, IdAdherent = IdAdherent, DatePret = DateTime.Parse(returnDate), EtatDuree = "F" });
-                //_db.SaveChanges();
-
-                //change state of exemple
-                //_db.Exemplaires.FirstOrDefault(e => e.IdExemplaire.ToUpper() == idExemplaire.ToUpper()).IdEtat = 2;
-                //_db.SaveChanges();
+                _db.Prets.Add(new Pret { IdExemplaire = idExemplaire, IdAdherent = IdAdherent, DatePret = DateTime.Parse(returnDate), EtatDuree = "F" });
+                _db.SaveChanges();
 
                 try
                 {

@@ -1,8 +1,11 @@
 ﻿@{
-    var currentController = "AutreParametreController";
+    
 }
-<link rel="stylesheet" href="~/css/AutreParamètre.css" />
-<link rel="stylesheet" href="~/lib/bootstrap-table/dist/bootstrap-table.min.css" />
+@section Styles {
+    <link rel="stylesheet" href="~/css/AutreParamètre.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap-table/dist/bootstrap-table.min.css" />
+}
+
 
 <div class="d-flex bd-highlight">
     <div class="p-2 flex-fill bd-highlight  position-relative shadow-sm h-100 border rounded m-3 d-flex flex-row div1 ">
@@ -25,7 +28,7 @@
                        data-toggle="table"
                        data-pagination="true"
                        data-toolbar="#fixed-table-toolbarFeries"
-                       data-url="@Url.Action("getJouresFeries", currentController)"
+                       data-url="@Url.Action("getJouresFeries")"
                        data-page-size="11"
                        data-pagination-parts="['pageInfo', 'pageList']"
                        data-loading-template="loadingTemplate"
@@ -60,7 +63,7 @@
                        data-toggle="table"
                        data-pagination="true"
                        data-toolbar="#fixed-table-toolbar"
-                       data-url="@Url.Action("getPenalite", currentController)"
+                       data-url="@Url.Action("getPenalite")"
                        data-page-size="9"
                        data-pagination-parts="['pageInfo', 'pageList']"
                        data-loading-template="loadingTemplate"
@@ -231,7 +234,11 @@
     </div>
 </div>
 
-<script src="~/js/AutreParametre.js"></script>
-<script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
-<script src="~/lib/bootstrap-table/dist/bootstrap-table.min.js"></script>
-<script src="~/lib/bootstrap-table/dist/bootstrap-table-locale-all.min.js"></script>
+
+
+@section Scripts {
+    <script src="~/js/AutreParametre.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="~/lib/bootstrap-table/dist/bootstrap-table.min.js"></script>
+    <script src="~/lib/bootstrap-table/dist/bootstrap-table-locale-all.min.js"></script>
+}

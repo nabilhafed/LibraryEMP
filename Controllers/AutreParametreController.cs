@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace LibraryEMP.Controllers
 {
-    [Route("AutreParametreController")]
     public class AutreParametreController : Controller
     {
         
@@ -13,8 +12,10 @@ namespace LibraryEMP.Controllers
         {
             _db = db;
         }
-        [HttpGet]
-        [Route("getJouresFeries")]
+        public IActionResult Index()
+        {
+            return View();
+        }
 
         public dynamic? getJouresFeries()
         {
@@ -28,8 +29,6 @@ namespace LibraryEMP.Controllers
 
             return dateJourFeries;
         }
-        [HttpGet]
-        [Route("getPenalite")]
 
         public dynamic? getPenalite()
         {

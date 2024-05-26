@@ -1,9 +1,11 @@
 ﻿@{
     ViewData["Title"] = "gestion de documents";
-    var currentController = "GDDController";
 }
-<link rel="stylesheet" href="~/css/gestion_de_documents.css" />
-<link rel="stylesheet" href="~/lib/bootstrap-table/dist/bootstrap-table.min.css" />
+@section Styles {
+    <link rel="stylesheet" href="~/css/gestion_de_documents.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap-table/dist/bootstrap-table.min.css" />
+}
+
 
 
 <div class=" px-4 w-100 h-100">
@@ -22,7 +24,7 @@
            data-locale="fr-FR"
            data-toggle="table"
            data-pagination="true"
-           data-url="@Url.Action("getNotices", currentController)"
+           data-url="@Url.Action("getNotices")"
            data-page-size="11"
            data-pagination-parts="['pageInfo', 'pageList']"
            data-loading-template="loadingTemplate"
@@ -60,7 +62,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
-                <button type="button" class="btn btn-primary" id="deleteConfirmationButton" data-url="@Url.Action("deleteExemple", currentController)">supprimer</button>
+                <button type="button" class="btn btn-primary" id="deleteConfirmationButton" data-url="@Url.Action("deleteExemple")">supprimer</button>
             </div>
         </div>
     </div>
@@ -131,10 +133,10 @@
     </div>
 </div>
 
+@section Scripts {
+    <script src="~/lib/bootstrap-table/dist/bootstrap-table.min.js"></script>
+    <script src="~/lib/bootstrap-table/dist/bootstrap-table-locale-all.min.js"></script>
+    <script src="~/lib/d3js/d3.v7.min.js"></script>
+    <script src="~/js/GDD.js"></script>
+}
 
-
-<script src="~/lib/bootstrap-table/dist/bootstrap-table.min.js"></script>
-<script src="~/lib/bootstrap-table/dist/bootstrap-table-locale-all.min.js"></script>
-<script src="~/lib/d3js/d3.v7.min.js"></script>
-
-<script src="~/js/GDD.js"></script>
