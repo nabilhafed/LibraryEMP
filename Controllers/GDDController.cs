@@ -30,7 +30,8 @@ namespace LibraryEMP.Controllers
                 .Select(n => new
                 {
                     idNotice = n.IdNotice,
-                    cote = n.Cote
+                    cote = n.Cote,
+                    titre = n.TitrePropre
                 })
                 .ToList();
 
@@ -51,11 +52,12 @@ namespace LibraryEMP.Controllers
                          join count in exemplaireCounts
                          on notice.cote equals count.cote into exemplaireGroup
                          from eg in exemplaireGroup.DefaultIfEmpty()
-                         group eg by new { notice.idNotice, notice.cote } into g
+                         group eg by new { notice.idNotice, notice.cote , notice.titre } into g
                          select new
                          {
                              idNotice = g.Key.idNotice,
                              cote = g.Key.cote,
+                             titre = g.Key.titre,
                              totalExemplaire = g.Sum(x => x != null ? x.count : 0),
                              perduNumber = g.Where(x => x != null && x.etat == 3).Sum(x => x.count),
                              disponibleNumber = g.Where(x => x != null && x.etat == 1).Sum(x => x.count),
@@ -66,8 +68,20 @@ namespace LibraryEMP.Controllers
             return result.ToList();
         }
 
-        public bool deleteNotice(string idExemplaire) {
-            return false;
+        public dynamic getExemplairesFromCote(string cote)
+        {
+            return _db.Exemplaires
+                    .Where(e => e.Cote == cote)
+                    .Join(_db.EtatExemplaires,
+                          e => e.IdEtat,
+                          etat => etat.IdEtat,
+                          (e, etat) => new
+                          {
+                              IdExemplaire = e.IdExemplaire,
+                              idEtat = e.IdEtat,
+                              etat = etat.LibelleEtat,
+                          })
+                    .ToList();
         }
     }
 }

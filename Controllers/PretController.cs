@@ -11,7 +11,6 @@ namespace LibraryEMP.Controllers
         public readonly ApplicationDbContext _db;
         public PretController(ApplicationDbContext db)
         {
-            Console.WriteLine("triggered");
             _db = db;
         }
 

@@ -10,7 +10,7 @@
 
 <div class=" px-4 w-100 h-100">
     <div class="d-flex py-2 justify-content-between">
-        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addAdherentModal">
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#comingSoon">
             <i class="fa-solid fa-file-circle-plus"></i>
             Ajouter Notice
         </button>
@@ -28,6 +28,8 @@
            data-page-size="11"
            data-pagination-parts="['pageInfo', 'pageList']"
            data-loading-template="loadingTemplate"
+           data-sort-name="totalExemplaire"
+           data-sort-order="desc"
            data-search-selector="#searchInput"
            data-search="true">
 
@@ -50,19 +52,15 @@
 </div>
 
 
-<div class="modal fade" id="deleteConfirmation">
+<div class="modal fade" id="comingSoon">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">confirmation</h5>
+                <h5 class="modal-title">Still in Develeping Phase</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <p>êtes-vous sûr de vouloir supprimer l'Notice avec ID =  <strong id="deleteConfirmationID"></strong></p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
-                <button type="button" class="btn btn-primary" id="deleteConfirmationButton" data-url="@Url.Action("deleteExemple")">supprimer</button>
+                <p>Comming Soon ~~</p>
             </div>
         </div>
     </div>
@@ -96,38 +94,46 @@
 
 
 <div class="modal fade" id="viewDocumentModal">
-    <div class="modal-dialog modal-xl modal-dialog-centered">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title"><i class="fa-solid fa-file-contract me-2"></i>Document View</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <div class="d-flex flex-row">
-                    <div class="w-75  d-flex flex-row">
-                        <div class="p-5">
+                <div class="d-flex flex-column">
+                    <div class="w-100  d-flex flex-row align-items-center">
+                        <div class="p-2">
                             <img width="150" height="150" src="~/img/book.png" alt="" srcset="">
                         </div>
                         <div class="d-flex flex-column py-3 w-100">
-
                             <div class="input-group mb-1">
-                                <span class="input-group-text" id="inputGroup-sizing-default">DocumentCoté</span>
-                                <input id="getBookCoteButton" type="text" class="form-control" aria-label="Default" disabled>
+                                <span class="input-group-text w-100p" id="inputGroup-sizing-default">Id</span>
+                                <input type="text" class="form-control" aria-label="Default" id="idDocumentInputModal" disabled>
+                            </div>
+                            <div class="input-group mb-1">
+                                <span class="input-group-text w-100p" id="inputGroup-sizing-default">Cote</span>
+                                <input type="text" class="form-control" aria-label="Default" id="coteDocumentInputModal" disabled>
                             </div>
                             <div class="input-group">
-                                <span class="input-group-text " id="">Titre</span>
-                                <input id="bookTitleInput" type="text" class="form-control " value="XXXXX" readonly>
+                                <span class="input-group-text w-100p">Titre</span>
+                                <textarea class="form-control" aria-label="With textarea" id="titleDocumentInputModal" disabled></textarea>
                             </div>
 
                         </div>
                     </div>
-                    <div id="chart"></div>
+                    <div class="position-relative shadow-sm border mt-3">
+                        <h5 class="border-title">Exemplaires exister</h5>
+                        <div id="chart" data-url="@Url.Action("getExemplairesFromCote")" class="d-flex justify-content-center"></div>
+                        <div class="position-absolute top-0 end-0 translate-middle-y me-3 d-flex flex-row">
+                            <div class="input-group w-250p">
+                                <input type="text" class="form-control" placeholder="Search" id="exemplaireSearchInput">
+                                <span class="input-group-text"><i class="fa-solid fa-magnifying-glass"></i></span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-
                 </div>
-            </div>
-            <div class="modal-footer ">
-                
             </div>
         </div>
     </div>

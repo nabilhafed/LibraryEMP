@@ -1,4 +1,21 @@
-﻿.border-title {
+﻿text {
+    user-select: none; /* Prevent text selection */
+    pointer-events: none; /* Pass mouse events to the parent */
+}
+
+textarea {
+    resize : none;
+}
+
+#chart circle{
+    cursor : pointer;
+}
+
+.w-250p{
+    width : 250px;
+}
+
+.border-title {
     position: absolute;
     top: -15px;
     left: 20px;
@@ -8,3 +25,4 @@
     /* Match with the background color of your page */
     padding: 0 10px;
 }
+
