@@ -11,12 +11,16 @@ namespace LibraryEMP.Controllers
         public readonly ApplicationDbContext _db;
         public PretController(ApplicationDbContext db)
         {
+            Console.WriteLine("triggered");
             _db = db;
         }
 
         public IActionResult Index()
         {
-            return View();
+            if (HttpContext.Session.GetInt32("IsLoggedIn") != 1)
+                return RedirectToAction("index", "Login");
+            else
+                return View();
         }
 
         public dynamic? getUserByID(string IdAdherent)

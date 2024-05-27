@@ -14,7 +14,10 @@ namespace LibraryEMP.Controllers
         }
         public IActionResult Index()
         {
-            return View();
+            if (HttpContext.Session.GetInt32("IsLoggedIn") != 1)
+                return RedirectToAction("index", "Login");
+            else
+                return View();
         }
 
         public dynamic? getJouresFeries()

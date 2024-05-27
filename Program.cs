@@ -8,6 +8,16 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
           options.UseOracle(builder.Configuration.GetConnectionString("EMPLIBRARY")));
 
+// Add session services
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession(options =>
+{
+	options.IdleTimeout = TimeSpan.FromMinutes(30); // Set session timeout
+	options.Cookie.HttpOnly = true; // Make the session cookie HTTP only
+	options.Cookie.IsEssential = true; // Make the session cookie essential
+});
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -19,10 +29,12 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseSession();
+
 app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Pret}/{action=Index}");
+    pattern: "{controller=Login}/{action=Index}");
 
 app.Run();

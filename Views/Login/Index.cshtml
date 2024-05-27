@@ -1,0 +1,75 @@
+﻿@{
+	Layout = "";
+}
+
+<!------ Include the above in your HEAD tag ---------->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="author" content="Kodinger">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<title>My Login Page</title>
+
+	<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="~/lib/fontawesome/dist/css/all.min.css">
+	<link rel="stylesheet" href="~/css/Login.css">
+
+
+	<script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+	<script src="~/lib/jquery/dist/jquery.min.js"></script>
+</head>
+
+<body class="my-login-page">
+	<section class="h-100">
+		<div class="container h-100">
+			<div class="row justify-content-md-center h-100">
+				<div class="card-wrapper">
+					<div class="brand mt-5 m-auto">
+						<img src="~/img/books.png" alt="logo">
+					</div>
+					<h2 class="text-center w-">Catlib EMP</h2>
+					<div class="card fat">
+						<div class="card-body">
+							<h4 class="mb-4">Login</h4>
+							<div>
+								@using (Html.BeginForm("Login", "Login", FormMethod.Post))
+								{
+									<label class="form-label" for="username">Username</label>
+									<div class="input-group mb-3">
+										<input id="username" type="text" class="form-control" name="username" value="" autofocus>
+									</div>
+
+									<label class="form-label" for="password">Password</label>
+									<div class="input-group mb-3">
+										<input id="password" type="password" class="form-control" name="password">
+									</div>
+
+									<div class="form-check mb-3">
+										<div class="custom-checkbox custom-control">
+											<input type="checkbox" name="remember" id="remember" class="form-check-input">
+											<label for="remember" class="form-check-label">Remember Me</label>
+										</div>
+									</div>
+
+									<div class="mb-3">
+										<button type="submit" class="btn btn-primary w-100">
+											Login
+										</button>
+									</div>
+								}
+							</div>
+						</div>
+					</div>
+					<div class="footer">
+						Copyright &copy; 2024 &mdash; Edited By ....
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+</body>
+</html>
+
