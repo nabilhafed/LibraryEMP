@@ -11,6 +11,7 @@
     $("#RenouvellementButton").prop("disabled", false);
     $("#ButtonChoses").addClass("disabled");
     $("#ProperTitle").find("textarea").text('');
+    $("#titrePropreBox").addClass("disabled");
     $("#PretData").val('');
     $("#ReturnDate").val('');
     $("SelectExemplaire").prop("disabled", false);
@@ -28,6 +29,7 @@ function ViderLesInputesSansButton() {
     $("#RenouvellementButton").prop("disabled", false);
     $("#ButtonChoses").addClass("disabled");
     $("#ProperTitle").find("textarea").text('');
+    $("#titrePropreBox").addClass("disabled");
     $("#PretData").val('');
     $("#ReturnDate").val('');
     $("SelectExemplaire").prop("disabled", false);
@@ -101,8 +103,10 @@ $("#UserID").on('input', function () {
                     $("#ReturnDate").val(formattedDate);
                 }
                 else {
+                    ViderLesInputesSansButton();
                     $("#etatAdherent").removeClass("alert-info").addClass("alert-danger");
                     $("#etatAdherent").find("p").text("L'adhérent n'existe pas .");
+                   
                 }
             }
         })

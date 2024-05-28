@@ -89,6 +89,32 @@
 
     </div>
 </div>
+
+<div class="modal fade " id="deleteConfirme">
+
+    <div class="modal-dialog modal-dialog-centered  modal-lg ">
+            <div class="modal-content " >
+
+                <div class="modal-header">
+                    <h5 class="modal-title">Supprimer jour feries</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="closeButton"></button>
+                </div>
+                <div class="modal-body">
+                <p class="text-center" >êtes-vous sûr de vouloir supprimer le jour feries  <strong id="deleteConfirmationJourFeries"></strong></p>
+                </div>
+
+                <div class="modal-footer ">
+                    <div class="col d-flex flex-row justify-content-end">
+                    <button class="btn btn-primary" type="button" id="saveChangeDeleteJour" data-url="@Url.Action("RemoveJourFeries")" disabled>Save Changes</button>
+                    </div>
+                </div>
+            </div>
+    </div>
+ 
+</div>
+
+
+
 <div class="modal fade" id="modifiedFouries">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">

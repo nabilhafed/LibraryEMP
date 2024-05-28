@@ -1,4 +1,5 @@
 ﻿using LibraryEMP.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LibraryEMP.Controllers
@@ -47,6 +48,32 @@ namespace LibraryEMP.Controllers
 
             return dateJourFeries;
         }
+        public dynamic? RemoveJourFeries(string dateJourFeries)
+        {
+
+
+            DateTime date = DateTime.Parse(dateJourFeries);
+            int year = date.Year;
+            int month = date.Month;
+            int day = date.Day;
+            int hour = date.Hour;
+            int minute = date.Minute;
+            int second = date.Second;
+            // Récupérer le jour férié à supprimer
+            var jourFerie = _db.JoursFeries
+                .FirstOrDefault(j => (j.DateJourFerie.Date) == date);
+
+            if (jourFerie != null)
+            {
+                // Supprimer le jour férié de la base de données
+                _db.JoursFeries.Remove(jourFerie);
+                _db.SaveChanges(); // Enregistrer les changements
+                return date;
+            }
+
+            return false;
+        }
+
 
 
     }

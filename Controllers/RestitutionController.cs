@@ -22,10 +22,8 @@ namespace LibraryEMP.Controllers
                 return View();
         }
 
-        [HttpGet]
-        [Route("getUserByID")]
 
-        public dynamic? GetUserAndExemplairesByID(string IdAdherent)
+        public dynamic? getUserByID(string IdAdherent)
         {
             if (IdAdherent != "")
             {
@@ -60,8 +58,7 @@ namespace LibraryEMP.Controllers
             }
         }
 
-        [HttpGet]
-        [Route("getSelectExemplaire")]
+    
 
         public dynamic? getSelectExemplaire(string IdExemplaire)
         {
@@ -94,8 +91,7 @@ namespace LibraryEMP.Controllers
                 return null;
             }
         }
-        [HttpGet]
-        [Route("RetourExemplaire")]
+    
 
         public void RetourExemplaire(string IdExemplaire, string IdAdherent)
         {
@@ -139,8 +135,7 @@ namespace LibraryEMP.Controllers
         }
 
 
-        [HttpGet]
-        [Route("RenouvellementExemplaire")]
+    
         public void RenouvellementExemplaire(string IdAdherent , string IdExemplaire)
         {
             // Récupérer le prêt à supprimer

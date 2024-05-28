@@ -21,3 +21,16 @@
 .div2{
     width : 55% ;
 }
+
+
+.simple_select {
+    flex-grow: unset !important;
+    flex-basis: content !important;
+}
+
+.pencil {
+    width: 30px;
+    height: 50px;
+    transform: translate(50%, -50%);
+}
+
