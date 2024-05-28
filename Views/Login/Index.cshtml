@@ -14,11 +14,13 @@
 
 	<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
 	<link rel="stylesheet" href="~/lib/fontawesome/dist/css/all.min.css">
+	<link rel="stylesheet" href="~/lib/animate/animate.min.css">
+	<link rel="stylesheet" href="~/lib/bs-stepper/bs-stepper.min.css">
 	<link rel="stylesheet" href="~/css/Login.css">
 
-
-	<script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
 	<script src="~/lib/jquery/dist/jquery.min.js"></script>
+	<script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+	<script src="~/lib/bs-stepper/bs-stepper.min.js"></script>
 </head>
 
 <body class="my-login-page">
@@ -29,47 +31,75 @@
 					<div class="brand mt-5 m-auto">
 						<img src="~/img/books.png" alt="logo">
 					</div>
-					<h2 class="text-center w-">Catlib EMP</h2>
-					<div class="card fat">
+					<h2 class="text-center mb-4 mt-2">Catlib EMP Login</h2>
+					<div class="card h-50">
 						<div class="card-body">
-							<h4 class="mb-4">Login</h4>
-							<div>
-								@using (Html.BeginForm("Login", "Login", FormMethod.Post))
-								{
-									<label class="form-label" for="username">Username</label>
-									<div class="input-group mb-3">
-										<input id="username" type="text" class="form-control" name="username" value="" autofocus>
-									</div>
-
-									<label class="form-label" for="password">Password</label>
-									<div class="input-group mb-3">
-										<input id="password" type="password" class="form-control" name="password">
-									</div>
-
-									<div class="form-check mb-3">
-										<div class="custom-checkbox custom-control">
-											<input type="checkbox" name="remember" id="remember" class="form-check-input">
-											<label for="remember" class="form-check-label">Remember Me</label>
-										</div>
-									</div>
-
-									<div class="mb-3">
-										<button type="submit" class="btn btn-primary w-100">
-											Login
+							<div id="stepper" class="bs-stepper d-flex flex-column h-100 justify-content-between">
+								<div class="bs-stepper-header">
+									<div class="step" data-target="#username-step">
+										<button type="button" class="step-trigger">
+											<i class="fa-solid fa-user bs-stepper-circle"></i>
+											<span class="bs-stepper-label">Username</span>
 										</button>
 									</div>
-								}
+									<div class="bs-stepper-line"></div>
+									<div class="step" data-target="#password-step">
+										<button type="button" class="step-trigger">
+											<i class="fa-solid fa-key bs-stepper-circle"></i>
+											<span class="bs-stepper-label">Password</span>
+										</button>
+									</div>
+								</div>
+								<div class="bs-stepper-content ">
+									<div id="username-step" class="content">
+										<div class="form-floating mb-3">
+											<input type="text" class="form-control" id="username" placeholder="Username">
+											<label for="username">Username</label>
+										</div>
+										<div class="form-check mb-3 opacity-0">
+											<div class="custom-checkbox custom-control">
+												<input type="checkbox" class="form-check-input" readonly>
+												<label class="form-check-label">Remember Me</label>
+											</div>
+										</div>
+										<div class="mb-3">
+											<button id="next-button" type="button" class="btn btn-primary w-100">
+												Next
+											</button>
+										</div>
+									</div>
+									<div id="password-step" class="content">
+										@using (Html.BeginForm("Login", "Login", FormMethod.Post))
+										{
+											<div class="form-floating mb-3">
+												<input type="text" class="form-control" id="password" name="password" placeholder="Password">
+												<label for="password">Password</label>
+											</div>
+											<div class="form-check mb-3">
+												<div class="custom-checkbox custom-control">
+													<input type="checkbox" name="remember" id="remember" class="form-check-input">
+													<label for="remember" class="form-check-label">Remember Me</label>
+												</div>
+											</div>
+											<div class="mb-3">
+												<button type="submit" class="btn btn-primary w-100">
+													Login
+												</button>
+											</div>
+										}
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
-					<div class="footer">
-						Copyright &copy; 2024 &mdash; Edited By ....
+					<div class="footer position-absolute bottom-0 text-center">
+						Copyright &copy; 2024 &mdash; Edited By Amine Beghdad and Hafed Nabil
 					</div>
 				</div>
 			</div>
 		</div>
 	</section>
-
+	<script src="~/js/Login.js"></script>
 </body>
 </html>
 

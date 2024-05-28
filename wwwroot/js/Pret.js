@@ -172,6 +172,10 @@ $("#getBookCoteButton").on('input', function () {
                         $("#submitNewBorrow").text("Réserve");
                         $("#submitNewBorrow").prop("disabled", false);
                         $("#booksAvailable").prop("disabled", true);
+                    }else{
+                        $("#bookStateAlert").addClass("alert-danger");
+                        $("#booksAvailable").prop("disabled", true);
+                        $("#bookStateAlert").find("p").text("parce que il n'existe aucun exemplaire disponible ou dans l'état bien"); 
                     }
                 }else{
                     $("#bookStateAlert").addClass("alert-warning");
