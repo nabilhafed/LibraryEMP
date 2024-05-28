@@ -106,7 +106,6 @@ namespace LibraryEMP.Controllers
                 return false;
             if ( idAdherent != idAdherentOld && _db.Adherents.Any((a) => a.IdAdherent.ToUpper() == idAdherent.ToUpper()))
                 return false;
-            Console.WriteLine("sdqlkgqlskdjglqksjhglqkhsjgdqgdsq");
             if (adherentName.Length < 3 || Regex.IsMatch(adherentName, @"[!@#$%^&*(),.?""{}|<>]"))
                 return false;
             if (adherentPrename.Length < 3 || Regex.IsMatch(adherentPrename, @"[!@#$%^&*(),.?""{}|<>]"))
