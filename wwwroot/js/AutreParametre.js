@@ -1,4 +1,4 @@
-﻿ 
+﻿var inupteModifier;
 //For loading icon
 function loadingTemplate() {
     return '<i class="fa fa-spinner fa-spin fa-fw fa-2x"></i>'
@@ -16,7 +16,11 @@ function operateFormatter(value, row, index) {
 // for edit and delete buttons
 window.operateEvents = {
     'click .edit': function (e, value, row, index) {
-        $("#modifiedFouries").modal('show')
+        $("#modifiedFouries").modal('show');
+        $("#saveChangeUpdateFeries").prop("disabled", false);
+        inupteModifier = row.dateJourFeries;
+
+
     },
     'click .remove': function (e, value, row, index) {
 
@@ -30,14 +34,44 @@ window.operateEvents = {
  
 
 $("#saveChangeDeleteJour").click(function (e) {
-    var idJourFeries = $("#deleteConfirmationJourFeries").text();
 
+    var idJourFeries = $("#deleteConfirmationJourFeries").text();
+   
+   
     $.get($(this).data("url"), { dateJourFeries: idJourFeries },
         function (data) {
+            
             if (data) {
- 
                 $("#saveChangeDeleteJour").prop("disabled", true);
                 $("#closeButton").click();
+
+         
+                location.reload();
+            }
+        }
+    );
+});
+
+
+$("#dateJoursFeriesAdd").on('input', function () {
+
+    $("#saveChangeAddFeries").prop("disabled", false);
+});
+
+
+
+
+
+$("#saveChangeAddFeries").click(function (e) {
+    var idJourFeries = $("#dateJoursFeriesAdd").val();
+
+
+    $.get($(this).data("url"), { inputDate: idJourFeries },
+        function (data) {
+            if (data) {
+
+
+                $("#closeButtonAdd").click();
 
                 // Rafraîchissement de la page après la suppression
                 location.reload();
@@ -47,7 +81,26 @@ $("#saveChangeDeleteJour").click(function (e) {
 });
 
 
+$("#saveChangeUpdateFeries").click(function (e) {
 
+    var idJourFeries = $("#dateJoursFeriesUpdate").val();
+ 
+
+    $.get($(this).data("url"), { inputModifier: inupteModifier , inputDate: idJourFeries },
+        function (data) {
+            if (data) {
+
+
+                 $("#closeButtonUpdate").click();
+
+                // Rafraîchissement de la page après la suppression
+                location.reload();
+            }
+        }
+    );
+});
+
+ 
 
 
 
