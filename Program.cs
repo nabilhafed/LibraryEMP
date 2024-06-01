@@ -17,6 +17,14 @@ builder.Services.AddSession(options =>
 	options.Cookie.IsEssential = true; // Make the session cookie essential
 });
 
+builder.Services.Configure<CookiePolicyOptions>(options =>
+{
+	options.CheckConsentNeeded = context => true; // Consent required
+	options.MinimumSameSitePolicy = SameSiteMode.None;
+});
+
+builder.Services.AddHttpContextAccessor();
+
 
 var app = builder.Build();
 

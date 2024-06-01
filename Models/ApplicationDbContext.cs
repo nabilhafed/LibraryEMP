@@ -19,7 +19,9 @@ public partial class ApplicationDbContext : DbContext
 
     public virtual DbSet<Admin> Admins { get; set; }
 
-    public virtual DbSet<Aquisition> Aquisitions { get; set; }
+	public virtual DbSet<UserConnection> UserConnections { get; set; }
+
+	public virtual DbSet<Aquisition> Aquisitions { get; set; }
 
     public virtual DbSet<AuteurSecondaire> AuteurSecondaires { get; set; }
 
@@ -178,7 +180,34 @@ public partial class ApplicationDbContext : DbContext
                 .HasColumnName("PASSWORD");
         });
 
-        modelBuilder.Entity<Aquisition>(entity =>
+		modelBuilder.Entity<UserConnection>(entity =>
+		{
+			entity.HasKey(e => e.Username).HasName("TABLE1_PK");
+
+			entity.ToTable("USERCONNECTION");
+
+			entity.Property(e => e.Username)
+				.HasMaxLength(10)
+				.IsUnicode(false)
+				.HasColumnName("USERNAME");
+			entity.Property(e => e.Password)
+				.HasMaxLength(50)
+				.IsUnicode(false)
+				.HasColumnName("PASSWORD");
+			entity.Property(e => e.Type)
+				.HasMaxLength(50)
+				.IsUnicode(false)
+				.HasColumnName("TYPE");
+			entity.Property(e => e.SessionID)
+				.HasMaxLength(50)
+				.IsUnicode(false)
+				.HasColumnName("SESSIONID");
+			entity.Property(e => e.SessionExpires   )
+				.HasColumnType("DATE")
+				.HasColumnName("SESSIONEXPIRES");
+		});
+
+		modelBuilder.Entity<Aquisition>(entity =>
         {
             entity.HasKey(e => new { e.NumCommande, e.IdExemplaire }).HasName("AQUISITION_PK");
 

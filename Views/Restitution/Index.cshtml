@@ -9,18 +9,17 @@
         <div>
             <div class="row position-relative shadow-sm border rounded my-3 p-3 disabled" id="ExemplaireChoses">
                 <div  class=" d-flex flex-row justify-content-around align-items-center ">
-                    <h5 class="border-title">Choose the copy</h5>
+                    <h5 class="border-title">Choisissez une copie</h5>
                     <img class="w-80p" src="~/img/star.png" alt="">
                     <div class="d-flex flex-column justify-content-around w-75" >
                         <div class="input-group mb-2">
                             <select class="form-control custom-select" id="SelectExemplaire" data-request-url="@Url.Action("getSelectExemplaire")">
-                                <option value="">Choose...</option>
+                                <option value="">Choisir...</option>
                             </select>
                         </div>
                         <div class="input-group mb-2">
                             <button class="btn btn-secondary  buttonBook " type="button" disabled>
-                                Displays the catlib
-                                notice
+                                Afficher le catlib notice
                             </button>
                         </div>
                     </div>
@@ -28,12 +27,12 @@
             </div>
             <div id="titrePropreBox" class="row position-relative shadow-sm border rounded my-3 p-3 disabled ">
                 <div class="d-flex flex-row justify-content-around align-items-center">
-                    <h5 class="border-title">Proper title</h5>
+                    <h5 class="border-title">Titre approprié</h5>
                     <div class="form-floating" id="ProperTitle">
 
                         <textarea class="form-control"  id="floatingTextarea2"
                                   style="height: 150px ; width: 600px;" readonly></textarea>
-                        <label for="floatingTextarea2">Comments</label>
+                        <label for="floatingTextarea2">Commentaires</label>
                     </div>
                 </div>
             </div>
@@ -46,14 +45,14 @@
                         <input type="date" class="form-control" id="PretData" readonly>
                     </div>
                     <div class="input-group mb-3">
-                        <span class="input-group-text" required readonly>Return date</span>
+                        <span class="input-group-text" required readonly>Date de retour</span>
                         <input type="date" class="form-control" id="ReturnDate" readonly>
                     </div>
                 </div>
             </div>
 
             <div id="etatAdherent" class="row position-relative rounded my-3 p-3 alert alert-info ">
-                 <h6>Status : </h6>
+                <h6>Statut : </h6>
 
                 <p>Attend quelque seconde pour le traitement!</p>
 
@@ -88,22 +87,24 @@
         <div>
             <form >
             <div class="input-group mb-3">
-                <span class="input-group-text" id="basic-addon1">UserID</span>
-                <input type="text" class="form-control" placeholder="UserID"  aria-label="UserID"
+                    <span class="input-group-text" id="basic-addon1">
+                        AdhérentID
+                    </span>
+                    <input type="text" class="form-control" placeholder="AdhérentID" aria-label="UserID"
                            aria-describedby="basic-addon1" id="UserID" data-request-url="@Url.Action("getUserByID")">
             </div>
             
             <div class="row">
                 <div class="col">
                     <div class="input-group mb-3">
-                        <span class="input-group-text">Name</span>
-                        <input type="text" class="form-control" placeholder="Username" name="Username" id="NameAdherent" readonly>
+                            <span class="input-group-text">Nom</span>
+                            <input type="text" class="form-control" placeholder="Nom" name="Username" id="NameAdherent" readonly>
                     </div>
                 </div>
                 <div class="col">
                     <div class="input-group mb-3">
-                        <span class="input-group-text">prename</span>
-                            <input type="text" class="form-control" placeholder="prename" name="prename" id="FamillyNameAdherent" readonly>
+                            <span class="input-group-text">prénom</span>
+                            <input type="text" class="form-control" placeholder="prénom" name="prename" id="FamillyNameAdherent" readonly>
                     </div>
                 </div>
             </div>
@@ -119,12 +120,37 @@
 
     </div>
 
-
-
-
-    
-
 </div>
+
+
+
+<div class="position-fixed top-0 end-0 p-3" style="z-index: 1">
+    <div id="restitutionSuccessToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header bg-success text-white">
+            <strong class="me-auto">Notification</strong>
+            <small>À l'instant</small>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+            la restitution sous-performer avec succès.
+        </div>
+    </div>
+</div>
+
+<div class="position-fixed top-0 end-0 p-3" style="z-index: 1">
+    <div id="restitutionFaildToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header bg-danger text-white">
+            <strong class="me-auto">Notification</strong>
+            <small>À l'instant</small>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+            la restitution dépasser sans succès.
+        </div>
+    </div>
+</div>
+
+
 @section Scripts {
     <script src="~/js/Restitution.js"></script>
 }

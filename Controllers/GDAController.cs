@@ -14,11 +14,12 @@ namespace LibraryEMP.Controllers
 
         public IActionResult Index()
         {
-            if (HttpContext.Session.GetInt32("IsLoggedIn") != 1)
-                return RedirectToAction("index", "Login");
-            else
-                return View();
-        }
+			UserConnection? userConnection = _db.UserConnections.FirstOrDefault(x => x.SessionID == HttpContext.Session.GetString("SessionID"));
+			if (userConnection != null && userConnection.SessionExpires > DateTime.Now)
+				return View();
+			else
+				return RedirectToAction("index", "Login");
+		}
 
 
         public dynamic? getAdherents(string search)

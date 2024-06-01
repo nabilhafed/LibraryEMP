@@ -20,7 +20,7 @@
 			</button>
 		</div>
 		<div class="input-group w-25">
-			<input type="text" class="form-control" placeholder="Search" id="searchInput">
+			<input type="text" class="form-control" placeholder="Search" autocomplete="off" id="searchInput" autocomplete="off">
 			<span class="input-group-text"><i class="fa-solid fa-magnifying-glass"></i></span>
 		</div>
 	</div>
@@ -123,7 +123,7 @@
 	<div id="deleteAdherentSuccessToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
 		<div class="toast-header bg-success text-white">
 			<strong class="me-auto">Notification</strong>
-			<small>just now</small>
+			<small>À l'instant</small>
 			<button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
 		</div>
 		<div class="toast-body">
@@ -136,7 +136,7 @@
 	<div id="deleteAdherentFaildToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
 		<div class="toast-header bg-danger text-white">
 			<strong class="me-auto">Notification</strong>
-			<small>just now</small>
+			<small>À l'instant</small>
 			<button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
 		</div>
 		<div class="toast-body">
@@ -163,19 +163,19 @@
 					<div>
 						<div class="input-group my-3">
 							<span class="input-group-text w-100p">UserID</span>
-							<input id="addUserID" data-url="@Url.Action("isIDAvailable")" type="text" class="form-control" placeholder="Username" aria-label="Username">
+							<input id="addUserID" data-url="@Url.Action("isIDAvailable")" type="text" autocomplete="off" class="form-control" placeholder="Username" aria-label="Username">
 							<span class="input-group-text"><i class="fa-solid fa-pen"></i></span>
 						</div>
 						<div class="row">
 							<div class="col">
 								<div class="input-group mb-2">
 									<span class="input-group-text w-100p">Name</span>
-									<input id="addName" type="text" class="form-control" disabled placeholder="Username">
+									<input id="addName" type="text" class="form-control" autocomplete="off" disabled placeholder="Username">
 									<span class="input-group-text"><i class="fa-solid fa-pen"></i></span>
 								</div>
 								<div class="input-group mb-2">
 									<span class="input-group-text w-100p">prename</span>
-									<input id="addPrename" type="text" class="form-control" disabled placeholder="prename">
+									<input id="addPrename" type="text" class="form-control" autocomplete="off" disabled placeholder="prename">
 									<span class="input-group-text"><i class="fa-solid fa-pen"></i></span>
 								</div>
 							</div>
@@ -212,7 +212,7 @@
 	<div id="addAdherentSuccessToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
 		<div class="toast-header bg-success text-white">
 			<strong class="me-auto">Notification</strong>
-			<small>just now</small>
+			<small>À l'instant</small>
 			<button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
 		</div>
 		<div class="toast-body">
@@ -225,7 +225,7 @@
 	<div id="addAdherentFaildToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
 		<div class="toast-header bg-danger text-white">
 			<strong class="me-auto">Notification</strong>
-			<small>just now</small>
+			<small>À l'instant</small>
 			<button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
 		</div>
 		<div class="toast-body">
@@ -259,12 +259,12 @@
 							<div class="col">
 								<div class="input-group mb-2">
 									<span class="input-group-text w-100p">Name</span>
-									<input id="modifiedName" type="text" class="form-control" placeholder="Username">
+									<input id="modifiedName" type="text" class="form-control" autocomplete="off" placeholder="Username">
 									<span class="input-group-text"><i class="fa-solid fa-check text-success"></i></span>
 								</div>
 								<div class="input-group mb-2">
 									<span class="input-group-text w-100p">prename</span>
-									<input id="modifiedPrename" type="text" class="form-control" placeholder="prename">
+									<input id="modifiedPrename" type="text" class="form-control" autocomplete="off" placeholder="prename">
 									<span class="input-group-text"><i class="fa-solid fa-check text-success"></i></span>
 								</div>
 							</div>
@@ -303,7 +303,7 @@
 	<div id="modifiedAdherentSuccessToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
 		<div class="toast-header bg-success text-white">
 			<strong class="me-auto">Notification</strong>
-			<small>just now</small>
+			<small>À l'instant</small>
 			<button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
 		</div>
 		<div class="toast-body">
@@ -316,7 +316,7 @@
 	<div id="modifiedAdherentFaildToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
 		<div class="toast-header bg-danger text-white">
 			<strong class="me-auto">Notification</strong>
-			<small>just now</small>
+			<small>À l'instant</small>
 			<button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
 		</div>
 		<div class="toast-body">

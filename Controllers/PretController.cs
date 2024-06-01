@@ -16,11 +16,12 @@ namespace LibraryEMP.Controllers
 
         public IActionResult Index()
         {
-            if (HttpContext.Session.GetInt32("IsLoggedIn") != 1)
-                return RedirectToAction("index", "Login");
-            else
-                return View();
-        }
+            UserConnection? userConnection = _db.UserConnections.FirstOrDefault(x => x.SessionID == HttpContext.Session.GetString("SessionID"));
+			if (userConnection != null && userConnection.SessionExpires > DateTime.Now)
+				return View();
+			else
+			    return RedirectToAction("index", "Login");
+		}
 
         public dynamic? getUserByID(string IdAdherent)
         {   
@@ -116,7 +117,6 @@ namespace LibraryEMP.Controllers
 
         public dynamic? addNewDocumentBorrow(string idExemplaire, string IdAdherent , string returnDate)
         {
-            //TODO: add test!!  
 
             var transaction = _db.Database.BeginTransaction();
             try
@@ -124,7 +124,7 @@ namespace LibraryEMP.Controllers
                 //test 
                 var adherent = _db.Adherents.Where(a => a.IdAdherent.ToUpper() == IdAdherent.ToUpper()).FirstOrDefault();
                 //test state
-                if (adherent.EtatAdherent != 2)
+                if (adherent.EtatAdherent != 1)
                     throw new Exception("this adherent state is unsatisfiable");
                 //test max number
                 int borrowedDocuments = _db.Prets.Count( p => p.IdAdherent.ToUpper() == IdAdherent.ToUpper());
@@ -164,7 +164,7 @@ namespace LibraryEMP.Controllers
                 }
                 catch (Exception ex)
                 {
-                    Debug.WriteLine($"An error occurred while deleting reservation: {ex.Message}");
+                    Console.WriteLine($"An error occurred while deleting reservation: {ex.Message}");
                 }
 
                 transaction.Commit();
@@ -172,7 +172,7 @@ namespace LibraryEMP.Controllers
             }
             catch (Exception e)
             {
-                Debug.WriteLine(e);
+                Console.WriteLine(e);
                 transaction.Rollback();
                 return null;
             }
