@@ -88,10 +88,11 @@ $("#UserID").on('input', function () {
                             });
 
                             $("#SelectExemplaire").append(option);
+
+                           
                         }
-                        if (data.exemplaires.length == 1) {
                             $("#SelectExemplaire").trigger('change');
-                        }
+                         
                     }
                     else {
                         $("#etatAdherent").removeClass("alert-danger").addClass("alert-warning");
@@ -148,7 +149,8 @@ $("#RetourButton").on('click', function () {
 
     $.get($(this).data('request-url'), { IdAdherent: VarIdAdherent, IdExemplaire: VarIdExemplaire })
         .done(function (data) {
-            console.log("Success:", data);
+
+            console.log(data)
 
             // Add code to handle the successful response here
             // For example, display a success message or update the UI

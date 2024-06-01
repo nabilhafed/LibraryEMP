@@ -1,4 +1,5 @@
-﻿using System.Drawing.Printing;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Drawing.Printing;
 using LibraryEMP.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -122,10 +123,64 @@ namespace LibraryEMP.Controllers
                 .FirstOrDefault(p => p.IdExemplaire.ToUpper() == IdExemplaire.ToUpper() && p.IdAdherent.ToUpper() == IdAdherent.ToUpper());
 
 
+            var AdherentNombreJourRetard = AdherentRetards(IdAdherent, IdExemplaire); // traiter le case de retard**********************************
+
+
+            if (AdherentNombreJourRetard > 0)
+            {
+                var NombreJourRetardPenaliteAdherent = _db.PenaliteAdherents
+                    .Where(p => p.IdAdherent.ToUpper() == IdAdherent.ToUpper())
+                    .Select(p => p.NombreJoursPenalite).FirstOrDefault();
+
+                if (NombreJourRetardPenaliteAdherent != null)
+                {
+                    var nbrRetardPenalite = Math.Max(AdherentNombreJourRetard, (int)NombreJourRetardPenaliteAdherent);
+
+                    var PenaliteAdherent = _db.PenaliteAdherents
+                              .Where(p => p.IdAdherent.ToUpper() == IdAdherent.ToUpper())
+                              .FirstOrDefault();
+
+                    PenaliteAdherent.DatePenalite = DateTime.Now;
+                    PenaliteAdherent.NombreJoursPenalite = nbrRetardPenalite;
+
+                    // Save changes to the database
+                    _db.SaveChanges();
+
+                }
+                else
+                {
+                    var newPenaliteAdherent = new PenaliteAdherent
+                    {
+                        IdAdherent = IdAdherent.ToUpper(),
+                        DatePenalite = DateTime.Now,
+                        NombreJoursPenalite = AdherentNombreJourRetard
+                    };
+
+                    // Add the new entity to the context
+                    _db.PenaliteAdherents.Add(newPenaliteAdherent);
+
+                    // Save changes to the database
+                    _db.SaveChanges();
+                }
+
+                var adherent = _db.Adherents            //changer l'etat de l'adherent ***********************************
+                            .Where(a => a.IdAdherent.ToUpper() == IdAdherent.ToUpper())
+                            .FirstOrDefault();
+
+                if (adherent != null)
+                {
+                    // Update the etat_adherent field to "2"
+                    adherent.EtatAdherent = 2;
+
+                    // Save changes to the database
+                    _db.SaveChanges();
+                }
+
+            }
             if (pret != null)
             {
                 // Supprimer le prêt de la base de données
-                _db.Prets.Remove(pret);
+               _db.Prets.Remove(pret);
             }
         //
             // Enregistrer les modifications dans la base de données
@@ -159,6 +214,7 @@ namespace LibraryEMP.Controllers
 
         public void ValiderRestitution(string  ExemplaireDisponible, DateTime dateRetour)
         {
+            
             var cote = _db.Exemplaires
                 .Where(p => p.IdExemplaire.ToUpper() == ExemplaireDisponible.ToUpper())
                 .Select(p => p.Cote).FirstOrDefault();
@@ -175,7 +231,7 @@ namespace LibraryEMP.Controllers
             int nbrPretReservations = _db.Prets
                 .Count(p => p.IdExemplaire.ToUpper().StartsWith(cote + "/") && p.IdAdherent == idAdherent);
 
-            if (nbrReservations > 0)
+            if (nbrReservations > 0)    // traiter le cas de réservation *************************************************
             {
                 if (nbrPretReservations < nbrReservations)
                 {
@@ -228,9 +284,9 @@ namespace LibraryEMP.Controllers
                 .Count(r => r.Cote.ToUpper() == cote);
 
             // Récupérer le nombre de prêts pour la cote et l'utilisateur spécifique
-            string idAdherent = "99/999";
+            string idAdherentReservation = "99/999";
             int nbrPretReservations = _db.Prets
-                .Count(p => p.IdExemplaire.ToUpper().StartsWith(cote + "/") && p.IdAdherent == idAdherent);
+                .Count(p => p.IdExemplaire.ToUpper().StartsWith(cote + "/") && p.IdAdherent == idAdherentReservation);
 
             if (nbrReservations > 0)
             {
@@ -239,7 +295,7 @@ namespace LibraryEMP.Controllers
                     // Insérer un nouveau prêt
                     var pret = new Pret
                     {
-                        IdAdherent = idAdherent,
+                        IdAdherent = idAdherentReservation,
                         IdExemplaire = ExemplaireDisponible,
                         DatePret = dateRetour,
                         EtatDuree = "F"
@@ -256,30 +312,24 @@ namespace LibraryEMP.Controllers
                 }
                 else
                 {
-                    if (!AdherentPénalilser(IdAdherent)) // la'dherent n'est pas pénalisé
-                    {
-                        var pret = new Pret
-                        {
-                            IdAdherent = IdAdherent,
-                            IdExemplaire = ExemplaireDisponible,
-                            DatePret = DateTime.Now,
-                            EtatDuree = "F"
-                        };
-
-                        _db.Prets.Add(pret);
-                    }
+                    
                    
 
                 }
             }
             else
             {
-                // Mettre à jour l'état de l'exemplaire si aucune réservation n'est en cours
-                var exemplaire = _db.Exemplaires
-                    .FirstOrDefault(e => e.IdExemplaire.ToUpper() == ExemplaireDisponible);
-                if (exemplaire != null)
+                if (!AdherentPénalilser(IdAdherent) && AdherentRetards(IdAdherent, ExemplaireDisponible) == 0) // la'dherent n'est pas pénalisé
                 {
-                    exemplaire.IdEtat = 1;
+                    var pret = new Pret
+                    {
+                        IdAdherent = IdAdherent,
+                        IdExemplaire = ExemplaireDisponible,
+                        DatePret = DateTime.Now,
+                        EtatDuree = "F"
+                    };
+
+                    _db.Prets.Add(pret);
                 }
             }
 
@@ -301,6 +351,60 @@ namespace LibraryEMP.Controllers
                 }
             }
             return false;
+        }
+
+
+
+        public dynamic? AdherentRetards(string IdAherent, string idExemplaire)
+        {
+            var adherentIdCategorie = _db.Adherents
+                .Where(p => p.IdAdherent.ToUpper() == IdAherent.ToUpper())
+                .Select(p => p.IdCategorie).FirstOrDefault();
+
+            if (adherentIdCategorie != null)
+            {
+                var adherentDureePret = _db.Categories
+                     .Where(p => p.IdCategorie.ToUpper() == adherentIdCategorie.ToUpper())
+                     .Select(p => p.DureePret).FirstOrDefault();
+
+                if (adherentDureePret != null)
+                {
+                    var etatDureePret = _db.Prets
+                         .Where(p => p.IdAdherent.ToUpper() == IdAherent.ToUpper() && p.IdExemplaire.ToUpper() == idExemplaire.ToUpper())
+                         .Select(p => p.EtatDuree).FirstOrDefault();
+
+                    if (etatDureePret != null)
+                    {
+                        if (etatDureePret == "O")
+                        {
+                            return 0;
+                        }
+                        else
+                        {
+                            var datePret = _db.Prets
+                                 .Where(p => p.IdAdherent.ToUpper() == IdAherent.ToUpper() && p.IdExemplaire.ToUpper() == idExemplaire.ToUpper())
+                                 .Select(p => p.DatePret).FirstOrDefault();
+
+                            if (datePret != null)
+                            {
+                                var dueDate = datePret.AddDays((double)adherentDureePret);
+                                var NombreJourRetard = (DateTime.Now - dueDate).Days;
+
+                                if (NombreJourRetard > 0)
+                                {
+                                    return NombreJourRetard;
+                                }
+                                else
+                                {
+                                    return 0;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            return 0;
         }
 
 
