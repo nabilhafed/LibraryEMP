@@ -1,171 +1,185 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+
+@{
+	bool isAdmin = HttpContextAccessor.HttpContext.Session.GetInt32("isAdmin") == 1;
+}
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/lib/animate/animate.min.css" />
-    <link rel="stylesheet" href="~/lib/fontawesome/dist/css/all.min.css">
-    @await RenderSectionAsync("Styles", required: false)
+	<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="~/lib/animate/animate.min.css" />
+	<link rel="stylesheet" href="~/lib/fontawesome/dist/css/all.min.css">
+	@await RenderSectionAsync("Styles", required: false)
 
 
-    <title>@ViewData["Title"] - LibraryEMP</title>
+	<title>@ViewData["Title"] - LibraryEMP</title>
 
-    <link rel="stylesheet" href="~/css/Home.css" />
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/js/Home.js"></script>
+	<link rel="stylesheet" href="~/css/Home.css" />
+	<script src="~/lib/jquery/dist/jquery.min.js"></script>
+	<script src="~/js/Home.js"></script>
 
 </head>
 
-<body class="d-flex h-100 w-100">
-    <div class="d-flex flex-column  col-md-4 w-280p bg-white shadow-sm m-2 p-3">
-        <a href="#" class="text-decoration-none d-flex flex-row justify-content-evenly">
-            <img src="~/img/books.png" class="h-50p">
-            <h3 class="d-flex align-items-center ms-3 mb-3 mb-md-0 me-md-auto link-dark">
-                CatLib EMP
-            </h3>
-        </a>
-        <hr>
-        <div class="d-flex flex-column justify-content-between h-100">
-            <ul class="nav nav-pills flex-column mb-auto">
-                <li class="nav-item">
-                    <a asp-area="" asp-controller="Pret" asp-action="Index" class="nav-link link-dark" aria-current="page">
-                        <i class="bi me-2 fas fa-address-card "></i>
-                        Prét
-                    </a>
-                </li>
-                <li>
-                    <a asp-area="" asp-controller="GDA" asp-action="Index" class="nav-link link-dark">
-                        <i class="bi me-2 fas fa-users"></i>
-                        gestion des adhérents
-                    </a>
-                </li>
-                <li>
-                    <a asp-area="" asp-controller="Restitution" asp-action="Index" class="nav-link link-dark">
-                        <i class="bi me-2 fas fa-rotate-left"></i>
-                        Restitution
-                    </a>
-                </li>
-                <li>
-                    <a asp-area="" asp-controller="GDD" asp-action="Index" class="nav-link link-dark">
-                        <i class="bi me-2 fas fa-folder-tree"></i>
-                        gestion de documents
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="nav-link link-dark">
-                        <i class="bi me-2 fas fa-file-circle-question"></i>
-                        Avis de disponibilité
-                    </a>
-                </li>
-                <li>
-                    <a asp-area="" asp-controller="DocumentsPret" asp-action="Index" class="nav-link link-dark">
-                        <i class="bi me-2 fas fa-list-check"></i>
-                        Listes des Docs et Prét
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="nav-link link-dark">
-                        <i class="bi me-2 fas fa-bell"></i>
-                        Relances
-                    </a>
-                </li>
-                <li>
-                    <a asp-area="" asp-controller="DocumentsReserver" asp-action="Index" class="nav-link link-dark">
-                        <i class="bi me-2 fas fa-calendar-check"></i>
-                        Listes des Docs Réservés
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="nav-link link-dark">
-                        <i class="bi me-2 fas fa-globe"></i>
-                        Catlib Web Site
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="nav-link link-dark">
-                        <i class="bi me-2 fas fa-icons"></i>
-                        Gestion de Catégories
-                    </a>
-                </li>
-                <li>
-                    <a asp-area="" asp-controller="AutreParametre" asp-action="Index" class="nav-link link-dark">
-                        <i class="bi me-2 fas fa-gear"></i>
-                        Autre Paramètres 
-                    </a>
-                </li>
-            </ul>
-            <hr>
-            <div id="serverStatus" class="input-group mb-1 py-1 alert alert-danger d-flex flex-row align-items-center btn "
-                 data-bs-toggle="modal" data-bs-target="#exampleModal">
-                <img src="~/img/database.png" class=" h-30p">
-                <div class="ms-3 ">
-                    <strong>Status: </strong> <span>offline</span>
-                </div>
-            </div>
-            <a href="@Url.Action("Logout", "Login")" class="btn btn-secondary">Logout</a>
-        </div>
-    </div>
-    <div class="w-100 p-2 position-relative ">
-        <div id="Page-content" class="overflow-auto bg-white shadow-sm rounded h-100 disabled ">
-            @RenderBody()
-        </div>
-        <div id="pageContentAlert" class="position-absolute top-50 start-50 translate-middle " >
-            <div class="alert alert-danger  animate__animated animate__zoomIn" role="alert">
-                <h4 class="alert-heading">Database Connection Error!</h4>
-                <p>Please establish a connection to the database in order to access this content.</p>
-                <hr>
-                <p class="mb-0">You can connect to the database by clicking on the "Database Status" located at the bottom of the left navbar.</p>
-            </div>
-            
-        </div>
-    </div>
+<body class="d-flex bg-light bg-gradient h-100 w-100">
+	<div class="d-flex flex-column  col-md-4 w-280p glass-bg shadow-sm m-2 p-3">
+		<a href="#" class="text-decoration-none d-flex flex-row justify-content-evenly position-relative">
+			<img src="~/img/books.png" class="h-50p">
+			<h3 class="d-flex align-items-center ms-3 mb-3 mb-md-0 me-md-auto link-dark">
+				CatLib EMP
+			</h3>
+			@if (isAdmin){
+			<span class="badge bg-primary position-absolute bottom-0 end-0 bottom-transform">Admin</span>
+			}else{
+			<span class="badge bg-primary position-absolute bottom-0 end-0 bottom-transform">User</span>
+			}
+		</a>
+		<hr>
+		<div class="d-flex flex-column justify-content-between h-100">
+			<ul class="nav nav-pills flex-column mb-auto">
+				<li class="nav-item">
+					<a asp-area="" asp-controller="Pret" asp-action="Index" class="nav-link link-dark" aria-current="page">
+						<i class="bi me-2 fas fa-address-card "></i>
+						Prét
+					</a>
+				</li>
+				<li>
+					<a asp-area="" asp-controller="Restitution" asp-action="Index" class="nav-link link-dark">
+						<i class="bi me-2 fas fa-rotate-left"></i>
+						Restitution
+					</a>
+				</li>
+				@if (isAdmin)
+				{
+					<li>
+						<a asp-area="" asp-controller="GDA" asp-action="Index" class="nav-link link-dark">
+							<i class="bi me-2 fas fa-users"></i>
+							gestion des adhérents
+						</a>
+					</li>
+					<li>
+						<a asp-area="" asp-controller="GDD" asp-action="Index" class="nav-link link-dark">
+							<i class="bi me-2 fas fa-folder-tree"></i>
+							gestion de documents
+						</a>
+					</li>
+					<li>
+						<a href="#" class="nav-link link-dark">
+							<i class="bi me-2 fas fa-file-circle-question"></i>
+							Avis de disponibilité
+						</a>
+					</li>
+					<li>
+						<a asp-area="" asp-controller="DocumentsPret" asp-action="Index" class="nav-link link-dark">
+							<i class="bi me-2 fas fa-list-check"></i>
+							Listes des Docs et Prét
+						</a>
+					</li>
+					<li>
+						<a href="#" class="nav-link link-dark">
+							<i class="bi me-2 fas fa-bell"></i>
+							Relances
+						</a>
+					</li>
+					<li>
+						<a asp-area="" asp-controller="DocumentsReserver" asp-action="Index" class="nav-link link-dark">
+							<i class="bi me-2 fas fa-calendar-check"></i>
+							Listes des Docs Réservés
+						</a>
+					</li>
+					<li>
+						<a href="#" class="nav-link link-dark">
+							<i class="bi me-2 fas fa-globe"></i>
+							Catlib Web Site
+						</a>
+					</li>
+					<li>
+						<a href="#" class="nav-link link-dark">
+							<i class="bi me-2 fas fa-icons"></i>
+							Gestion de Catégories
+						</a>
+					</li>
+					<li>
+						<a asp-area="" asp-controller="AutreParametre" asp-action="Index" class="nav-link link-dark">
+							<i class="bi me-2 fas fa-gear"></i>
+							Autre Paramètres
+						</a>
+					</li>
+				}
+			</ul>
+			<hr>
+			<div id="serverStatus" class="input-group mb-1 py-1 alert alert-danger d-flex flex-row align-items-center btn "
+				 data-bs-toggle="modal" data-bs-target="#exampleModal">
+				<img src="~/img/database.png" class=" h-30p">
+				<div class="ms-3 ">
+					<strong>Status: </strong> <span>offline</span>
+				</div>
+			</div>
+			<a href="@Url.Action("Logout", "Login")" class="btn btn-secondary">Logout</a>
+		</div>
+	</div>
+	<div class="w-100 p-2 position-relative ">
+		<div id="Page-content" class="overflow-auto bg-white shadow-sm rounded h-100 disabled ">
+			@RenderBody()
+		</div>
+		<div id="pageContentAlert" class="position-absolute top-50 start-50 translate-middle ">
+			<div class="alert alert-danger  animate__animated animate__zoomIn" role="alert">
+				<h4 class="alert-heading">Database Connection Error!</h4>
+				<p>Please establish a connection to the database in order to access this content.</p>
+				<hr>
+				<p class="mb-0">You can connect to the database by clicking on the "Database Status" located at the bottom of the left navbar.</p>
+			</div>
+
+		</div>
+	</div>
 
 
-    <!-- Database Connection Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Database Connection</h5>
-                    <button id="databaseConnectionCloseBTN" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body row">
-                    <div class="col-4 d-flex align-items-center">
-                        <img  src="~/img/user-data.png" alt="">
-                    </div>
-                    <div class="col-8">
-                        <div class="input-group mb-2">
-                            <span class="input-group-text w-100p" id="basic-addon1">Username</span>
-                            <input id="databaseUsername" type="text" class="form-control" placeholder="Username" aria-label="Username" value="mataoui"
-                                   aria-describedby="basic-addon1">
-                        </div>
-                        <div class="input-group mb-3">
-                            <span class="input-group-text w-100p" id="basic-addon1">Password</span>
-                            <input id="databasePassword" type="password" class="form-control" placeholder="Password" aria-label="Password" value="123"
-                                   aria-describedby="basic-addon1">
-                        </div>
-                        <div id="databaseConnectionAlert" class="alert alert-danger py-1 my-1 d-none" role="alert">
-                            There was problem , please try again
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button id="connectBTN" class="btn btn-primary" data-request-url="@Url.Action("connectToDatabase")" type="button">
-                        <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
-                        connect
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
+	<!-- Database Connection Modal -->
+	<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Database Connection</h5>
+					<button id="databaseConnectionCloseBTN" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body row">
+					<div class="col-4 d-flex align-items-center">
+						<img src="~/img/user-data.png" alt="">
+					</div>
+					<div class="col-8">
+						<div class="input-group mb-2">
+							<span class="input-group-text w-100p" id="basic-addon1">Username</span>
+							<input id="databaseUsername" type="text" class="form-control" placeholder="Username" aria-label="Username" value="mataoui"
+								   aria-describedby="basic-addon1">
+						</div>
+						<div class="input-group mb-3">
+							<span class="input-group-text w-100p" id="basic-addon1">Password</span>
+							<input id="databasePassword" type="password" class="form-control" placeholder="Password" aria-label="Password" value="123"
+								   aria-describedby="basic-addon1">
+						</div>
+						<div id="databaseConnectionAlert" class="alert alert-danger py-1 my-1 d-none" role="alert">
+							There was problem , please try again
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+					<button id="connectBTN" class="btn btn-primary" data-request-url="@Url.Action("connectToDatabase")" type="button">
+						<span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+						connect
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
 
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
+	<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
 
-    @await RenderSectionAsync("Scripts", required: false)
+	@await RenderSectionAsync("Scripts", required: false)
 </body>
 
 </html>

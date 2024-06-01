@@ -152,7 +152,7 @@ $("#RetourButton").on('click', function () {
 
             // Add code to handle the successful response here
             // For example, display a success message or update the UI
-            alert("Exemplaire returned successfully!");
+            $('#restitutionSuccessToast').toast('show');
 
             // Optionally, you can reset some form fields or update the UI
             ViderLesInputes();
@@ -162,7 +162,7 @@ $("#RetourButton").on('click', function () {
             console.error("Error:", error);
             // Add code to handle the error response here
             // For example, display an error message
-            alert("Error occurred while returning the exemplaire. Please try again.");
+            $('#restitutionFaildToast').toast('show');
         });
 });
 
