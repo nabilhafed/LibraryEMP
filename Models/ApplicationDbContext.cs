@@ -178,7 +178,7 @@ public partial class ApplicationDbContext : DbContext
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("PASSWORD");
-        });
+		});
 
 		modelBuilder.Entity<UserConnection>(entity =>
 		{
